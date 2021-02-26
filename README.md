@@ -1,4 +1,4 @@
-Sistema web de código aberto para controle financeiro dos pagamentos/depósitos dos ecovileiros.
+Sistema web para controle financeiro dos pagamentos/depósitos dos ecovileiros.
 
 Simples, leve e funcional, feito com PHP 7.4.1, HTML5 e CSS puros (sem bibliotecas e frameworks por enquanto) e banco de dados MariaDB/MySQL.
 
