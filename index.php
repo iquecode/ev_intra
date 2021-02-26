@@ -37,7 +37,7 @@ require_once 'classes/Config.php';
             </form>
             <div class="base">
                 <span>Versão beta 0.01 - 2021</span>
-                <span>github.com/iquecode/tdoro</span>
+                <span>github.com/iquecode/ev_intra</span>
             </div>
             
         </div>
