@@ -11,7 +11,8 @@ class Config {
     public static function conect() {
     
         try {
-            $pdo = new PDO('mysql:dbname='.DB_NAME.';host='.DB_HOST, DB_USER, DB_PASS);
+            $pdo = new PDO('mysql:dbname='.DB_NAME.';host='.DB_HOST, DB_USER, DB_PASS,
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             return [true,$pdo];     
         } catch (PDOException $e) {
             return [false,$e->getMessage()];

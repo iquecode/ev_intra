@@ -4,7 +4,7 @@ Simples, leve e funcional, feito com PHP 7.4.1, HTML5 e CSS puros (sem bibliotec
 
 Utilizado paradigma de orientação a objetos, com a montagem da classe User com a persistência do banco através da classe UserDaoMysql (que implementa as interfaces declaradas em User).
 
-O projeto deve evoluir para uma solução completa de Intranet. Quem sentir em comtribuir com melhorias é bem vind@.
+O projeto deve evoluir para uma solução completa de Intranet.
 
 O banco de dados pode ser criado com os seguintes comandos em mysql (algumas campos ainda não estão sendo utilizados no sistema).
 CREATE DATABASE ev_financeiro;

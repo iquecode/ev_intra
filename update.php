@@ -29,18 +29,15 @@
 </head>
 
 <body>
-<div class="frame">
+    <div class="layout"> 
 
         <div class ="app">
-
             <div class="info">
                 <?php echo "<h2>".$nickname."  -  Cota: ".$quota."  -  ".$name."</h2>" ?>
             </div>
-
             <div class="title">
-                <h1 >Alterar Senha</h1>
+                <h1 >Alterar senha e confirmar dados</h1>
             </div>
-      
             <form class="form" method="POST">
                 <label >
                     Como gostaria de ser chamad@?
@@ -54,115 +51,81 @@
                 <input type="password" name="pass2" placeholder="Confirm. Senha" maxlength="15">
                 <input type="submit" value="Atualizar">
             </form>
-
             <div class="base">
-                <span>Versão beta 0.01 - 2021</span>
-                <span>github.com/iquecode/tdoro</span>
+                <span class="base_info">2021 - Versão beta 1.00</span>
+                <a class="base_info" href="https://github.com/iquecode/ev_intra" target="_blank">
+                    github.com/iquecode/ev_intra
+                </a>
             </div>  
-
-        </div>
-
-              
-
-
-
-    <?php
-    //verificar se clicou no botao
-
-    if (isset($_POST['pass'])) {
-
-        // $quota = filter_input(INPUT_POST, 'quota', FILTER_SANITIZE_NUMBER_INT);
-        // $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-        $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
-        $pass2 = filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_STRING);
-        
-        //verificar se esta preenchido
-        if(!empty($nickname) && !empty($email) && !empty($pass) && 
-        !empty($pass2)) {
-            
-            $pdo = Config::conect();
-            
-            if($pdo[0] == true) {
-
-                $userDao = new UserDaoMysql($pdo[1]);
-
-                if($pass == $pass2) {
-
-
-                   $u2 = $userDao->findByEmail($email);  
-                   if( !$u2 || ($u2->getId() == $u->getId()) ) {
-                        $u->setNickname($nickname);
-                        $u->setEmail($email);
-                        $u->setPass( md5($pass) );
-                        $userDao->update( $u );
-                        // header("Refresh: 0");
-                        ?>
-                        <div id="msg-sucesso">
-                            Alterado com sucesso! 
-                        </div>
-                        <?php
-                   
-                    } else  {
-                        
-
+            <?php
+            //verificar se clicou no botao
+            if (isset($_POST['pass'])) {
+                // $quota = filter_input(INPUT_POST, 'quota', FILTER_SANITIZE_NUMBER_INT);
+                // $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+                $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_STRING);
+                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
+                $pass2 = filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_STRING);
+                //verificar se esta preenchido
+                if(!empty($nickname) && !empty($email) && !empty($pass) && 
+                !empty($pass2)) {
+                    $pdo = Config::conect();
+                    if($pdo[0] == true) {
+                        $userDao = new UserDaoMysql($pdo[1]);
+                        if($pass == $pass2) {
+                        $u2 = $userDao->findByEmail($email);  
+                        if( !$u2 || ($u2->getId() == $u->getId()) ) {
+                                $u->setNickname($nickname);
+                                $u->setEmail($email);
+                                $u->setPass( md5($pass) );
+                                $userDao->update( $u );
+                                // header("Refresh: 0");
+                                ?>
+                                <div id="msg-sucesso">
+                                    Alteração bem sucedida! 
+                                    <?php 
+                                        header("location: sucess.php");
+                                        exit;
+                                    ?>
+                                </div>
+                                <?php
+                            } else  {
+                                ?>
+                                <div class="msg-erro">
+                                    Email já cadastrado!! 
+                                </div>
+                                <?php
+                        }  
+                        } else {
+                            ?>
+                            <div class="msg-erro">
+                                Senha e Confirmar senha não correspondem!
+                            </div>
+                            <?php
+                        }
+                    } else {
                         ?>
                         <div class="msg-erro">
-                            Email já cadastrado!! 
+                            <?php echo "Erro: ".$pdo[1];?> // erro conexão db
                         </div>
-                        <?php
-                   }
-                   
-                      
-                } else {
+                        <?php 
+                    }
+                    }
+                else {
                     ?>
                     <div class="msg-erro">
-                        Senha e Confirmar senha não correspondem!
+                        Preencha todos os campos!
                     </div>
-                    <?php
-                }
-            } else {
-                ?>
-                <div class="msg-erro">
-                    <?php echo "Erro: ".$pdo[1];?> // erro conexão db
-                </div>
-                <?php
-                
+                    <?php         
+                } 
             }
-
-            
-
-            }
-        else {
-
             ?>
-            <div class="msg-erro">
-                Preencha todos os campos!
-            </div>
-            <?php
-
-                
-        } 
-
+        </div>
+        <div class="menu">
+            <a href="areaPrivada.php"> Voltar |</a>
+            <a href="sair.php">| Sair </a>         
+        </div>
             
-
-    }
-    
-    ?>
-    
-
-    <div class="menu">
-        <a href="areaPrivada.php"> Voltar |</a>
-        <a href="sair.php">| Sair </a>         
     </div>
-
-    
-    
-
-    </div>
-    
-    
-    
 </body>
 </html>
