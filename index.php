@@ -9,7 +9,7 @@ require_once 'classes/Config.php';
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0">
     <title>Área Ecovileir@</title>
     <!-- <link rel="stylesheet" href="css/style.css">       -->
     <link rel="stylesheet" href="css/style.css?v=<?= filemtime('css/style.css'); ?>">
@@ -33,7 +33,7 @@ require_once 'classes/Config.php';
                 <!-- <a href="cadastrar.php">Ainda não é inscrit@?<strong>Cadastre-se!</a> -->
             </form>
             <div class="base">
-                <span class="base_info">2021 - Versão beta 1.00</span>
+                <span class="base_info">2021 - Versão beta 1.01</span>
                 <a class="base_info" href="https://github.com/iquecode/ev_intra" target="_blank">
                     github.com/iquecode/ev_intra
                 </a>

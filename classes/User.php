@@ -7,6 +7,7 @@ class User {
     private $nickname;
     private $email;         
     private $pass;
+    private $type;
     private $entrys=[];
     
     public function getId(){
@@ -48,7 +49,12 @@ class User {
     public function setPass($i){
         $this->pass = trim($i);
     }
-    
+    public function getType(){
+        return $this->type;
+    }
+    public function setType($t){
+        $this->type = trim($t);
+    }
     public function getEntrys() {
         return $this->entrys;
     }

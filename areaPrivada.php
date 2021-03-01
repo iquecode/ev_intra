@@ -33,18 +33,12 @@
     $nickname = $u->getNickname();
     $quota = $u->getQuota();
     $name = $u->getName();
-    
-    echo "Seja bem vind@@@@ ".$nickname;
-    echo "<br/>";
-    echo "---------------------------------------------------------";
-    echo "<br/>";
-    echo "Cota ".$quota." - ".$name;
-    echo "<br/>";
-    echo " Extrato financeiro";
-    echo "<br/>";
-    echo "---------------------------------------------------------";
-    echo "<br/>";
 
+
+    $isAdmin = ((int)$u->getType()) == 1;
+    //var_dump($isAdmin);
+
+    
     //print_r($u);
     //echo $u->getName();
 
@@ -75,7 +69,25 @@
 <body>
 
 
+    <div class="layout">
+
+
+    <div class = "cabecalho">
+        <?php
+        echo "Seja bem vind@ ".$nickname;
+        echo "<br/>";
+        echo "---------------------------------------------------------";
+        echo "<br/>";
+        echo "Cota ".$quota." - ".$name;
+        echo "<br/>";
+        echo "---------------------------------------------------------";
+        ?>
+    </div>
+
+
+
     <div class="extrato">
+        <h3>Demonstrativo Financeiro</h3>
         <table>
         <tr>
             <th>Data</th>
@@ -83,30 +95,103 @@
             <th class="num">Valor R$</th>
         </tr>
         <?php
-        //gera extrato na tela
-        foreach ($statement as $item) {         
-            $date = date('d/m/Y',strtotime($item->getDate()));
-            $description = $item->getDescription();
-            $value = $item->getValue();   
-            echo "<tr><td>".$date."</td><td>".$description."</td><td class='num'>".num($value)."</td>";
-            // echo $date.".....".$description.".....".num($value);
-            //var_dump($item);
-            // echo "<br/>";
-            $total = $total + $value;
+        //gera extrato normal na tela e armazena lançamentos futuros 
+        $today = strtotime(date('Y/m/d'));
+        // echo '$today : '.$today;
+        // var_dump($today);
+        $futureEntries = [];
+        foreach ($statement as $item) {        
+            // echo '$item->getDate : '.$item->getDate();
+            // var_dump($item->getDate()); 
+            if (strtotime($item->getDate()) <= $today) {
+                // extrato normal
+                $date = date('d/m/Y',strtotime($item->getDate()));
+                $description = $item->getDescription();
+                $value = $item->getValue();
+
+                if ($value < 0) {
+                    echo "<tr><td>".$date."</td><td>".$description."</td><td class='num neg'>".num($value)."</td>";
+                } else {
+                    echo "<tr><td>".$date."</td><td>".$description."</td><td class='num'>".num($value)."</td>";
+                }
+                $total = $total + $value;
+            } else {
+                // armazena lançamentos futuros
+                array_push($futureEntries, $item);  
+            }      
         }
         echo "</table>";
-        echo "Saldo atual: ".num($total);
+        if ($value < 0) {
+            echo "<span class='num neg'>Saldo atual: ".num($total)."</span>"; 
+        } else {
+            echo "<span class='num'>Saldo atual: ".num($total)."</span>";
+        }
+        
         ?>
     </div>
 
 
+    <div class="futuros">
+        <h3>Lançamentos Futuros</h3>
+        <table>
+        <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th class="num">Valor R$</th>
+        </tr>
+        <?php
+        //gera extrato de lançamentos futuros na tela 
+        $total=0;
+        foreach ($futureEntries as $item) {         
+            // extrato normal
+            $date = date('d/m/Y',strtotime($item->getDate()));
+            $description = $item->getDescription();
+            $value = $item->getValue();
+            if ($value < 0) {
+                echo "<tr><td>".$date."</td><td>".$description."</td><td class='num neg_future'>".num($value)."</td>";
+            } else {
+                echo "<tr><td>".$date."</td><td>".$description."</td><td class='num'>".num($value)."</td>";
+            }   
+            
+            $total = $total + $value;
+            // armazena lançamentos futuros
+            array_push($futureEntries, $item);           
+        }
+        echo "</table>";
+        if ($value < 0) {
+            echo "<span class='num neg_future'>Total lançamentos futuros: ".num($total)."</span>"; 
+        } else {
+            echo "<span class='num'>Total lançamentos futuros: ".num($total)."</span>";
+        }
+        ?>
+    </div>
 
-<br>
-<br>
-<br>
-<br>
-<a href="update.php"> Alterar senha e confirmar dados   -</a>  
-<a href="sair.php">-    Sair </a>
+
+<div class ="opcoes">
+    <a href="update.php"> Alterar senha e confirmar dados</a>  
+    <a href="sair.php">Sair </a>
+</div>
+
+
+
+<?php
+if ($isAdmin) {
+    echo "<div class='admin'>";
+        echo "<span>Você tem permissão de administração no sistema.</span>";
+        echo "<span>Digite o número da cota para consultar.</span>";
+        echo "<form id='form_admin' method='POST'>";
+            echo "<input id='input_admin' type='number' placeholder='nº da cota para consulta' name='cota'>";
+            echo "<input id= 'input_admin_sub'type='submit' value='CONSULTAR'>";
+        echo "</form>";
+    echo "</div>";
+} 
+?>
+
+
+
+
+
+</div>
 
 
 </body>

@@ -57,6 +57,7 @@ class UserDaoMysql implements UserDao {
             $u->setName($data['nickname']);
             $u->setEmail($data['email']);
             $u->setPass($data['pass']);
+            $u->setType($data['user_type']);
             
             //Pegar array com os lançamentos relacionados com o User
             $userId = $u->getId();
@@ -98,6 +99,7 @@ class UserDaoMysql implements UserDao {
             $u->setNickName($data['nickname']);
             $u->setEmail($data['email']);
             $u->setPass($data['pass']);
+            $u->setType($data['user_type']);
             
             //Pegar array com os lançamentos relacionados com o User
             //$userId = $u->getId();
@@ -127,6 +129,54 @@ class UserDaoMysql implements UserDao {
             return false;
         } 
     }
+
+
+    public function findByQuota($quota) {
+        $sql = $this->pdo->prepare('SELECT * FROM users WHERE quota = :quota');
+        $sql->bindValue(':quota', $quota);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            $data = $sql->fetch();      
+            $u = new User();
+            $u->setId($data['id_user']);
+            $u->setQuota($data['quota']);
+            $u->setName($data['name']);
+            $u->setNickName($data['nickname']);
+            $u->setEmail($data['email']);
+            $u->setPass($data['pass']);
+            $u->setType($data['user_type']);
+            
+            //Pegar array com os lançamentos relacionados com o User
+            //$userId = $u->getId();
+            $userId = $u->getId();
+            $sqlEntrys = $this->pdo->prepare('SELECT * FROM entrys WHERE id_user = :id_user');
+            $sqlEntrys->bindValue(':id_user', $userId);
+            $sqlEntrys->execute();
+            $dataEntrys = $sqlEntrys->fetchAll(PDO::FETCH_ASSOC);
+            // echo('<br/>'.'Projetos do UserId '.$userId.' : '.'<br/>');
+            //print_r($dataProjects);
+            $entrys = [];
+            foreach($dataEntrys as $item) {
+                $e = new Entry();
+                $e->setId($item['id_entry']);
+                $e->setDate($item['entry_date']);
+                $e->setDescription($item['description']);
+                $e->setValue($item['value']);
+                $e->setUserRecorder($item['record_time']);
+                $entryId = $e->getId();
+                array_push($entrys, $e);
+            }
+            $u->setEntrys($entrys);   
+            //var_dump($u);
+            return $u;
+        } else {
+            //echo 'findByEmail - false';
+            return false;
+        } 
+    }
+
+
 
     public function update(User $u) {
        $sql = $this->pdo->prepare('UPDATE users SET nickname = :nickname, email = :email, 
