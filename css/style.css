@@ -317,13 +317,28 @@ h3{
 
 @media only screen and (max-width:620px) {
   
-  .extrato, .futuros, .cabecalho {
-      width: 100vw;
+  .extrato, .futuros, .cabecalho, .admin {
+      width: 90vw;
+      margin-right: 0px;
+      margin-left: 0px;
   }
 
-  table, .opcoes, #form_admin, .admim, span {
-    width: 80vw;
+  table, .opcoes, #form_admin, span {
+    width: 95%;
+    margin-right: 0px;
+    margin-left: 0px;
+   
+    /* font-size: 0.9em; */
   }
+
+    table {
+        table-layout: fixed;
+    }
+
+  td{
+    word-wrap:break-word;
+  }
+
 
 }
 
