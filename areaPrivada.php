@@ -184,11 +184,19 @@ if ($isAdmin) {
             echo "<input id= 'input_admin_sub'type='submit' value='CONSULTAR'>";
         echo "</form>";
     echo "</div>";
+
+    echo"</div>";  
+    //verificar se clicou no botao
+    if (isset($_POST['cota'])) {
+
+       $id = $userDao->findByQuota($_POST['cota'])->getId();
+       $_SESSION['queryId'] = $id;
+       header("location: areaQuery.php");  
+    }
+    echo"</div>";
 } 
+
 ?>
-
-
-
 
 
 </div>
