@@ -61,7 +61,8 @@ table {
 .layout{
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  justify-content: center;
+  /* width: 100vw; */
   align-items: center; 
 }
 
@@ -203,7 +204,7 @@ table {
   display: flex;  
   flex-direction: column; 
   /*flex-wrap: wrap;  */
-  width: 350vw;
+  width: 350px;
   padding: 10px;
   /* height: 100px; */
 }

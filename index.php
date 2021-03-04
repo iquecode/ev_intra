@@ -21,8 +21,8 @@ require_once 'classes/Config.php';
 
         <header class="header">
                     <a class="logo" href=""><img class="logo" src="images/logo ev_vegana.png" alt="Logo"/></a>  
-                    <span class="title_header">Intranet</span>
-        </header>
+                    <p class="title_header">Intranet</p>
+        </header> 
 
         <div class ="app">
             <!-- <form method="POST" action="processa.php"> -->
