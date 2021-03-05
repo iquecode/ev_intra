@@ -68,6 +68,7 @@
         ?>
     </div>
 
+    
     <div class="extrato">
         <h3>Demonstrativo Financeiro</h3>
         <table>
@@ -168,6 +169,25 @@
             echo "<span class='num'>Total lançamentos futuros: ".num($total)."</span>";
         }
         ?>
+    </div>
+
+    <div class = "ecovila">
+        <table class="dados_banc">
+            <tr>
+                <td class="title">Situação financeira da Ecovila</td>
+            </tr>
+            <tr>
+                <td class="content"> Data: <?php echo date('d/m/Y', strtotime($params->lastCheck)) . " - Última conciliação bancária";?></td>
+            </tr>
+            <tr>
+                <td>Saldo em conta corrente</td>
+                <td><?php echo num($params->account); ?></td>
+            </tr>
+            <tr>
+                <td>Saldo investido</td>
+                <td><?php echo num($params->invest);?></td>
+            </tr>
+        </table>
     </div>
 
     <div class ="dados_banc">
