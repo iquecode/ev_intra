@@ -1,9 +1,27 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['queryId'])) {
-        header("location: index.php");
+    //  session_start();
+    //  if(!isset($_SESSION['queryId'])) {
+    //      header("location: index.php");
+    //      exit;
+    //  }
+
+    // if (isset($_POST['cota'])) {
+
+    //     $id = $userDao->findByQuota($_POST['cota'])->getId();
+    //     $_SESSION['queryId'] = $id;
+    //     header("location: areaQuery.php");  
+    //     exit;
+    // }
+
+    //var_dump($_POST['cota']);
+    if( $_POST['cota'] == '') 
+    {
+        header("location: areaPrivada.php");
         exit;
-    }
+    } 
+
+
+
 ?> 
 
 <?php
@@ -25,11 +43,29 @@
     $userDao = new UserDaoMysql($pdo[1]);
 
 
-    $id = $_SESSION['queryId'];
+
+    // if (isset($_POST['cota'])) {
+
+    //     $id = $userDao->findByQuota($_POST['cota'])->getId();
+    //     $_SESSION['queryId'] = $id;
+    //     header("location: areaQuery.php");  
+    //     exit;
+    // }
+
+    $u = $userDao->findByQuota($_POST['cota']);
+
+    // se não encontrar usuário com o número de cota informado
+    if(!$u) {
+        header("location: areaPrivada.php");
+        exit;
+    }
+
+    //$id = $_SESSION['queryId'];
     //echo "ID: ".$id;
 
-    $u = $userDao->findById($id);
+    //$u = $userDao->findById($id);
     
+    $id = $u->getId();
     $nickname = $u->getNickname();
     $quota = $u->getQuota();
     $name = $u->getName();

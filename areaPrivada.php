@@ -4,6 +4,8 @@
         header("location: index.php");
         exit;
     }
+
+
 ?> 
 
 <?php
@@ -53,6 +55,10 @@
 
 
 
+
+
+    
+
     ?> 
 
 
@@ -64,7 +70,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Ecovileir@</title>
-    <link rel="stylesheet" href="css/style.css?v=<?= filemtime('css/style.css'); ?>">     
+    <link rel="stylesheet" href="css/style_content.css?v=<?= filemtime('css/style.css'); ?>">     
 </head>
 <body>
 
@@ -167,39 +173,119 @@
     </div>
 
 
-<div class ="opcoes">
-    <a href="update.php"> Alterar senha e confirmar dados</a>  
-    <a href="sair.php">Sair </a>
-</div>
+    <div class ="dados_banc">
+
+        <!-- <p>No início de cada mês a tesouraria gera extrato da conta da Ecovila do mês anterior e o sistema faz a conferência dos depósitos com base no valor dos centavos.<p>
+        <p>Tais valores, depois de validados, são lançados no demonstrativo individual de cada ecovileir@, de forma automática.</p>
+        <p>Mas você também pode informar depósito que ainda não conste no seu demostrativo.</p>
+        <p>Neste caso, a referida informação será lançada de forma imediata, mas com a a pendência de validação por parte da tesouraria.</p> -->
+        <span class = title>Abaixo, caso deseje, você pode informar depósitos ainda não constantes do seu demonstrativo</span>
+        <p class ="atencao">Informe apenas se não constar no demonstrativo</p>
+        <p>Envio de comprovante é opcional</p>
+        <form id='form_dep' method='POST' enctype="multipart/form-data" action="_upload.php">
+            <label>
+                Data exata do depósito
+                <input class='inp' id="inp_date" type='date' placeholder='Data do depósito' name='data_deposito'>
+            </label>
+            <input class='inp' type='number' min="0.01" step="0.01" placeholder='Valor exato' name='valor_deposito'>
+            <label for="img">Selecione o comprovante (opcional) - max. 200kb</label>
+            <!-- MAX_FILE_SIZE deve preceder o campo input bytes-->
+            <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+            <input type="file" id="img" name="arquivo" accept="image/*,application/pdf">
+            <input class= 'inp' id= 'input_dep_submit'type='submit' value='ENVIAR'>
+        </form>
+
+        <!-- <form id='form_dep' method='POST'>
+            <label>
+                Data exata do depósito
+                <input class='inp' id="inp_date" type='date' placeholder='Data do depósito' name='data_deposito'>
+            </label>
+            <input class='inp' type='number' placeholder='Valor exato' name='valor_deposito'>
+            <label for="img">Selecione o comprovante (opcional)</label> <input type="file" id="img" name="img" accept="image/*,application/pdf">
+            <input class= 'inp' id= 'input_dep_submit'type='submit' value='ENVIAR'>
+        </form> -->
+
+        <p class="title_content">Dados para depósito</p>   
+        <span class = "title">Sempre depositive com os centavos da cota</span>
+        <table class="banc">
+            <tr>
+                <td class = "pix" >PIX (CNPJ)</td>
+                <td class = "pix" >26160053000163</td>
+            </tr>
+            <tr>
+                <td class = "content">Caixa Econômica Federal</td>
+                <td class = "content bold">Banco 104</td>
+            </tr>
+            <tr>
+                <td class = "content">Agência</td>
+                <td class = "content bold">1967</td>
+            </tr>
+            <tr>
+                <td class = "content">Operação</td>
+                <td class = "content bold">003</td>
+            </tr>
+            <tr>
+                <td class = "content">Conta Corrente</td>
+                <td class = "content bold">000654-3</td>
+            </tr>
+            <tr>
+                <td class = "content">CNPJ</td>
+                <td class = "content bold">26.160.053/0001-63</td>
+            </tr>
+        </table>
+
+        
+    
+    </div>
+
+
+    <div class ="opcoes">
+        <a href="update.php"> Alterar senha e confirmar dados</a>  
+        <a href="sair.php">Sair </a>
+    </div>
+
+
+    <?php
+    if ($isAdmin) {
+        echo "<div class='admin'>";
+            echo "<span class='atencao'>Você tem permissão de administração no sistema e pode consultar uma cota individualmente ou então entrar no módulo de administração.</span>";
+            echo "<form id='form_admin' method='POST' action='areaQuery.php'>";
+                echo "<input class='inp' id='input_admin' type='number' placeholder='nº da cota->consulta individual' name='cota'>";
+                echo "<input class= 'inp' id= 'input_admin_sub'type='submit' value='CONSULTA INDIVIDUAL'>";
+            echo "</form>";
+
+            echo "<form id='form_mod_admin' method='POST'>";
+                echo "<input class= 'inp' id= 'input_admin_mod'type='submit' value='MÓDULO DE ADMINISTRAÇÃO'>";
+            echo "</form>";
+
+
+        echo "</div>";
+
+        echo"</div>";  
+        //verificar se clicou no botao
+        if (isset($_POST['cota'])) {
+
+            $id = $userDao->findByQuota($_POST['cota'])->getId();
+            $_SESSION['queryId'] = $id;
+            header("location: areaQuery.php");  
+            exit;
+        }
+        echo"</div>";
+
+
+    } 
+
+    ?>
 
 
 
-<?php
-if ($isAdmin) {
-    echo "<div class='admin'>";
-        echo "<span>Você tem permissão de administração no sistema.</span>";
-        echo "<span>Digite o número da cota para consultar.</span>";
-        echo "<form id='form_admin' method='POST'>";
-            echo "<input id='input_admin' type='number' placeholder='nº da cota para consulta' name='cota'>";
-            echo "<input id= 'input_admin_sub'type='submit' value='CONSULTAR'>";
-        echo "</form>";
-    echo "</div>";
-
-    echo"</div>";  
-    //verificar se clicou no botao
-    if (isset($_POST['cota'])) {
-
-       $id = $userDao->findByQuota($_POST['cota'])->getId();
-       $_SESSION['queryId'] = $id;
-       header("location: areaQuery.php");  
-    }
-    echo"</div>";
-} 
-
-?>
 
 
-</div>
+
+
+    
+
+    </div>
 
 
 </body>
