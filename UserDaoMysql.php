@@ -8,7 +8,7 @@ class UserDaoMysql implements UserDao {
         $this->pdo = $driver;
     }
 
-
+    // avaliar
     public function add(User $u) {
         $sql = $this->pdo->prepare('INSERT INTO users (quota, name, nickname, email, pass) 
             VALUES (:quota, :name, :nickname, :email, :pass)');
@@ -24,6 +24,7 @@ class UserDaoMysql implements UserDao {
         return $u;
     }
     
+    //não é funcional ainda
     public function findAll() {
         $array = [];
 
@@ -43,6 +44,7 @@ class UserDaoMysql implements UserDao {
         return $array;
     }
 
+   
     public function findByEmail($email) {
         $sql = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
@@ -70,8 +72,14 @@ class UserDaoMysql implements UserDao {
             foreach($dataEntrys as $item) {
                 $e = new Entry();
                 $e->setId($item['id_entry']);
+                $e->setDate($item['entry_date']);
+                $e->setTimeRecord($item['record_time']);
                 $e->setDescription($item['description']);
                 $e->setValue($item['value']);
+                $e->setType($item['id_entry_type']);
+                $e->setUserRecorder($item['record_user']);
+                $e->setStatus($item['status']);
+                $e->setImg($item['img']);
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
@@ -115,9 +123,13 @@ class UserDaoMysql implements UserDao {
                 $e = new Entry();
                 $e->setId($item['id_entry']);
                 $e->setDate($item['entry_date']);
+                $e->setTimeRecord($item['record_time']);
                 $e->setDescription($item['description']);
                 $e->setValue($item['value']);
-                $e->setUserRecorder($item['record_time']);
+                $e->setType($item['id_entry_type']);
+                $e->setUserRecorder($item['record_user']);
+                $e->setStatus($item['status']);
+                $e->setImg($item['img']);
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
@@ -161,9 +173,13 @@ class UserDaoMysql implements UserDao {
                 $e = new Entry();
                 $e->setId($item['id_entry']);
                 $e->setDate($item['entry_date']);
+                $e->setTimeRecord($item['record_time']);
                 $e->setDescription($item['description']);
                 $e->setValue($item['value']);
-                $e->setUserRecorder($item['record_time']);
+                $e->setType($item['id_entry_type']);
+                $e->setUserRecorder($item['record_user']);
+                $e->setStatus($item['status']);
+                $e->setImg($item['img']);
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
@@ -193,6 +209,47 @@ class UserDaoMysql implements UserDao {
         $sql = $this->pdo->prepare('DELETE FROM users WHERE id=:id');
         $sql->bindValue(':id', $id);
         $sql->execute();
+    }
+
+    //Adicionar um lançamento relacionado ao usuário
+    public function addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, $status, $img) {
+        $sql = $this->pdo->prepare('INSERT INTO entrys 
+            (entry_date, description, value, id_user, id_entry_type, record_user, status, img) 
+            VALUES (:entry_date, :description, :value, :id_user, :id_entry_type, :record_user, :status, :img)');
+        $sql->bindValue(':entry_date', $entry_date);
+        $sql->bindValue(':description', $description);
+        $sql->bindValue(':value', $value);
+        $sql->bindValue(':id_user', $id_user);
+        $sql->bindValue(':id_entry_type', $id_entry_type);
+        $sql->bindValue(':record_user', $record_user);
+        $sql->bindValue(':status', $status);
+        $sql->bindValue(':img', $img);
+        $sql->execute();
+        //echo "<pre>";
+        //$sql->debugDumpParams();
+        //$u->setId( $this->pdo->lastInsertId() );
+        //print_r($u); 
+        $e = new Entry();
+        $e->setId( $this->pdo->lastInsertId() );
+        return $e;
+    }
+
+    //ultima data de concilhação e posição financeira
+    public function findParams() {
+        $sql = $this->pdo->prepare('SELECT * FROM params WHERE id = :id');
+        $sql->bindValue(':id', 1);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $data = $sql->fetch();  
+            $paramsObj = new stdClass; 
+            $paramsObj->lastCheck = $data['last_check'];
+            $paramsObj->account = $data['account'];
+            $paramsObj->invest = $data['invest'];
+            return $paramsObj;
+        } else {
+            //echo 'findByEmail - false';
+            return false;
+        } 
     }
 
     public function login($email, $pass) {

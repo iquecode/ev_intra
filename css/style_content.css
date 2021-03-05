@@ -296,9 +296,14 @@ h3{
   font-weight: bold;
 }
 
+.pend {
+  color: #616161;
+}
+
 .neg {
   color: #BF360C;
 }
+
 
 .neg_future {
   color: #e57373;
@@ -374,6 +379,17 @@ h3{
     font-weight: bold;
 }
 
+
+#rodape_ext {
+  display: flex;
+  width: 590px;
+  justify-content: space-between;
+}
+
+.a_small {
+  font-size: 0.9em;
+}
+
 /* .bold {
   font-weight: 550;
 } */
@@ -398,7 +414,7 @@ h3{
       margin-left: 0px;
   }
 
-  table, .opcoes, #form_admin, span {
+  table, .opcoes, #form_admin, span, #rodape_ext {
     width: 95%;
     margin-right: 0px;
     margin-left: 0px;

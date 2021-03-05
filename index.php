@@ -33,7 +33,7 @@ require_once 'classes/Config.php';
                 <!-- <a href="cadastrar.php">Ainda não é inscrit@?<strong>Cadastre-se!</a> -->
             </form>
             <div class="base">
-                <span class="base_info">2021 - Versão beta 1.01</span>
+                <span class="base_info">2021 - Versão beta 1.02</span>
                 <a class="base_info" href="https://github.com/iquecode/ev_intra" target="_blank">
                     github.com/iquecode/ev_intra
                 </a>
