@@ -238,6 +238,20 @@
                 <td class = "content bold">26.160.053/0001-63</td>
             </tr>
         </table>
+
+        <div class="banc_mobile">
+            <p>Ecovila e Santuário Vegano</p>
+            <p>PIX (CNPJ)<span class="banc_mobile_itens">26160053000163</span></p>
+            <p>Banco<span class="banc_mobile_itens">104 - Caixa</span></p>
+            <p>Agência<span class="banc_mobile_itens">1967</span></p>
+            <p>Operação<span class="banc_mobile_itens">003</span></p>
+            <p>Conta Corrente<span class="banc_mobile_itens">000654-3</span></p>
+            <p>CNPJ<span class="banc_mobile_itens">26.160.053/0001-63</span></p>   
+        </div>
+
+
+
+
     </div>
 
     <div class ="opcoes">

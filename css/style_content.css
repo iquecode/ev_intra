@@ -399,7 +399,9 @@ h3{
     color: red;
 } */
 
-
+.banc_mobile {
+  display: none;
+}
 
 
 
@@ -409,15 +411,21 @@ h3{
 @media only screen and (max-width:620px) {
   
   .extrato, .futuros, .cabecalho, .admin, .dados_banc {
-      width: 90vw;
+      width: 95vw;
       margin-right: 0px;
       margin-left: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-left: 0px;
+      margin-right: 0px;
   }
 
-  table, .opcoes, #form_admin, span, #rodape_ext {
-    width: 95%;
+  table, .opcoes, #form_admin, span, #rodape_ext, .banc {
+    width: 100%;
     margin-right: 0px;
     margin-left: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
    
     font-size: 0.9em;
   }
@@ -429,5 +437,27 @@ h3{
   td{
     word-wrap:break-word;
   }
+
+}
+
+
+@media only screen and (max-width:500px) {
+
+  .banc {
+    display: none;
+  }
+
+  .banc_mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content:left;
+    align-items:flex-start;
+  }
+
+  .banc_mobile_itens {
+    font-weight: bold;
+    margin-left: 20px;
+  }
+  
 
 }
