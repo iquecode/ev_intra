@@ -38,9 +38,16 @@
     $isAdmin = ((int)$u->getType()) == 1;
     $statement = $u->getEntrys();
     $total = 0;
-
     // Ordena os lançamentos por data
     usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
+
+
+    //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
+    // apelido e nome de todos usuários, para colocar no select para consulta no final da página
+    $allUsers = $userDao->findAll(); // <-aqui
+
+    
+
 ?> 
 
 <!DOCTYPE html>
@@ -263,13 +270,31 @@
     if ($isAdmin) {
         echo "<div class='admin'>";
             echo "<span class='atencao'>Você tem permissão de administração no sistema e pode consultar uma cota individualmente ou então entrar no módulo de administração.</span>";
-            echo "<form id='form_admin' method='POST' action='areaQuery.php'>";
-                echo "<input class='inp' id='input_admin' type='number' placeholder='nº da cota->consulta individual' name='cota'>";
-                echo "<input class= 'inp' id= 'input_admin_sub'type='submit' value='CONSULTA INDIVIDUAL'>";
-            echo "</form>";
+            
+            
+            // Form novo
+            $optionsHTML = '<option data-default disabled selected>Cota para consulta individual</option>';
+            foreach ($allUsers as $u) {
+                $q = $u->getQuota();
+                $nn = $u->getNickName();
+                $n = $u->getName();
+                $optionsHTML = $optionsHTML . "<option value={$q}>{$q} - {$nn} - {$n}</option>";
+                //echo "{$q} - {$nn} - {$n}<br/>";
+                //print_r($u->getQuota());
+            }
+            $form = "<form id='form_admin' method='POST' action='areaQuery.php'>";
+            $outputHTML = "<select class='inp' id='input_admin' name='cota'>{$optionsHTML}</select>";
+            $submit = "<input class= 'inp' id='input_admin_sub' type='submit' value='CONSULTA INDIVIDUAL'>";
+            $form= $form . $outputHTML . $submit . "</form>"; 
+            echo $form; 
+            // fim Form novo       
+            // echo "<form id='form_admin' method='POST' action='areaQuery.php'>";
+            //     echo "<input class='inp' id='input_admin' type='number' placeholder='nº da cota->consulta individual' name='cota'>";
+            //     echo "<input class= 'inp' id= 'input_admin_sub'type='submit' value='CONSULTA INDIVIDUAL'>";
+            // echo "</form>";
 
             echo "<form id='form_mod_admin' method='POST' action='_admin.php'>";
-                echo "<input class= 'inp' id= 'input_admin_mod'type='submit' value='MÓDULO DE ADMINISTRAÇÃO'>";
+                 echo "<input class= 'inp' id= 'input_admin_mod'type='submit' value='MÓDULO DE ADMINISTRAÇÃO'>";
             echo "</form>";
 
 

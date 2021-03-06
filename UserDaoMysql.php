@@ -26,22 +26,29 @@ class UserDaoMysql implements UserDao {
     
     //não é funcional ainda
     public function findAll() {
-        $array = [];
+        //$array = [];
 
+        $data = false;
         $sql = $this->pdo->query('SELECT * FROM users');
         if($sql->rowCount() > 0) {
-            $data = $sql->fetchAll();
+            $data = $sql->fetchAll((PDO::FETCH_ASSOC));
+
 
             foreach($data as $item) {
-                $u = new User();
-                $u->setId($item['id']);
-                $u->setNome($item['nome']);
-                $u->setEmail($item['email']);
-                $array[] = $u;
-            }          
+                  $u = new User();
+                  $u->setId($item['id_user']);
+                  $u->setQuota($item['quota']);
+                  $u->setName($item['name']);
+                  $u->setNickName($item['nickname']);
+                  $u->setEmail($item['email']);
+                  $u->setPass($item['pass']);
+                  $u->setType($item['user_type']);
+                  $array[] = $u;
+              }          
         }
 
         return $array;
+        //return $data;
     }
 
    
@@ -56,7 +63,7 @@ class UserDaoMysql implements UserDao {
             $u->setId($data['id_user']);
             $u->setQuota($data['quota']);
             $u->setName($data['name']);
-            $u->setName($data['nickname']);
+            $u->setNickName($data['nickname']);
             $u->setEmail($data['email']);
             $u->setPass($data['pass']);
             $u->setType($data['user_type']);
