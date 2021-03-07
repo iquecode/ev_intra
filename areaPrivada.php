@@ -4,50 +4,31 @@
         header("location: index.php");
         exit;
     }
-
-
-?> 
-
-<?php
-
     require_once 'UserDaoMysql.php';
     require_once 'classes/Config.php'; 
-
-    function num($n)  // formata número
-{
-    $n = number_format($n, 2, ',', '.');
-    return $n;
-}
+    require_once 'helper.php';
 
     $pdo = Config::conect();
     $userDao = new UserDaoMysql($pdo[1]);
-
     $id = $_SESSION['userId'];
     $u = $userDao->findById($id);
     $nickname = $u->getNickname();
     $quota = $u->getQuota();
     $name = $u->getName();
-
     $params = $userDao->findParams();
     $date_max = date('Y/m/d');
     $date_max = str_replace('/', '-', $date_max);
-    
     $date_min = date('Y/m/d', strtotime($params->lastCheck. ' + 1 days'));
     $date_min = str_replace('/', '-', $date_min);
-
     $isAdmin = ((int)$u->getType()) == 1;
     $statement = $u->getEntrys();
     $total = 0;
     // Ordena os lançamentos por data
     usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
 
-
     //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
     // apelido e nome de todos usuários, para colocar no select para consulta no final da página
     $allUsers = $userDao->findAll(); // <-aqui
-
-    
-
 ?> 
 
 <!DOCTYPE html>
@@ -75,109 +56,9 @@
         ?>
     </div>
 
+    <?php require_once 'views/stat.php' ?>
+    <?php require_once 'views/futures.php' ?>
     
-    <div class="extrato">
-        <h3>Demonstrativo Financeiro</h3>
-        <table>
-        <tr>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th class="num">Valor R$</th>
-        </tr>
-        <?php
-        //gera extrato normal na tela e armazena lançamentos futuros 
-        $today = strtotime(date('Y/m/d'));
-        // echo '$today : '.$today;
-        // var_dump($today);
-        $futureEntries = [];
-        $pendentes = false;
-        foreach ($statement as $item) {        
-            // echo '$item->getDate : '.$item->getDate();
-            // var_dump($item->getDate()); 
-            if (strtotime($item->getDate()) <= $today) {
-                // extrato normal
-                $date = date('d/m/Y',strtotime($item->getDate()));
-                $description = $item->getDescription();
-                $value = $item->getValue();
-                $status = $item->getStatus();
-                if ($value < 0) {
-                    echo "<tr><td>".$date."</td><td>".$description."</td><td class='num neg'>".num($value)."</td>";
-                } else {
-                    
-                    if ($status == 0) {
-                        $pendentes = true;
-                        echo "<tr>
-                                <td class='pend'>" . $date . "</td>
-                                <td class='pend'>" . $description." - a validar"."</td>
-                                <td class='num pend'>" . num($value). "</td>";
-                    } else {
-                        echo "<tr><td>".$date."</td><td>".$description."</td><td class='num'>".num($value)."</td>";
-                    }
-                }
-                $total = $total + $value;
-            } else {
-                // armazena lançamentos futuros
-                array_push($futureEntries, $item);  
-            }      
-        }
-        echo "</table>";
-
-
-        echo "<div id='rodape_ext'>";
-
-            if ($pendentes) {
-                echo "<div id='altera'>";
-                echo "<a class='a_small' href='_changes.php'>Alterar / excluir lançamentos a validar.</a>";
-                echo "</div>";
-            }
-
-
-            if ($total < 0) {
-                echo "<span class='num neg'>Saldo atual: ".num($total)."</span>"; 
-            } else {
-                echo "<span class='num'>Saldo atual: ".num($total)."</span>";
-            }        
-
-        echo "</div>";
-
-        ?>
-    </div>
-
-    <div class="futuros">
-        <h3>Lançamentos Futuros</h3>
-        <table>
-        <tr>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th class="num">Valor R$</th>
-        </tr>
-        <?php
-        //gera extrato de lançamentos futuros na tela 
-        $total=0;
-        foreach ($futureEntries as $item) {         
-            // extrato normal
-            $date = date('d/m/Y',strtotime($item->getDate()));
-            $description = $item->getDescription();
-            $value = $item->getValue();
-            if ($value < 0) {
-                echo "<tr><td>".$date."</td><td>".$description."</td><td class='num neg_future'>".num($value)."</td>";
-            } else {
-                echo "<tr><td>".$date."</td><td>".$description."</td><td class='num'>".num($value)."</td>";
-            }   
-            
-            $total = $total + $value;
-            // armazena lançamentos futuros
-            array_push($futureEntries, $item);           
-        }
-        echo "</table>";
-        if ($value < 0) {
-            echo "<span class='num neg_future'>Total lançamentos futuros: ".num($total)."</span>"; 
-        } else {
-            echo "<span class='num'>Total lançamentos futuros: ".num($total)."</span>";
-        }
-        ?>
-    </div>
-
     <div class = "ecovila">
         <table class="dados_banc">
             <tr>
@@ -256,9 +137,6 @@
             <p>CNPJ<span class="banc_mobile_itens">26.160.053/0001-63</span></p>   
         </div>
 
-
-
-
     </div>
 
     <div class ="opcoes">
@@ -270,9 +148,6 @@
     if ($isAdmin) {
         echo "<div class='admin'>";
             echo "<span class='atencao'>Você tem permissão de administração no sistema e pode consultar uma cota individualmente ou então entrar no módulo de administração.</span>";
-            
-            
-            // Form novo
             $optionsHTML = '<option data-default disabled selected>Cota para consulta individual</option>';
             foreach ($allUsers as $u) {
                 $q = $u->getQuota();
@@ -287,23 +162,13 @@
             $submit = "<input class= 'inp' id='input_admin_sub' type='submit' value='CONSULTA INDIVIDUAL'>";
             $form= $form . $outputHTML . $submit . "</form>"; 
             echo $form; 
-            // fim Form novo       
-            // echo "<form id='form_admin' method='POST' action='areaQuery.php'>";
-            //     echo "<input class='inp' id='input_admin' type='number' placeholder='nº da cota->consulta individual' name='cota'>";
-            //     echo "<input class= 'inp' id= 'input_admin_sub'type='submit' value='CONSULTA INDIVIDUAL'>";
-            // echo "</form>";
-
             echo "<form id='form_mod_admin' method='POST' action='_admin.php'>";
                  echo "<input class= 'inp' id= 'input_admin_mod'type='submit' value='MÓDULO DE ADMINISTRAÇÃO'>";
             echo "</form>";
-
-
         echo "</div>";
-
-        echo"</div>";  
+        //echo"</div>";  
         //verificar se clicou no botao
         if (isset($_POST['cota'])) {
-
             $id = $userDao->findByQuota($_POST['cota'])->getId();
             $_SESSION['queryId'] = $id;
             header("location: areaQuery.php");  
@@ -313,7 +178,6 @@
     } 
     ?>
     </div>
-
     <script src="js/scriptAreaPrivativa.js"></script>    
 </body>
 </html>

@@ -4,11 +4,10 @@
         header("location: index.php");
         exit;
     }
-?> 
 
-<?php
     require_once 'UserDaoMysql.php';
     require_once 'classes/Config.php'; 
+    require_once 'helper.php';
     $pdo = Config::conect();
     $userDao = new UserDaoMysql($pdo[1]);
     $id = $_SESSION['userId'];
