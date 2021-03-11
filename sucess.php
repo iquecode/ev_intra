@@ -7,10 +7,8 @@
 ?> 
 
 <?php
-    require_once 'UserDaoMysql.php';
-    require_once 'classes/Config.php'; 
-    $pdo = Config::conect();
-    $userDao = new UserDaoMysql($pdo[1]);
+    require_once 'db/UserDaoMysql.php'; 
+    $userDao = new UserDaoMysql();
     $id = $_SESSION['userId'];
     $u = $userDao->findById($id);
     $quota = $u->getQuota();

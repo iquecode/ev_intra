@@ -27,8 +27,8 @@ function dateValidate($date) {
 
 
 <?php
- require_once 'UserDaoMysql.php';
- require_once 'classes/Config.php'; 
+ require_once 'db/UserDaoMysql.php';
+ //require_once 'classes/Config.php'; 
 
 /******
  * Upload do arquivo do comprovante de pgmto
@@ -93,8 +93,9 @@ else
 
 $value = $_POST['valor_deposito'];
 //acessar banco de dados
-$pdo = Config::conect();
-$userDao = new UserDaoMysql($pdo[1]);
+//$pdo = Config::conect();
+//$userDao = new UserDaoMysql($pdo[1]);
+$userDao = new UserDaoMysql();
 $params = $userDao->findParams();
 $date_max = date('Y/m/d');
 $date_max = str_replace('/', '-', $date_max);

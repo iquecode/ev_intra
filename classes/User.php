@@ -1,5 +1,5 @@
 <?php
-require 'Entry.php';
+require_once 'Entry.php';
 class User {
     private $id; 
     private $quota;

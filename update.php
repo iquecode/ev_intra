@@ -5,11 +5,9 @@
         exit;
     }
 
-    require_once 'UserDaoMysql.php';
-    require_once 'classes/Config.php'; 
+    require_once 'db/UserDaoMysql.php'; 
     require_once 'helper.php';
-    $pdo = Config::conect();
-    $userDao = new UserDaoMysql($pdo[1]);
+    $userDao = new UserDaoMysql();
     $id = $_SESSION['userId'];
     $u = $userDao->findById($id);
     $quota = $u->getQuota();
@@ -68,9 +66,9 @@
                 //verificar se esta preenchido
                 if(!empty($nickname) && !empty($email) && !empty($pass) && 
                 !empty($pass2)) {
-                    $pdo = Config::conect();
-                    if($pdo[0] == true) {
-                        $userDao = new UserDaoMysql($pdo[1]);
+                    //$pdo = Config::conect();
+                    if( true ) {
+                        $userDao = new UserDaoMysql();
                         if($pass == $pass2) {
                         $u2 = $userDao->findByEmail($email);  
                         if( !$u2 || ($u2->getId() == $u->getId()) ) {

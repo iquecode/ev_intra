@@ -5,12 +5,10 @@
         exit;
     } 
 
-    require_once 'UserDaoMysql.php';
-    require_once 'classes/Config.php'; 
+    require_once 'db/UserDaoMysql.php';
     require_once 'helper.php';
 
-    $pdo = Config::conect();
-    $userDao = new UserDaoMysql($pdo[1]);
+    $userDao = new UserDaoMysql();
     $u = $userDao->findByQuota($_POST['cota']);
 
     // se não encontrar usuário com o número de cota informado

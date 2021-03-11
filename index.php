@@ -1,7 +1,5 @@
 <?php
-require_once 'UserDaoMysql.php';
-require_once 'classes/Config.php'; 
-//$userDao = new UserDaoMysql($pdo);
+require_once 'db/UserDaoMysql.php';
 ?>
 
 <!DOCTYPE html>
@@ -44,24 +42,15 @@ require_once 'classes/Config.php';
                 $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
                 //verificar se esta preenchido
                 if( !empty($email) && !empty($senha) ) {
-                    $pdo = Config::conect();
-                    if($pdo[0] == true) {
-                        $userDao = new UserDaoMysql($pdo[1]);
-                        if($userDao->login($email,$senha)){
-                            header("location: areaPrivada.php");
-                        } else {
-                            ?>
-                            <div class="msg-erro">
-                                Email e/ou senha estão incorretos!
-                            </div>
-                            <?php               
-                        }
+                    $userDao = new UserDaoMysql();
+                    if($userDao->login($email,$senha)){
+                        header("location: areaPrivada.php");
                     } else {
                         ?>
-                            <div class="msg-erro">
-                                <?php echo "Erro: ".$u->msgErro;?>
-                            </div>
-                            <?php
+                        <div class="msg-erro">
+                            Email e/ou senha estão incorretos!
+                        </div>
+                        <?php               
                     }
                 } else {
                     ?>
