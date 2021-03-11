@@ -16,9 +16,7 @@ class Config {
             return [true,$pdo];     
         } catch (PDOException $e) {
             return [false,$e->getMessage()];
-        }    
-    
-    
+        }  
     }
 
 
