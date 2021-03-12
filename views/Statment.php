@@ -84,4 +84,9 @@ Class Statment {
 
     }
 
+    public function getHTML() {
+        $this->load();
+        return $this->html;
+    }
+
 }

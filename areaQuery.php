@@ -7,10 +7,16 @@
 
     require_once 'db/UserDaoMysql.php';
     require_once 'helper.php';
+    require_once 'views/Statment.php';
+    require_once 'views/Welcome.php';
+    require_once 'views/PainelFin.php';
+    require_once 'views/BankData.php';
+    require_once 'views/Opt.php';
+    require_once 'views/AdminOpt.php';
+    require_once 'views/Layout.php';
 
     $userDao = new UserDaoMysql();
     $u = $userDao->findByQuota($_POST['cota']);
-
     // se não encontrar usuário com o número de cota informado
     if(!$u) {
         header("location: areaPrivada.php");
@@ -22,47 +28,32 @@
     $quota = $u->getQuota();
     $name = $u->getName();
     $isAdmin = ((int)$u->getType()) == 1;
-    $statement = $u->getEntrys();
-    $total = 0;
-
+    //$statement = $u->getEntrys();
+    //$total = 0;
     // Ordena os lançamentos por data
-    usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
-    ?> 
+    //usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Ecovileir@</title>
-    <link rel="stylesheet" href="css/style_content.css?v=<?= filemtime('css/style.css'); ?>">     
-</head>
-<body>
+    $allEntries = $u->getTodayFutureEntries();    
+    $futureEntries = $allEntries['future'];
+    $todayEntries =  $allEntries['today'];
 
-    <div class="layout">
+    $welcome   = new Welcome($nickname, $quota, $name);
+    $statment  = new Statment($todayEntries);
+    $stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
+    $opt = new Opt('areaPrivada.php','Voltar', 'sair.php', 'Sair');
 
-    <div class = "cabecalho">
-        <?php
-        echo "TELA DE CONSULTA ADMINISTRATIVA";
-        echo "<br/>";
-        echo "---------------------------------------------------------";
-        echo "<br/>";
-        echo "Cota ".$quota." - ".$nickname." - ".$name." - Id: ".$id;
-        echo "<br/>";
-        echo "---------------------------------------------------------";
-        ?>
-    </div>
+    $content = $welcome->getHTML() . $statment->getHTML() . $stFutures->getHTML() . $opt->getHTML();
 
-    <?php require_once 'views/stat.php' ?>
-    <?php require_once 'views/futures.php' ?>
-    
-<div class ="opcoes">
-    <a href="areaPrivada.php"> Voltar</a>  
-    <a href="sair.php">Sair </a>
-</div>
+    if ($isAdmin) {
+        //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
+        // apelido e nome de todos usuários, para colocar no select para consulta no final da página
+        $allUsers = $userDao->findAll(); // <-aqui
+        $adminOpt = new AdminOpt($allUsers);
+        $content .= $adminOpt->getHTML(); 
+    } 
 
-</div>
-
-</body>
-</html>
+    $title = 'Consulta Administrativa';
+    $css ='css/style_content.css';
+    $js ='js/scriptAreaPrivativa.js';
+    $privateArea = new Layout($title, $css, $js, $content);
+    $privateArea->show();

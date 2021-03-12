@@ -30,4 +30,9 @@ Class Welcome {
         print $this->html;
     }
 
+    public function getHTML() {
+        $this->load();
+        return $this->html;
+    }
+
 }

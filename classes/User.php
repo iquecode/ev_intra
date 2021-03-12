@@ -55,12 +55,33 @@ class User {
     public function setType($t){
         $this->type = trim($t);
     }
-    public function getEntrys() {
+    public function getEntries() {
         return $this->entrys;
     }
-    public function setEntrys($e){
+    public function setEntries($e){
         $this->entrys = $e;
     }
+
+    public function getTodayFutureEntries(){
+        $statement = $this->getEntries();
+        // Ordena os lançamentos por data
+        usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
+        $today = strtotime(date('Y/m/d'));
+        $futureEntries = [];
+        $todayEntries = [];
+        $pendentes = false;
+        foreach ($statement as $item) {        
+            if (strtotime($item->getDate()) <= $today) {
+                array_push($todayEntries, $item);
+            } else {
+                // armazena lançamentos futuros
+                array_push($futureEntries, $item);  
+            }      
+        }
+        return ['today' => $todayEntries, 'future' => $futureEntries];
+    }
+    
+
 }
 
 interface UserDao {

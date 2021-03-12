@@ -107,7 +107,7 @@ class UserDaoMysql implements UserDao {
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
-            $u->setEntrys($entrys);
+            $u->setEntries($entrys);
            
             // var_dump($u);
             return $u;
@@ -157,7 +157,7 @@ class UserDaoMysql implements UserDao {
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
-            $u->setEntrys($entrys);   
+            $u->setEntries($entrys);   
             //var_dump($u);
             return $u;
         } else {
@@ -207,7 +207,7 @@ class UserDaoMysql implements UserDao {
                 $entryId = $e->getId();
                 array_push($entrys, $e);
             }
-            $u->setEntrys($entrys);   
+            $u->setEntries($entrys);   
             //var_dump($u);
             return $u;
         } else {
