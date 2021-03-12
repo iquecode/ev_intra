@@ -6,6 +6,8 @@
     }
     require_once 'db/UserDaoMysql.php';
     require_once 'helper.php';
+    require_once 'views/Statment.php';
+    require_once 'views/Welcome.php';
 
     $userDao = new UserDaoMysql();
     $id = $_SESSION['userId'];
@@ -27,6 +29,31 @@
     //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
     // apelido e nome de todos usuários, para colocar no select para consulta no final da página
     $allUsers = $userDao->findAll(); // <-aqui
+
+
+   
+
+/***************************** */
+    //gera extrato normal na tela e armazena lançamentos futuros 
+    $today = strtotime(date('Y/m/d'));
+    $futureEntries = [];
+    $todayEntries = [];
+    $pendentes = false;
+    foreach ($statement as $item) {        
+        if (strtotime($item->getDate()) <= $today) {
+            array_push($todayEntries, $item);
+        } else {
+            // armazena lançamentos futuros
+            array_push($futureEntries, $item);  
+        }      
+    }
+/********************************88 */
+
+
+
+
+
+
 ?> 
 
 <!DOCTYPE html>
@@ -42,20 +69,18 @@
 
     <div class="layout">
 
-    <div class = "cabecalho">
-        <?php
-        echo "Seja bem vind@ ".$nickname;
-        echo "<br/>";
-        echo "---------------------------------------------------------";
-        echo "<br/>";
-        echo "Cota ".$quota." - ".$name;
-        echo "<br/>";
-        echo "---------------------------------------------------------";
-        ?>
-    </div>
+    
+    <?php 
 
-    <?php require_once 'views/stat.php' ?>
-    <?php require_once 'views/futures.php' ?>
+
+    $wcome = new Welcome($nickname, $quota, $name);
+    $st = new Statment($todayEntries);
+    $stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
+    $wcome->show();
+    $st->show();
+    $stFutures->show();
+    ?>
+    
     
     <div class = "ecovila">
         <table class="dados_banc">

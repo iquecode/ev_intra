@@ -1,0 +1,16 @@
+<div class='admin'>
+
+    <span class='atencao'>Você tem permissão de administração no sistema e pode consultar uma cota individualmente ou então entrar no módulo de administração.</span>
+
+    <form id='form_admin' method='POST' action='areaQuery.php'>
+        <select class='inp' id='input_admin' name='cota'>
+            {options}
+        </select>
+        <input class= 'inp' id='input_admin_sub' type='submit' value='CONSULTA INDIVIDUAL'>
+    </form>
+
+    <form id='form_mod_admin' method='POST' action='_admin.php'>
+        <input class= 'inp' id= 'input_admin_mod'type='submit' value='MÓDULO DE ADMINISTRAÇÃO'>
+    </form>
+
+</div>

@@ -1,0 +1,61 @@
+<div class ="dados_banc">
+    <span class = title>Abaixo, caso deseje, você pode informar depósitos ainda não constantes do seu demonstrativo</span>
+    <p class ="atencao">Informe apenas se não constar no demonstrativo</p>
+    <p>Envio de comprovante é opcional</p>
+    <form id='form_dep' method='POST' enctype="multipart/form-data" action="_upload.php">
+        <label>
+            Data exata do depósito
+            <input class='inp' id="inp_date" type='date' placeholder='Data do depósito' name='data_deposito' 
+            required min={date_min} max={date_max}>
+        </label>
+        <input class='inp' type='number' onchange='setTwoNumberDecimal' min="0.01" step="0.01" placeholder='Valor exato' name='valor_deposito' required>
+        <label for="img">Selecione o comprovante (opcional) - max. 200kb</label>
+        <!-- MAX_FILE_SIZE deve preceder o campo input bytes-->
+        <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+        <input type="file" id="img" name="arquivo" accept="image/*,application/pdf">
+        <input class= 'inp' id= 'input_dep_submit'type='submit' value='ENVIAR'>
+    </form>
+
+    <p class="title_content">Dados para depósito</p>   
+    <span class = "title">Sempre depositive com os centavos da cota</span>
+    <table class="banc">
+        <tr>
+            <td class = "pix" >Ecovila e Santuário Vegano</td>
+        </tr>
+        <tr>
+            <td class = "pix" >PIX (CNPJ)</td>
+            <td class = "pix" >26160053000163</td>
+        </tr>
+        <tr>
+            <td class = "content">Caixa Econômica Federal</td>
+            <td class = "content bold">Banco 104</td>
+        </tr>
+        <tr>
+            <td class = "content">Agência</td>
+            <td class = "content bold">1967</td>
+        </tr>
+        <tr>
+            <td class = "content">Operação</td>
+            <td class = "content bold">003</td>
+        </tr>
+        <tr>
+            <td class = "content">Conta Corrente</td>
+            <td class = "content bold">000654-3</td>
+        </tr>
+        <tr>
+            <td class = "content">CNPJ</td>
+            <td class = "content bold">26.160.053/0001-63</td>
+        </tr>
+    </table>
+
+    <div class="banc_mobile">
+        <p>Ecovila e Santuário Vegano</p>
+        <p>PIX (CNPJ)<span class="banc_mobile_itens">26160053000163</span></p>
+        <p>Banco<span class="banc_mobile_itens">104 - Caixa</span></p>
+        <p>Agência<span class="banc_mobile_itens">1967</span></p>
+        <p>Operação<span class="banc_mobile_itens">003</span></p>
+        <p>Conta Corrente<span class="banc_mobile_itens">000654-3</span></p>
+        <p>CNPJ<span class="banc_mobile_itens">26.160.053/0001-63</span></p>   
+    </div>
+
+</div>
