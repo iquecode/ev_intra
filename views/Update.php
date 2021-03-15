@@ -14,6 +14,7 @@ Class Update {
     private $email;
     private $error;
     private $displayError;
+    
     public function __construct($quota, $nickname, $name, $email)
     {
          $this->html = file_get_contents('html/update/update.html');
