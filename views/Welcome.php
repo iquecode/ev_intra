@@ -7,9 +7,9 @@ Class Welcome {
     private $quota;
     private $name;
     
-    public function __construct($nickname, $quota, $name)
+    public function __construct($nickname, $quota, $name, $template=1)
     {
-         $this->html = file_get_contents('html/welcome/welcome.html');
+         $this->html = file_get_contents("html/welcome/welcome{$template}.html");
          $this->nickname = $nickname;
          $this->quota = $quota;
          $this->name = $name;

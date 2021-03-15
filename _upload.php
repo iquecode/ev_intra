@@ -129,7 +129,7 @@ if ($error == false) {
     //echo "ID entry: " . $e->getId(); 
     //echo "<br/> OK -> GRAVAR NO DB!";
     echo "Informação de depósito salva com sucesso : )! <br/><br/>";
-    echo "<a href='areaPrivada.php'>Clique aqui para voltar e conferir seu demonstrativo!</a>";
+    echo "<a href='index.php?class=PrivateArea'>Clique aqui para voltar e conferir seu demonstrativo!</a>";
 }
 
 

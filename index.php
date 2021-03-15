@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 spl_autoload_register( function($class) {
     if (file_exists('views/' . $class . '.php')) {
@@ -6,23 +7,21 @@ spl_autoload_register( function($class) {
     }
 });
 
-$classe = isset($_REQUEST['class']) ? $_REQUEST['class'] : null;
+
+$class = isset($_REQUEST['class']) ? $_REQUEST['class'] : null;
 $metodo = isset($_REQUEST['method']) ? $_REQUEST['method'] : null;
 
-if (class_exists($classe))
+//print_r($class); 
+if (!class_exists($class) || !isset($_SESSION['userId']) )  
 {
-    $pagina = new $classe( $_REQUEST );
-    
-    if (!empty($metodo) AND method_exists($classe, $metodo))
-    {
-        $pagina->$metodo( $_REQUEST );
-    }
-    $pagina->show();
+    $class = 'LoginArea';
 }
-else
+//print_r($class);
+$pagina = new $class( $_REQUEST );
+
+if (!empty($metodo) AND method_exists($class, $metodo))
 {
-    header("location: index.php?class=LoginPage");
-    exit;
+    $pagina->$metodo( $_REQUEST );
 }
 
-
+$pagina->show();

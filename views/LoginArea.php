@@ -3,7 +3,7 @@ require_once 'views/Layout.php';
 require_once 'views/Login.php';
 require_once 'db/UserDaoMysql.php';
 
-class LoginPage
+class LoginArea
 {
     private $html;
     //private $data;
@@ -21,7 +21,9 @@ class LoginPage
                 $userDao = new UserDaoMysql();
                 if($userDao->login($email,$senha))
                  {
-                    header("location: areaPrivada.php");
+                    //header("location: areaPrivada.php");
+                    header("location: index.php?class=PrivateArea");
+                    exit;
                 } 
                 else 
                 {
