@@ -1,27 +1,28 @@
 <?php
-require_once 'views/Layout.php';
-require_once 'views/Login.php';
-require_once 'db/UserDaoMysql.php';
 
-$login = new Login();
-if (isset($_POST['email'])) {
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
-    //verificar se esta preenchido
-    if( !empty($email) && !empty($senha) ) {
-        $userDao = new UserDaoMysql();
-        if($userDao->login($email,$senha)){
-            header("location: areaPrivada.php");
-        } else {
-            $login->setError(1);          
-        }
-    } else {
-        $login->setError(2);
+spl_autoload_register( function($class) {
+    if (file_exists('views/' . $class . '.php')) {
+        require_once 'views/' . $class . '.php';
     }
+});
+
+$classe = isset($_REQUEST['class']) ? $_REQUEST['class'] : null;
+$metodo = isset($_REQUEST['method']) ? $_REQUEST['method'] : null;
+
+if (class_exists($classe))
+{
+    $pagina = new $classe( $_REQUEST );
+    
+    if (!empty($metodo) AND method_exists($classe, $metodo))
+    {
+        $pagina->$metodo( $_REQUEST );
+    }
+    $pagina->show();
 }
-$content = $login->getHTML();
-$title = 'Login';
-$css ='css/style.css';
-$js ='';
-$index = new Layout($title, $css, $js, $content);
-$index->show();
+else
+{
+    header("location: index.php?class=LoginPage");
+    exit;
+}
+
+
