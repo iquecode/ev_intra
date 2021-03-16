@@ -8,6 +8,7 @@ require_once 'views/BankData.php';
 require_once 'views/Opt.php';
 require_once 'views/AdminOpt.php';
 require_once 'views/Layout.php';
+require_once 'views/PrivateArea.php';
 
 class QueryArea
 {
@@ -16,7 +17,19 @@ class QueryArea
     public function __construct()
     {
         $userDao = new UserDaoMysql();
-        $u = $userDao->findByQuota($_POST['cota']);
+
+       
+        //melhorar isso
+        if (isset($_POST['cota'])) {
+            $u = $userDao->findByQuota($_POST['cota']); 
+            $_SESSION['queryQuota'] = $_POST['cota'];
+        } 
+        else 
+        {
+            $u = $userDao->findByQuota($_SESSION['queryQuota']);     
+        }
+        
+        
         if(!$u) {    // se não encontrar usuário com o número da cota, retornar false
             return false;
         }
@@ -49,13 +62,15 @@ class QueryArea
         $title = 'Consulta Administrativa';
         $css ='css/style_content.css';
         $js ='js/scriptAreaPrivativa.js';
-        $this->html = new Layout($title, $css, $js, $content);
+        $layout = new Layout($title, $css, $js, $content);
+        $this->html = $layout->getHTML(); 
         return true; // se encontrar usuário e proseguir, retornar true
     }
 
     
     public function show()
-    {
-        $this->html->show();
+    {  
+        print $this->html; 
+        //print_r(self::$findQuota);
     }
 }
