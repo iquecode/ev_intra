@@ -20,7 +20,9 @@ Class Login {
         
         $this->authError = $this->error == 1 ? 'block' : 'none'; 
         $this->fillError = $this->error == 2 ? 'block' : 'none'; 
-        $this->html = str_replace('{auth_error}', $this->authError, $this->html);
+        $this->html = str_replace('{version}',     VERSION,          $this->html);
+        $this->html = str_replace('{yyyy}',        YEAR,             $this->html);
+        $this->html = str_replace('{auth_error}',  $this->authError, $this->html);
         $this->html = str_replace('{fill_error}',  $this->fillError, $this->html);
     }
 

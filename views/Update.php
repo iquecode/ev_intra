@@ -45,6 +45,8 @@ Class Update {
         $this->html = str_replace('{quota}',    $this->quota,               $this->html);
         $this->html = str_replace('{name}',     $this->name,                $this->html);
         $this->html = str_replace('{email}',    $this->email,               $this->html);
+        $this->html = str_replace('{version}',  VERSION,                    $this->html);
+        $this->html = str_replace('{yyyy}',     YEAR,                       $this->html);
         $this->html = str_replace('{msg_erro}', self::ERROR[$this->error],  $this->html);
         $this->html = str_replace('{disp}',     $this->displayError,        $this->html);
     }
