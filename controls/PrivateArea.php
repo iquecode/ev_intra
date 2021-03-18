@@ -1,13 +1,13 @@
 <?php
 require_once 'db/UserDaoMysql.php';
 require_once 'helper.php';
-require_once 'views/Statment.php';
-require_once 'views/Welcome.php';
-require_once 'views/PainelFin.php';
-require_once 'views/BankData.php';
-require_once 'views/Opt.php';
-require_once 'views/AdminOpt.php';
-require_once 'views/Layout.php';
+require_once 'controls/parts/Statment.php';
+require_once 'controls/parts/Welcome.php';
+require_once 'controls/parts/PainelFin.php';
+require_once 'controls/parts/BankData.php';
+require_once 'controls/parts/Opt.php';
+require_once 'controls/parts/AdminOpt.php';
+require_once 'controls/Layout.php';
 
 class PrivateArea
 {
@@ -32,8 +32,8 @@ class PrivateArea
         $todayEntries =  $allEntries['today'];
 
         $welcome   = new Welcome($nickname, $quota, $name);
-        $statment  = new Statment($todayEntries);
-        $stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
+        $statment  = new Statment($todayEntries, $id);
+        $stFutures = new Statment($futureEntries, $id, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
         $painelFin = new PainelFin(date('d/m/Y', strtotime($params->lastCheck)), num($params->account), num($params->invest));
         $bankData = new BankData($date_min, $date_max);
         $opt = new Opt('index.php?class=UpdateArea','Alterar senha e confirmar dados', 'sair.php', 'Sair');

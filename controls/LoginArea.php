@@ -1,6 +1,6 @@
 <?php
-require_once 'views/Layout.php';
-require_once 'views/Login.php';
+require_once 'controls/Layout.php';
+require_once 'controls/parts/Login.php';
 require_once 'db/UserDaoMysql.php';
 
 class LoginArea

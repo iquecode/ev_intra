@@ -68,6 +68,67 @@ class UserDaoMysql implements UserDao {
         //return $data;
     }
 
+
+    //não é funcional ainda                   
+    public function findAllWithEntries() {
+        //$array = [];
+
+        $data = false;
+        $sql = self::$conn->query('SELECT * FROM users');
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetchAll((PDO::FETCH_ASSOC));
+
+
+            foreach($data as $item) {
+                $u = new User();
+                $u->setId($item['id_user']);
+                $u->setQuota($item['quota']);
+                $u->setName($item['name']);
+                $u->setNickName($item['nickname']);
+                $u->setEmail($item['email']);
+                $u->setPass($item['pass']);
+                $u->setType($item['user_type']);
+                
+                //Pegar array com os lançamentos relacionados com o User
+                //$userId = $u->getId();
+                $userId = $u->getId();
+                $sqlEntries = self::$conn->prepare('SELECT * FROM entrys WHERE id_user = :id_user');
+                $sqlEntries->bindValue(':id_user', $userId);
+                $sqlEntries->execute();
+                $dataEntries = $sqlEntries->fetchAll(PDO::FETCH_ASSOC);
+                // echo('<br/>'.'Projetos do UserId '.$userId.' : '.'<br/>');
+                //print_r($dataProjects);
+                $entries = [];
+                foreach($dataEntries as $item) {
+                    $e = new Entry();
+                    $e->setId($item['id_entry']);
+                    $e->setDate($item['entry_date']);
+                    $e->setTimeRecord($item['record_time']);
+                    $e->setDescription($item['description']);
+                    $e->setValue($item['value']);
+                    $e->setType($item['id_entry_type']);
+                    $e->setUserRecorder($item['record_user']);
+                    $e->setStatus($item['status']);
+                    $e->setImg($item['img']);
+                    $entryId = $e->getId();
+                    array_push($entries, $e);
+                }
+                $u->setEntries($entries);   
+                //var_dump($u);  
+                $array[] = $u;
+              }          
+        }
+
+        return $array;
+        //return $data;
+      
+                //$entrys=[]
+                //getEntries() 
+                //setEntries($e)
+      
+    }
+
+
    
     public function findByEmail($email) {
         $sql = self::$conn->prepare('SELECT * FROM users WHERE email = :email');
@@ -274,6 +335,22 @@ class UserDaoMysql implements UserDao {
             //echo 'findByEmail - false';
             return false;
         } 
+    }
+
+    public function findEntryTypes() {
+        $data = false;
+        $sql = self::$conn->query('SELECT * FROM entry_types');
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetchAll((PDO::FETCH_ASSOC));
+            foreach($data as $item) {
+                  $et = new EntryType();
+                  $et->setId($item['id_user']);
+                  $et->setType($item['quota']);
+                  $et->setSign($item['name']);
+                  $array[] = $et;
+              }          
+        }
+        return $array;
     }
 
     public function login($email, $pass) {

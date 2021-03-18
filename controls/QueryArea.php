@@ -1,14 +1,14 @@
 <?php
 require_once 'db/UserDaoMysql.php';
 require_once 'helper.php';
-require_once 'views/Statment.php';
-require_once 'views/Welcome.php';
-require_once 'views/PainelFin.php';
-require_once 'views/BankData.php';
-require_once 'views/Opt.php';
-require_once 'views/AdminOpt.php';
-require_once 'views/Layout.php';
-require_once 'views/PrivateArea.php';
+require_once 'controls/parts/Statment.php';
+require_once 'controls/parts/Welcome.php';
+require_once 'controls/parts/PainelFin.php';
+require_once 'controls/parts/BankData.php';
+require_once 'controls/parts/Opt.php';
+require_once 'controls/parts/AdminOpt.php';
+require_once 'controls/Layout.php';
+require_once 'controls/PrivateArea.php';
 
 class QueryArea
 {
@@ -21,12 +21,15 @@ class QueryArea
        
         //melhorar isso
         if (isset($_POST['cota'])) {
-            $u = $userDao->findByQuota($_POST['cota']); 
-            $_SESSION['queryQuota'] = $_POST['cota'];
+            $id = str_replace('u_id', '', $_POST['cota']);
+            //$u = $userDao->findByQuota($_POST['cota']);
+            $u = $userDao->findById($id); 
+            $_SESSION['queryQuota'] = $id;
         } 
         else 
         {
-            $u = $userDao->findByQuota($_SESSION['queryQuota']);     
+            //$u = $userDao->findByQuota($_SESSION['queryQuota']);     
+            $u = $userDao->findById($_SESSION['queryQuota']);
         }
         
         
@@ -40,13 +43,14 @@ class QueryArea
         $name = $u->getName();
         $isAdmin = ((int)$u->getType()) == 1;
 
+
         $allEntries = $u->getTodayFutureEntries();    
         $futureEntries = $allEntries['future'];
         $todayEntries =  $allEntries['today'];
 
         $welcome   = new Welcome($nickname, $quota, $name, 2);
-        $statment  = new Statment($todayEntries);
-        $stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
+        $statment  = new Statment($todayEntries, $id);
+        $stFutures = new Statment($futureEntries, $id, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
         $opt = new Opt('index.php?class=PrivateArea','Voltar', 'sair.php', 'Sair');
 
         $content = $welcome->getHTML() . $statment->getHTML() . $stFutures->getHTML() . $opt->getHTML();
@@ -71,6 +75,5 @@ class QueryArea
     public function show()
     {  
         print $this->html; 
-        //print_r(self::$findQuota);
     }
 }

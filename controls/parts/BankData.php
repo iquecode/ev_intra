@@ -6,9 +6,9 @@ Class BankData {
     private $dateMin;
     private $dateMax;
     
-    public function __construct($dateMin, $dateMax)
+    public function __construct($dateMin, $dateMax, $template=1)
     {
-         $this->html = file_get_contents('html/dados_banc/dados_banc.html');
+         $this->html = file_get_contents("html/dados_banc/dados_banc{$template}.html");
          $this->dateMin = $dateMin;
          $this->dateMax = $dateMax;
     }

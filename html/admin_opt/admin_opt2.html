@@ -1,0 +1,12 @@
+<div class='admin'>
+
+    <span class='atencao' onclick="teste()">Selecione uma cota para checar os lançamentos.</span>
+
+    <form id='form_admin' method='POST' action='index.php?class=QueryArea'>
+        <select class='inp' id='input_admin' name='cota' onchange='changeStatment()'>
+            <option data-default disabled selected value=0>Cota para consulta individual</option>
+            {options}
+        </select>
+    </form>
+
+</div>

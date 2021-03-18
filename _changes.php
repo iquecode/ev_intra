@@ -7,6 +7,6 @@
 
     echo "Poxa... essa parte ainda não foi implementada : /. Mas até fim de março deve estar pronta ; )! <br/><br/>";
 
-    echo "<a href='areaPrivada.php'>Clique aqui para voltar!</a>";
+    echo "<a href='index.php?class=PrivateArea'>Clique aqui para voltar!</a>";
 
 ?> 

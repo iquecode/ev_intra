@@ -1,8 +1,8 @@
 <?php
 require_once 'db/UserDaoMysql.php'; 
 require_once 'helper.php';
-require_once 'views/Layout.php';
-require_once 'views/Update.php';
+require_once 'controls/Layout.php';
+require_once 'controls/parts/Update.php';
 
 class UpdateArea
 {

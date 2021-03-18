@@ -8,16 +8,18 @@ Class Statment {
     private $title;
     private $strTotal;
     private $check;
+    private $userId;
 
-
+    //$stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
     // public function __construct($entries=[], $class='futuros', $title='Lançamentos Futuros',
     //                             $strTotal='Total lançamentos futuros', $check=false)
 
-    public function __construct($entries=[], $class='extrato', $title='Demonstrativo Financeiro',
+    public function __construct($entries=[], $userId, $class='extrato', $title='Demonstrativo Financeiro',
                                 $strTotal='Saldo atual', $check=true)
     {
          $this->html = file_get_contents('html/statment/statment.html');
          $this->entries = $entries;
+         $this->userId = $userId;
          $this->class = $class;
          $this->title = $title;
          $this->strTotal = $strTotal;
@@ -28,6 +30,7 @@ Class Statment {
     {
         $total=0;
         $items = '';
+        $findPend = false;
         foreach ($this->entries as $entry) 
         {         
             // extrato normal
@@ -42,6 +45,7 @@ Class Statment {
             $status = $entry->getStatus();
             if ($status == 0) {
                 $pend = 'pend';
+                $findPend = true;
                 $description .= ' - a validar';
             }
             
@@ -57,6 +61,7 @@ Class Statment {
 
         $stat = $this->html;
         $stat = str_replace('{class}',    $this->class,    $stat);
+        $stat = str_replace('{id}',       "u_id" . $this->userId,    $stat);
         $stat = str_replace('{title}',    $this->title,    $stat);
         $stat = str_replace('{items}',    $items,          $stat);
         $stat = str_replace('{neg_pos}',  $neg_pos,        $stat);
@@ -64,7 +69,7 @@ Class Statment {
         $stat = str_replace('{total}',    num($total),     $stat);
 
         $link = "<a class='a_small' href='_changes.php'>Alterar / excluir lançamentos a validar.</a>";
-        if ($this->check)
+        if ($this->check && $findPend)
         {
             $stat = str_replace('{link}',    $link,     $stat);
         }

@@ -1,0 +1,32 @@
+
+<form class="form" id='form_entry_user'>
+    <label class="margin_top">
+        Data do lançamento
+        <input class = 'inp' type='date' id='entry_date'>  
+    </label>
+
+    <label>
+        <input class = 'inp' type="text"   id="id_entry_type" placeholder="Tipo" maxlength="15">
+    </label>
+    
+    <label>
+        <input class = 'inp' type="text"   id="description" placeholder="Descrição" maxlength="15">
+    </label>
+    
+    <label>
+        Valor R$
+        <input class = 'inp' type="number" id="value" maxlength="15">
+    </label>
+   
+    <span type="submit" value="Gravar Lançamento" onclick="saveNewEntryUser()">
+        Gravar Lançamento
+    </span>
+</form>
+
+<!-- $id_user, 
+$record_user, 
+$status
+
+
+
+$entry_date, $description, $value, $id_entry_type, $record_user, $status, null -->
