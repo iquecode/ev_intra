@@ -78,15 +78,7 @@ function saveNewEntryUser()
     //  record_user = 32; 
     //  status = 0;
 
-    const data = {
-         id_user: id_user,
-         entry_date: entry_date,
-         description: description,
-         value: value,
-         id_entry_type: id_entry_type,
-         record_user: 32,
-         status: 1
-    }
+    
 
     //console.log(entry_date);
     // $id_user = filter_input(INPUT_POST, 'id_user');
@@ -108,21 +100,66 @@ function saveNewEntryUser()
 //         status = 1
 //     }
 
-     const params = {
-         method: "POST",
-         body: JSON.stringify(data),
-         //headers: {"Content-type": "application/json; charset=UTF-8"}
-     }
 
-     const url = 'api/saveEntryUser.php';
+
+//     const data = {
+//         id_user: id_user,
+//         entry_date: entry_date,
+//         description: description,
+//         value: value,
+//         id_entry_type: id_entry_type,
+//         record_user: 32,
+//         status: 1
+//     }
+
+//     const params = {
+//          method: 'POST',
+//          body: JSON.stringify(data)
+//      }
+
+//     const url = 'api/api.php';
      
-     console.log(JSON.stringify(data));
+//     console.log(JSON.stringify(data));
 
-       fetch(url, params)
-         .then((r)=>r.json())
-         .then((json)=>{
-             console.log(json);
-         });
+
+//     fetch(url, params,)
+//     .then((r)=>r.json())
+//     .then((json)=>{
+//         console.log(json);
+// });
+
+
+const data = {
+    id_user,
+    entry_date,
+    description,
+    value,
+    id_entry_type,
+    record_user: 32,
+    status: 1
+  }
+  const params = {
+    method: 'POST',
+    body: JSON.stringify(data)
+  }
+  const url = 'api/t.php'
+  console.log(JSON.stringify(data))
+   fetch(url, params)
+     .then(res => res.json())
+     .then(data => {
+       console.log(data)
+     })
+
+
+
+
+    // fetch(url, params,)
+    //     .then((r)=>r.json())
+    //     .then((json)=>{
+    //         console.log(json);
+    // });
+
+    // fetch(url, params);
      
 
     //  fetch('../api/saveEntryUser.php', _options)

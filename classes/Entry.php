@@ -1,5 +1,5 @@
 <?php
-require_once 'User.php';
+require_once __DIR__.'/User.php';
 class Entry {
     private $id;   //db id_entry
     private $date; //db entry_date 

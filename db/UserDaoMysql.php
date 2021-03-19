@@ -1,7 +1,7 @@
 <?php
-require_once 'classes/User.php';
-require_once 'classes/EntryType.php';
-require_once 'config/config.php';
+require_once __DIR__.'/../classes/User.php';
+require_once __DIR__.'/../classes/EntryType.php';
+require_once __DIR__.'/../config/config.php';
 
 class UserDaoMysql implements UserDao {
     private static $conn;

@@ -1,5 +1,5 @@
 <?php
-require_once 'Entry.php';
+require_once __DIR__.'/Entry.php';
 class User {
     private $id; 
     private $quota;
