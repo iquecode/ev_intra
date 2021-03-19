@@ -1,5 +1,6 @@
 <?php
 require_once 'classes/User.php';
+require_once 'classes/EntryType.php';
 require_once 'config/config.php';
 
 class UserDaoMysql implements UserDao {
@@ -343,12 +344,16 @@ class UserDaoMysql implements UserDao {
         if($sql->rowCount() > 0) {
             $data = $sql->fetchAll((PDO::FETCH_ASSOC));
             foreach($data as $item) {
-                  $et = new EntryType();
-                  $et->setId($item['id_user']);
-                  $et->setType($item['quota']);
-                  $et->setSign($item['name']);
-                  $array[] = $et;
-              }          
+                   $et = new EntryType();
+                   $et->setId($item['id_entry_type']);
+                   $et->setType($item['type']);
+                   $et->setSign($item['sign']);
+                   $array[] = $et;
+                //echo "<pre>";
+                //print_r($item);
+              }  
+            //   echo "<pre>";
+            //   print_r($array);        
         }
         return $array;
     }

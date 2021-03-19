@@ -9,12 +9,36 @@ function changeStatment()
     document.getElementById(value).style.display = 'block';
     document.getElementById('form_entry_user').style.display = 'none';
     document.getElementById('new_entry_user').style.display = 'block';
+
+   
+    
+
+    //console.log(opt);
     // #form_entry_user {
     //     display: none;
     // }
     // #new_entry_user {
     //     display: none;
     // }
+}
+
+function changeTypeEntry() 
+{
+    const select = document.getElementById('id_entry_type');
+    const text = select.options[select.selectedIndex].text;
+    const inputDesc = document.getElementById('description');
+    inputDesc.value = text.substring(12); 
+    // - DEBITO
+    //123456789
+    // - CREDITO
+    //1234567890
+    // for (i = 1; i < select.length; i = i + 1) 
+    // {
+    //     document.getElementById(select.options[i].value).style.display = 'none';
+    // }
+    // document.getElementById(value).style.display = 'block';
+    // document.getElementById('form_entry_user').style.display = 'none';
+    // document.getElementById('new_entry_user').style.display = 'block';
 }
 
 function teste() {
@@ -25,17 +49,15 @@ function expandEntryUser()
 {
     document.getElementById('new_entry_user').style.display = 'none';
     document.getElementById('form_entry_user').style.display = 'flex';
+
+    const descriptionType = document.getElementById('description');
+    descriptionType.value = "Descrição";
+    const selectIdType = document.getElementById('id_entry_type');
+    selectIdType.selectedIndex = 0;
 }
 
 function saveNewEntryUser() 
 {
-
-
-    
-	
-
-
-
 
     console.log("Salvar novo Lançamento");
 
@@ -56,15 +78,17 @@ function saveNewEntryUser()
     //  record_user = 32; 
     //  status = 0;
 
-    // let _data = {
-    //     id_user: document.getElementById('id_user'),
-    //     entry_date: document.getElementById('entry_date'),
-    //     description: document.getElementById('description'),
-    //     value: document.getElementById('value'),
-    //     id_entry_type: document.getElementById('id_entry_type'),
-    //     id_user: document.getElementById('id_user')
-    // }
+    const data = {
+         id_user: id_user,
+         entry_date: entry_date,
+         description: description,
+         value: value,
+         id_entry_type: id_entry_type,
+         record_user: 32,
+         status: 1
+    }
 
+    //console.log(entry_date);
     // $id_user = filter_input(INPUT_POST, 'id_user');
     // $entry_date = filter_input(INPUT_POST, 'entry_date');
     // $description = filter_input(INPUT_POST, 'description');
@@ -84,17 +108,30 @@ function saveNewEntryUser()
 //         status = 1
 //     }
 
-//     let _options = {
-//         method: "POST",
-//         body: JSON.stringify(_data),
-//         headers: {"Content-type": "application/json; charset=UTF-8"}
-//     }
+     const params = {
+         method: "POST",
+         body: JSON.stringify(data),
+         //headers: {"Content-type": "application/json; charset=UTF-8"}
+     }
 
-//     fetch('../api/saveEntryUser.php', _options)
-//     .then(response =>{ response.json()
-//         .then( data => console.lof(data))
-//     })
-//     .catch(e => console.log('Deu Erro: '+ e,message));
+     const url = 'api/saveEntryUser.php';
+     
+     console.log(JSON.stringify(data));
+
+       fetch(url, params)
+         .then((r)=>r.json())
+         .then((json)=>{
+             console.log(json);
+         });
+     
+
+    //  fetch('../api/saveEntryUser.php', _options)
+    //  .then(response =>{ response.json()
+    //      .then( data => console.lof(data))
+    //  })
+    //  .catch(e => console.log('Deu Erro: '+ e,message));
+
+
      
 
 }

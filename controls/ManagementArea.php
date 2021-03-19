@@ -9,6 +9,7 @@ class ManagementArea
 {
     private $html;
     private $allUsers;
+    private $entryTypes;
     
     public function __construct()
     {
@@ -27,6 +28,7 @@ class ManagementArea
 
 
         $this->allUsers = $userDao->findAllWithEntries();
+        $this->entryTypes = $userDao -> findEntryTypes();
         
 
 
@@ -67,7 +69,7 @@ class ManagementArea
         $js ='js/jsManagementArea.js';
         //$js = str_replace('{name}',     'TESTE',          $js);
         
-        $statmentsArea = new StatmentsArea($this->allUsers);
+        $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
         $content = $statmentsArea->getHTML();
         
         $this->html = new Layout($title, $css, $js, $content, 2);
@@ -88,6 +90,8 @@ class ManagementArea
     {
         $this->load();
         $this->html->show();
-        //print 'Olá... eu sou a área privada!!! : )';
+
+       // print_r($this->entryTypes);
+        
     }
 }
