@@ -17,7 +17,9 @@ Class Statment {
     public function __construct($entries=[], $userId, $class='extrato', $title='Demonstrativo Financeiro',
                                 $strTotal='Saldo atual', $check=true)
     {
-         $this->html = file_get_contents('html/statment/statment.html');
+        
+         $file = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/statment/statment.html';   
+         $this->html = file_get_contents($file);
          $this->entries = $entries;
          $this->userId = $userId;
          $this->class = $class;
@@ -38,7 +40,9 @@ Class Statment {
             $description = $entry->getDescription();
             $value = $entry->getValue();
             $neg_pos = $value < 0 ? 'num neg_future' : 'num';
-            $item = file_get_contents('html/statment/statment_item.html');
+
+            $file = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/statment/statment_item.html';
+            $item = file_get_contents($file);
             $item = str_replace( '{date}',          $date,          $item);
             $pend = '';
             

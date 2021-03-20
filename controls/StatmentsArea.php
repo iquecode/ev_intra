@@ -60,13 +60,17 @@ Class StatmentsArea {
 
         $content = $this->select->getHTML();
         $statments=[];
+        
+        
         foreach ($this->allUsers as $u) {
             $allEntries = $u->getTodayFutureEntries();    
             //$futureEntries = $allEntries['future'];
             $todayEntries =  $allEntries['today'];
             $statments[$u->getId()]  = new Statment($todayEntries, $u->getId());  
-            $content .= $statments[$u->getId()]->getHTML();          
+            $content .= $statments[$u->getId()]->getHTML();
         }
+       
+
         $content .= file_get_contents('html/management_entries_user/to_include_entry.html');  
         $content .= $painelEntryUser;
         

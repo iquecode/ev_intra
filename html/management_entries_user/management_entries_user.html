@@ -1,29 +1,32 @@
 
-<form class="form" id='form_entry_user'>
+<form class="form" id='form_entry_user' method='POST' action='index.php?class=ManagementArea&method=saveEntryUser'>
     <label class="margin_top">
         Data do lançamento
-        <input class = 'inp' type='date' id='entry_date'>  
+        <input class = 'inp' type='date' name='entry_date' id='entry_date'>  
     </label>
 
     <label>
-        <select class='inp' id='id_entry_type' onchange='changeTypeEntry()'>
+        <select class='inp' name='id_entry_type' id='id_entry_type' onchange='changeTypeEntry()'>
             <option data-default disabled selected value=0>Tipo do lançamento</option>
             {options}
         </select>
     </label>
     
     <label>
-        <input class = 'inp' type="text"   id="description" placeholder="Descrição" maxlength="15">
+        <input class = 'inp' type="text" name="description" id="description" placeholder="Descrição" maxlength="15">
     </label>
     
     <label>
         Valor R$
-        <input class = 'inp' type="number" id="value" maxlength="15">
+        <input class = 'inp' type="number" name="value" id="value" maxlength="15">
     </label>
+
+    <input type="hidden" name="id_user" id="id_user" value=''>
    
-    <span type="submit" value="Gravar Lançamento" onclick="saveNewEntryUser()">
+    <input type="submit" value="Gravar Lançamento">
+    <!-- <span type="submit" value="Gravar Lançamento" onclick="saveNewEntryUser()">
         Gravar Lançamento
-    </span>
+    </span> -->
 </form>
 
 <!-- $id_user, 
