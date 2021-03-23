@@ -38,3 +38,26 @@ function expandEntryUser()
     selectIdType.selectedIndex = 0;
 }
 
+
+function showArea(area) {
+    document.getElementById('statments_area').style.display = 'none';
+    document.getElementById('list_validate').style.display = 'none';
+    //document.getElementById('bank_statement').style.display = 'none';
+    //document.getElementById('post_entries').style.display = 'none';
+    switch (area) {
+        case 'statments_area':
+            document.getElementById('statments_area').style.display = 'flex';
+            break;
+        case 'list_validate':
+           document.getElementById('list_validate').style.display = 'flex';
+            break;
+        case 'bank_statement':
+           // document.getElementById('bank_statement').style.display = 'flex';
+            break;
+        case 'post_entries':
+           // document.getElementById('post_entries').style.display = 'flex';
+            break;
+        default:
+            break;
+    }
+}

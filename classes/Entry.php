@@ -6,6 +6,7 @@ class Entry {
     private $timeRecord; //new db record_time
     private $description; // db description
     private $value; // db value
+    private $userId; // db id_user
     private $type; //new db id_entry_type  -> fk (references entry_types -> id_entry_type ) 
     private $userRecorder; // db record_user -> fk (references users-> id_user ) 
     private $status; //db status   0-pendente  1-validada
@@ -39,6 +40,12 @@ class Entry {
     }
     public function setValue($v){
         $this->value = $v;
+    }
+    public function getUserId(){
+        return $this->userId;
+    }  
+    public function setUserId($u){
+        $this->userId = $u;
     }
     public function getType(){
         return $this->type;

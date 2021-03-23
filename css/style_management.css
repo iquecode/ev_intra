@@ -59,17 +59,55 @@ table {
 
 
 
-
-
 header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     padding: 20px;
     align-items: center;
     flex-wrap: wrap; 
     width: 100vw;
-    height: 85px;
+    /* height: 85px; */
 }
+
+#header_title
+{
+  display: flex;
+  justify-content:center;
+  /* background-color: red; */
+  width: 100%;
+  margin-bottom: 30px;
+  flex-wrap: wrap; 
+}
+
+#menu_options
+{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap; 
+}
+
+#menu_options button
+{
+  width: 200px; 
+  /* background-color: #80CBC4;  colocar para itens que não podem ser selecionados*/ 
+  background-color: #009688;
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  color: white;
+  /* font-weight: bold; */
+  margin: 10px; 
+}
+
+#menu_options .selected
+{
+  background-color: #004D40;
+  font-weight: bold;
+}
+
+
 
 footer {
     display: flex;
@@ -407,9 +445,119 @@ h3{
 }
 
 
+.list_validate table {
+  width: 100%;
+  background: #Fafafa;
+  margin: 0 auto;
+  border-radius: 20px;
+  border-radius: 10px 10px 10px 10px; 
+  box-shadow: 5px 5px 5px #BDBDBD;
+  color: #546E7A;
+  font-weight: bold;
+}
+
+.list_validate tr:nth-child(even) {
+  background: #E0F2F1;
+} 
+
+.list_validate td {
+  font-weight: normal;
+}
+
+.list_validate th{
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+.list_validate p {
+  margin: 50px 20px 50px 20px;
+} 
+
+#list_validate, #statments_area
+{
+  display: none;
+}
 
 
+.list_validate {
+  display: flex;
+  flex-direction: column;
+  color: #455A64;
+  /* background-color: #FAFAFA; */
+  width: 620px;
+  /* border-radius: 10px 10px 10px 10px; 
+  box-shadow: 5px 5px 5px #BDBDBD; */
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 70px; */
+  /* padding-top: 10px; */
+}
 
+.action_entries
+  {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  #act_validate, #act_delete, #act_change
+  {
+    width: 120px;
+    height: 40px;
+    margin-top: 0px;
+    font-weight: bold;
+  }
+
+  #act_change
+  {
+    background-color: #FF6F00;
+  }
+
+  #act_delete
+  {
+    background-color: #BF360C;
+  }
+
+  /* #act_change
+  {
+    background-color: red;
+  } */
+
+#form_list_validate
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#msg_act
+{
+  margin-top: 40px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+.list_validate table {
+  border-collapse: separate;
+  border-spacing: 0 0px;
+}
+
+.list_validate tr
+{
+  height: 50px;
+}
+
+.emphasis
+{
+  color:  #546E7A;
+  font-weight: bold;
+}
+
+.hide 
+{
+  display: none;
+}
 
 
 @media only screen and (max-width:620px) {
@@ -441,6 +589,29 @@ h3{
   td{
     word-wrap:break-word;
   }
+
+  #menu_options
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    width: 100%;
+    flex-wrap: wrap; 
+  }
+  
+  #menu_options button
+  {
+    width: 300px; 
+    background-color: #009688;
+    height: 25px;
+    padding: 3px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin: 10px; 
+  }
+
+  
 
 }
 

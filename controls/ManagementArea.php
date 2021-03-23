@@ -4,6 +4,7 @@ require_once 'helper.php';
 require_once 'controls/Layout.php';
 require_once 'controls/StatmentsArea.php';
 require_once 'controls/parts/Msg.php';
+require_once 'controls/parts/ListValidate.php';
 
 
 class ManagementArea
@@ -30,14 +31,40 @@ class ManagementArea
         $this->entryTypes = $userDao -> findEntryTypes();
     }
 
+
+    private function getValidableEntries()
+    {
+        $validableEntries = [];
+        foreach ($this->allUsers as $u) 
+        {
+            foreach ($u->getEntries() as $entry)
+            {
+                $validable = $entry->getStatus() == 0 ? true : false;
+                if ($validable)  
+                {
+                    $userInfo = $u->getQuota() . ' - ' . $u->getNickName() . ' - ' . $u->getName();
+                    //$validableEntries[] = array ('entry'=>$entry, 'user_info'=>$userInfo); 
+                    $validableEntries[] = ['entry'=>$entry, 'user_info'=>$userInfo];
+                }
+
+            }   
+        }
+        return $validableEntries; 
+    }
+
+
+
     public function load()
     {
         $title = 'Área de Administração';
         $css ='css/style_management.css';
         $js ='js/jsManagementArea.js';
         $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
-        $content = $statmentsArea->getHTML();
-        $this->html = new Layout($title, $css, $js, $content, 2);
+        $listValidate = new ListValidate($this->getValidableEntries());
+
+        $content = $statmentsArea->getHTML() . $listValidate->getHTML();
+        $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/header/header.html');
+        $this->html = new Layout($title, $css, $js, $content, 2, $header);
     }
 
     public function show()
