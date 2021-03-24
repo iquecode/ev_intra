@@ -33,9 +33,10 @@ Class ListValidate {
             
             $template_item = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/list_validate/list_item.html';
             $item = file_get_contents($template_item);
-            $item = str_replace( '{date}',    $date,             $item);
-            $item = str_replace( '{value}',   num($value),       $item);
-            $item = str_replace( '{quota}',   $e['user_info'],   $item);                    
+            $item = str_replace( '{date}',       $date,                  $item);
+            $item = str_replace( '{value}',      num($value),            $item);
+            $item = str_replace( '{quota}',      $e['user_info'],        $item);   
+            $item = str_replace( '{id_entry}',  $e['entry']->getId(),   $item);                
             $items .= $item;        
         }
         $this->html = str_replace('{class}',    $class, $this->html);

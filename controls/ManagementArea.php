@@ -107,4 +107,24 @@ class ManagementArea
         // return true;
     }
 
+
+    public function updateValidateList()
+    {
+        echo "UPDATEVaLIDATElIST!";
+        echo "<pre>";
+        print_r($_POST);
+
+        $params = $_POST;
+
+        if (isset($params['validate'])) 
+        {
+            echo "VALIDATE SETADO!";
+        }
+
+
+    }
+
+    
+
+
 }

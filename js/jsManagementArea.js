@@ -61,3 +61,34 @@ function showArea(area) {
             break;
     }
 }
+
+function markAll()
+{
+    const checkAll = document.getElementById('check_all');
+    const checkItens = document.getElementsByClassName('check_validable_entry'); 
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        checkItens[i].checked = checkAll.checked ?  true : false;
+    }
+}
+
+function checkAllChecks()
+{
+    const checkItens = document.getElementsByClassName('check_validable_entry'); 
+    const checkAll = document.getElementById('check_all');
+    allChecked = true;
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        if (!checkItens[i].checked)
+        {
+            allChecked = false;
+        }  
+    }
+    checkAll.checked = allChecked;
+}
+
+
+function ask(msg="Confirma a operação?"){ 
+    // retorna true se confirmado, ou false se cancelado
+    return confirm(msg);
+ }

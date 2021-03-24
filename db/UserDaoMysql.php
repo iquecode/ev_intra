@@ -382,4 +382,15 @@ class UserDaoMysql implements UserDao {
     }
 
 
+    public function validateEntry($idEntry)
+    {
+        $sql = self::$conn->prepare('UPDATE entrys SET status = :status, WHERE id_entry = :id_entry');
+        $sql->bindValue(':status', 1);
+        $sql->bindValue(':id_entry', $idEntry);
+        $sql->execute();
+        return true;
+    }
+
+
+
 }

@@ -3,11 +3,11 @@
     <p class="emphasis">{msg}</p>
 
     <div class="{class}">
-    <form id='form_list_validate' class='{class}' method='POST' action='index.php?class=ManagementArea&method=updateListValidate'>
+    <form id='form_list_validate' class='{class}' method='POST' action='index.php?class=ManagementArea&method=updateValidateList'>
         
         <table>
         <tr>
-            <th><input type = "checkbox" id = "check_all" name = "check_all"></th>
+            <th><input type = "checkbox" id = "check_all" name = "check_all" onclick="markAll()"></th>
             <th>Data</th>
             <th class="num">Valor R$</th>
             <th>Cota</th>
@@ -17,9 +17,9 @@
         
         <h1 id="msg_act" class="emphasis">Ação a ser executada ref. aos lançamentos selecionados</h1>  
         <div class='action_entries'>
-            <input id="act_validate" type="submit" name="validate" value="Validar">
+            <input id="act_validate" type="submit" name="validate" value="Validar" onclick='return ask("Confirma a validação dos lançamentos selecionados?")'>
             <input id="act_change" type="submit" name="change" value="Alterar">
-            <input id="act_delete" type="submit" name="delete" value="Excluir">
+            <input id="act_delete" type="submit" name="delete" value="Excluir" onclick='return ask("Confirma a EXCLUSÃO dos lançamentos selecionados?")'>
         </div>
 
     </form>
