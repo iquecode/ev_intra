@@ -501,22 +501,47 @@ h3{
     width: 100%;
   }
 
-  #act_validate, #act_delete, #act_change
+  .act_validate, .act_delete, .act_change, #conf_change, #back_change
   {
     width: 120px;
     height: 40px;
     margin-top: 0px;
     font-weight: bold;
+    color: white;
+    border-radius: 20px;
   }
 
-  #act_change
+  .act_validate, #conf_change
   {
-    background-color: #FF6F00;
+    width: 150px;
+    background-color: #4CAF50
   }
 
-  #act_delete
+  .act_change
   {
-    background-color: #BF360C;
+    background-color:white;
+    border: 2px solid  #FF6F00;
+    color: #FF6F00;
+  }
+
+  .act_delete
+  {
+    background-color:white;
+    border: 2px solid  #BF360C;
+    color: #BF360C;
+  }
+
+  #conf_change, #back_change
+  {
+    width: 200px;
+  }
+
+  #back_change
+  {
+    background-color: white;
+    border-color: #607D8B;
+    border: 2px solid #607D8B;
+    color: #607D8B;
   }
 
   /* #act_change
@@ -559,6 +584,14 @@ h3{
   display: none;
 }
 
+
+
+.disabled
+{
+  background-color:white;
+  border: 2px solid  #E0E0E0;
+  color: #E0E0E0;
+}
 
 @media only screen and (max-width:620px) {
   

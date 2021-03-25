@@ -62,7 +62,12 @@ class ManagementArea
         $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
         $listValidate = new ListValidate($this->getValidableEntries());
 
-        $content = $statmentsArea->getHTML() . $listValidate->getHTML();
+        $listChange = new ListValidate($this->getValidableEntries(), 2);   
+
+        $content = $statmentsArea->getHTML() . $listValidate->getHTML() . $listChange->getHTML();
+
+        //$content = $statmentsArea->getHTML() . $listValidate->getHTML();
+
         $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/header/header.html');
         $this->html = new Layout($title, $css, $js, $content, 2, $header);
     }
@@ -114,13 +119,53 @@ class ManagementArea
         echo "<pre>";
         print_r($_POST);
 
-        $params = $_POST;
+        $userDao = new UserDaoMysql();
 
-        if (isset($params['validate'])) 
+        $params = $_POST;
+        $idsEntries = [];
+        foreach ($params as $param => $value)
         {
-            echo "VALIDATE SETADO!";
+            if (substr($param, 0, 5) == 'check' && $param != 'check_all')
+            {
+                $idsEntries[] = intval(substr($param, 5));
+            }  
         }
 
+        
+        $action = isset($params['delete'])   ? 'delete'   : ''; 
+        $action = isset($params['change'])   ? 'change'   : $action;
+        $action = isset($params['validate']) ? 'validade' : $action; 
+
+
+        foreach ($idsEntries as $idEntry) 
+        {
+            switch ($action) 
+            {
+                case 'validade':
+                    $userDao->validateEntry($idEntry);   
+                    break;
+                case 'conf_change':
+                    $userDao->changeValidableEntry($idEntry);
+                    break;
+                case 'delete':
+                    $userDao->deleteValidableEntry($idEntry);   
+                    break;
+                case 'change':
+                    $listChange = new ListValidate($this->getValidableEntries(), 2);   
+                    break;
+            }
+        }   
+
+        // if (isset($params['validate'])) 
+        // {
+        //     echo "VALIDATE SETADO!<br><br>";
+        //     print_r($idsEntries);
+        //     foreach ($idsEntries as $idEntry) 
+        //     {
+        //         $userDao->validateEntry($idEntry);
+        //     }   
+        // } 
+        
 
     }
 

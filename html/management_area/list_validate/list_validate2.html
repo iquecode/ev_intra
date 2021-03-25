@@ -1,0 +1,29 @@
+<div id="list_validate2" class="list_validate hide">
+
+    <p class="emphasis">{msg}</p>
+
+    <div class="{class}">
+    <form id='form_list_validate2' class='{class}' method='POST' action='index.php?class=ManagementArea&method=updateValidateList'>
+        
+        <table>
+        <tr>
+            <th></th>
+            <th>Data</th>
+            <th class="num">Valor R$</th>
+            <th>Cota</th>
+        </tr>
+        {items}
+        </table>
+        
+        <h1 id="msg_act2" class="emphasis"></h1>  
+        <div class='action_entries'>
+            <button id="back_change" type="button" onclick="showToChangeValidable('back')">Voltar sem alterar</button>
+            <input  id="conf_change" type="submit" name="conf_change" value="Confirmar Alterações" onclick='return ask("Confirma a alterção nos?")'>
+        </div>
+
+    </form>
+    </div>
+
+
+
+</div>
