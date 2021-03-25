@@ -36,6 +36,7 @@ Class ListValidate {
             //$date = date('d/m/Y',strtotime($e['entry']->getDate()));
             //$date = date('Y-m-d',strtotime($e['entry']->getDate()));
             $value = $e['entry']->getValue();
+            $idEntry = $e['entry']->getId();
 
             if ($this->type == 1) 
             {
@@ -47,11 +48,8 @@ Class ListValidate {
             $item = str_replace( '{date}',       $date,                  $item);
             $item = str_replace( '{quota}',      $e['user_info'],        $item);   
             $item = str_replace( '{id_entry}',  $e['entry']->getId(),   $item);       
-            
-            
-           
             $item = str_replace( '{value}',      $value,            $item);
-
+            
             $items .= $item;        
         }
         $this->html = str_replace('{class}',    $class, $this->html);

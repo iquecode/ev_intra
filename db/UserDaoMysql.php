@@ -398,13 +398,22 @@ class UserDaoMysql implements UserDao {
         $sql->execute();
         return true;
     }
+    
 
-
-    public function changeValidableEntry($idEntry)
+    public function changeValidableEntry($idEntry, $date, $value, $status=0)
     {
         // $sql = self::$conn->prepare('DELETE FROM entrys WHERE id_entry = :id_entry');
         // $sql->bindValue(':id_entry', $idEntry);
         // $sql->execute();
+
+        //date
+        //
+        $sql = self::$conn->prepare('UPDATE entrys SET entry_date = :entry_date, value = :value, status = :status WHERE id_entry = :id_entry');
+        $sql->bindValue(':entry_date', $date);
+        $sql->bindValue(':value', $value);
+        $sql->bindValue(':status', $status);
+        $sql->bindValue(':id_entry', $idEntry);
+        $sql->execute();
         return true;
     }
 

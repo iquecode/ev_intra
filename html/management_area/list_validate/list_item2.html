@@ -1,15 +1,15 @@
-<tr>
-    <td>
-        <input type="checkbox" class="check_validable_entry"  
+<tr id="id_row_chg{id_entry}">
+    <td class="check">
+        <input id="id_inp_chk{id_entry}" type="checkbox" class="check_validable_entry"  
         name="check{id_entry}" checked="checked" readonly>
     </td>
     <td>
-        <input class='inp' type='date' value={date} name='data_deposito' 
+        <input id="id_inp_dte{id_entry}" class='inp_change dt_change' type='date' value={date} name='data_deposito{id_entry}' 
         required min={date_min} max={date_max}>
     </td>
     <td>
-        <input class='inp' type='number' onchange='setTwoNumberDecimal' min="0.01" step="0.01" value={value}
-        name='valor_deposito' required>
+        <input id="id_inp_num{id_entry}" class='inp_change' type='number' onchange='setTwoNumberDecimal(this)' min="0.01" step="0.01" value={value}
+        name='valor_deposito{id_entry}' required>
     </td>
     <td>{quota}</td>
-</tr> 
+</tr>

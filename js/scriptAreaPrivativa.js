@@ -1,3 +1,4 @@
-function setTwoNumberDecimal(event) {
-    this.value = parseFloat(this.value).toFixed(2);
+function setTwoNumberDecimal(e) {
+    e.value = parseFloat(e.value).toFixed(2);
+    console.log(e.value);
 }

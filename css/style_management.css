@@ -585,6 +585,34 @@ h3{
 }
 
 
+.inp_change
+{
+  background-color: inherit;
+  width: 120px;
+  text-align: right;
+  padding: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  /* padding: 10px; */
+
+  /* font-size: 1em; */
+  /* padding: 10px 20px;     */
+  /* background-color: rgba(255, 255, 255, 0.01); */
+  color: #424242;
+  /* outline: none; */
+}
+
+.dt_change
+{
+  width: 140px;
+  padding-left: 20px;
+  padding-right: 0px;
+}
+
+.check
+{
+  display: none;
+}
+
 
 .disabled
 {
@@ -592,6 +620,9 @@ h3{
   border: 2px solid  #E0E0E0;
   color: #E0E0E0;
 }
+
+
+
 
 @media only screen and (max-width:620px) {
   

@@ -1,3 +1,8 @@
+function setTwoNumberDecimal() {
+    this.value = parseFloat(this.value).toFixed(2);
+    console.log(this.value);
+}
+
 function changeStatment()
 {
     let select = document.getElementById('input_admin');
@@ -79,8 +84,8 @@ function checkAllChecks()
     const checkAll = document.getElementById('check_all');
     allChecked = true;
     oneChecked = false;
-    count = 0;
-    total = checkItens.length; 
+    // count = 0;
+    // total = checkItens.length; 
     for (let i=0; i<checkItens.length; i++) 
     {
         if (!checkItens[i].checked)
@@ -94,8 +99,8 @@ function checkAllChecks()
     }
     checkAll.checked = allChecked;
 
-    console.log("Total : " + total );
-    console.log("Checks: " + count );
+    // console.log("Total : " + total );
+    // console.log("Checks: " + count );
 
     $change = document.getElementById('act_change');
     $validate = document.getElementById('act_validate');
@@ -223,6 +228,71 @@ function ask(msg="Confirma a operação?"){
     return confirm(msg);
  }
 
+
+
+function loadValidablesToChange(type='')
+{
+    const checkItens = document.getElementsByClassName('check_validable_entry1'); 
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        //pegar os Ids dos elementos dos templates HTML que já estão na DOM
+        idPure = checkItens[i].id.substring(5);
+        idRow = 'id_row_chg' + idPure; 
+        idCheck = 'id_inp_chk' + idPure;
+        idDate = 'id_inp_dte' + idPure;
+        idNum = 'id_inp_num' + idPure;
+         // console.log('idRow: ' + idRow); 
+        // console.log('idCheck: ' + idCheck);
+        // console.log('idDate: ' + idDate);
+        // console.log('idNum: ' + idNum);
+
+        //set display e abilitação do input como se fosse voltar... normal
+        typeDisplay = 'table-row';
+        inpDisabled = false;
+        
+        if (type!='back' && !checkItens[i].checked)
+        {
+            typeDisplay = 'none';
+            inpDisabled = true;
+        }
+
+        document.getElementById(idRow).style.display=typeDisplay; 
+        document.getElementById(idCheck).disabled = inpDisabled;
+        document.getElementById(idDate).disabled = inpDisabled;
+        document.getElementById(idNum).disabled = inpDisabled;
+    }
+}
+
+
+
+function OLDonlySelectedsChecks()
+{
+    const checkItens = document.getElementsByClassName('check_validable_entry1'); 
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        if (!checkItens[i].checked)
+        {
+            //desabilitar e display none  inputs com esse ID do change
+            idPure = checkItens[i].id.substring(5);
+            idRow = 'id_row_chg' + idPure; 
+            idCheck = 'id_inp_chk' + idPure;
+            idDate = 'id_inp_dte' + idPure;
+            idNum = 'id_inp_num' + idPure;
+            document.getElementById(idRow).style.display='none'; 
+            document.getElementById(idCheck).disabled = true;
+            document.getElementById(idDate).disabled = true;
+            document.getElementById(idNum).disabled = true;
+
+            // console.log('idRow: ' + idRow); 
+            // console.log('idCheck: ' + idCheck);
+            // console.log('idDate: ' + idDate);
+            // console.log('idNum: ' + idNum);
+        }
+        //console.log(checkItens[i].id);
+    }
+}
+
+
 function showToChangeValidable(type = '')
 {
     list = document.getElementById('list_validate');
@@ -230,15 +300,19 @@ function showToChangeValidable(type = '')
 
     listDisplay = 'none';
     changeDisplay = 'flex';
+    loadValidablesToChange();
 
     if (type == 'back')
     {
+        loadValidablesToChange('back');
         listDisplay = 'flex';
         changeDisplay = 'none';
     }
+    
 
     list.style.display = listDisplay;
     change.style.display = changeDisplay;
+    
 
     // console.log(a);
     // a.classList.add('hide');

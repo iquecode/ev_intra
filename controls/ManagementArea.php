@@ -115,9 +115,9 @@ class ManagementArea
 
     public function updateValidateList()
     {
-        echo "UPDATEVaLIDATElIST!";
-        echo "<pre>";
-        print_r($_POST);
+        // echo "UPDATEVaLIDATElIST!";
+        // echo "<pre>";
+        // print_r($_POST);
 
         $userDao = new UserDaoMysql();
 
@@ -135,8 +135,15 @@ class ManagementArea
         $action = isset($params['delete'])   ? 'delete'   : ''; 
         $action = isset($params['change'])   ? 'change'   : $action;
         $action = isset($params['validate']) ? 'validade' : $action; 
+        $action = isset($params['conf_change']) ? 'conf_change' : $action; 
 
+        // $dateEntry =  isset($params['data_deposito'])  ? $params['data_deposito'] : null;   
+        // $valueEntry = isset($params['valor_deposito']) ? $params['valor_deposito'] : null;  
 
+        // $dataEntry = [];
+        // $valueEntry = [];
+
+        // echo "pre";
         foreach ($idsEntries as $idEntry) 
         {
             switch ($action) 
@@ -145,7 +152,9 @@ class ManagementArea
                     $userDao->validateEntry($idEntry);   
                     break;
                 case 'conf_change':
-                    $userDao->changeValidableEntry($idEntry);
+                    $dateEntry =  $params["data_deposito{$idEntry}"];
+                    $valueEntry = $params["valor_deposito{$idEntry}"];
+                    $userDao->changeValidableEntry($idEntry, $dateEntry, $valueEntry);
                     break;
                 case 'delete':
                     $userDao->deleteValidableEntry($idEntry);   
@@ -155,6 +164,15 @@ class ManagementArea
                     break;
             }
         }   
+
+
+        // echo '<pre>';
+        // print_r($dateEntry);
+        // echo '<pre>';
+        // print_r($valueEntry);
+
+        header('location: index.php?class=ManagementArea');
+        exit;
 
         // if (isset($params['validate'])) 
         // {
