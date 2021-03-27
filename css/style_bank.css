@@ -1,0 +1,133 @@
+ .models 
+ {
+     display: none;
+ }
+ 
+ #bank_statment
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+   
+}
+
+#form_load_bank_st, #list_load_bank_st
+{
+    margin-top: 50px;
+}
+
+
+
+.title_deposits
+{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+
+.deposit_load_bank {
+    display: flex;
+    width: 100%;
+    background: #Fafafa;
+    border-radius: 10px 10px 10px 10px; 
+    box-shadow: 5px 5px 5px #BDBDBD;
+    padding: 10px;
+    justify-content: space-between;
+    margin-top: 40px ;
+
+    /* color: #546E7A;
+    font-weight: bold; */
+  } 
+
+  .deposit_load_bank p
+  {
+      padding: 10px;
+  }
+
+  .item_deposit
+  {
+      margin-left: 20px;
+      margin-right: 10px;
+
+  }
+
+  .obs_deposit
+  {
+      margin-right: 20px;
+      margin-left: 10px;
+  }
+
+  #title_tb_load_bank
+  {
+    width: 100%;
+  }
+
+  #title_tb_load_bank tr
+  {
+    text-align: center;
+  }
+
+
+  
+  #tb_load_bank tr:nth-child(even) {
+    background: #EEEEEE;
+  } 
+
+
+  #check_all_deposits 
+  {
+    margin-left: 41px;
+  }
+  
+  /* #tb_load_bank td {
+    font-weight: normal;
+  }
+  
+  #tb_load_bank th{
+    font-size: 1.1em;
+    vertical-align: middle;
+  }
+   */
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tb_load_bank
+{
+    width: 100%;
+    border-radius: 10px;
+    background-color:#fafafa;
+    box-shadow: 5px 5px 5px #BDBDBD;
+    
+
+
+}
+
+#tb_load_bank p
+{
+   text-align: left;
+   padding: 3px;
+}
+
+/* #tb_load_bank tr
+{
+   
+} */

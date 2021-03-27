@@ -1,0 +1,94 @@
+<div id="bank_statment">
+
+    <div class="models">
+
+        <div class="deposit_load_bank">
+            <div class="item_deposit">
+                <p><input type="checkbox" class="check_validable_entry1"  
+                    name="check{id_entry}"  onchange="checkAllChecks()"></p>
+                <p class="date_bkst"></p>
+                <p class="quota_bkst"></p>
+                <p class="value_bkst"></p>
+            </div>
+            <div class="obs_deposit">
+                <p>Validar depósito com status "a validar":<p>
+                <p>Data: 01/03/2021</p>
+                <p>Cota: 93 - Ique - Henrique Finco Mariani</p>
+                <p>Valor: 176,93</p>
+            </div>
+       </div>
+    </div>
+
+
+
+
+
+
+    <form id='form_load_bank_st' enctype="multipart/form-data">
+        <label for="img">Selecione o arquito TXT do extrato</label>
+        <!-- MAX_FILE_SIZE deve preceder o campo input bytes-->
+        <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+        <input type="file" id="txt" name="extrato" accept="text/plain" />
+        <span id= 'btn' onclick="loadFile()">Carregar Arquivo</span>
+    </form>
+
+
+    <div id="list_load_bank_st">
+
+        
+
+
+        <div class="title_deposits">
+            <input type="checkbox" class="check_validable_entry1" id="check_all_deposits" 
+            name="check{id_entry}"  onchange="checkAllChecks()">
+            <div id="">
+                <p></p>
+                <p>Identificados</p>
+            </div>
+            <div>
+                <p>Obs</p>
+            </div>
+       </div>
+       
+
+      
+
+       <div id="include_models">
+
+        
+       </div>
+
+
+
+
+       </div>
+
+
+        <!-- <table id="tb_load_bank">
+            <tr>
+                <th>Identificados</th>
+                <th>Obs</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Data: 01/03/2021</p>
+                    <p>Cota: 93 - Ique - Henrique Finco Mariani</p>
+                    <p>Valor: 176,93</p>
+                </td>
+                <td>
+                    <p>Baxar depósito a Validar<p>
+                    <p>Data: 01/03/2021</p>
+                    <p>Cota: 93 - Ique - Henrique Finco Mariani</p>
+                    <p>Valor: 176,93</p>
+                </td>
+            </tr>
+        </table>  -->
+    </div>
+
+
+
+
+</div>
+
+

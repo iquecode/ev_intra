@@ -58,18 +58,23 @@ class ManagementArea
     {
         $title = 'Área de Administração';
         $css ='css/style_management.css';
+        $css2 ='css/style_bank.css';
         $js ='js/jsManagementArea.js';
         $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
         $listValidate = new ListValidate($this->getValidableEntries());
 
         $listChange = new ListValidate($this->getValidableEntries(), 2);   
 
-        $content = $statmentsArea->getHTML() . $listValidate->getHTML() . $listChange->getHTML();
+        
+        $templateLoadBankSt =  $_SERVER['DOCUMENT_ROOT'] . "/ev_intra/html/management_area/bank_statment/bank_statment.html"; 
+        $loadBankSt = file_get_contents($templateLoadBankSt);
+
+        $content = $statmentsArea->getHTML() . $listValidate->getHTML() . $listChange->getHTML() . $loadBankSt;
 
         //$content = $statmentsArea->getHTML() . $listValidate->getHTML();
 
         $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/header/header.html');
-        $this->html = new Layout($title, $css, $js, $content, 2, $header);
+        $this->html = new Layout($title, $css, $js, $content, 3, $header, '', $css2);
     }
 
     public function show()

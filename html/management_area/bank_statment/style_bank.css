@@ -1,0 +1,14 @@
+ #bank_statment
+{
+    display: flex;
+    flex-direction: column;
+    /* width: 620px; */
+    justify-content: center;
+    width: 90%;
+    background-color: red;
+}
+
+#form_load_bank_st, #list_load_bank_st
+{
+    margin-top: 50px;
+}
