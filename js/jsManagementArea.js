@@ -161,10 +161,27 @@ function loadValidablesToChange(type='')
             inpDisabled = true;
         }
 
-        document.getElementById(idRow).style.display=typeDisplay; 
-        document.getElementById(idCheck).disabled = inpDisabled;
-        document.getElementById(idDate).disabled = inpDisabled;
-        document.getElementById(idNum).disabled = inpDisabled;
+        
+        itemRow = document.getElementById(idRow);
+        itemCheck = document.getElementById(idCheck);
+        itemDate = document.getElementById(idDate);
+        itemNum = document.getElementById(idNum);
+
+        if (itemRow != null) itemRow.style.display = typeDisplay; 
+        if (itemCheck != null) itemCheck.disabled = inpDisabled;
+        if (itemDate != null) itemDate.disabled = inpDisabled;
+        if (itemNum != null) itemNum.disabled = inpDisabled;
+        
+        
+        // console.log('idRow: ' + idRow);
+        // console.log(document.getElementById(idRow));
+        // console.log('type displat: ' + typeDisplay);
+        // console.log( document.querySelector('#'+idRow) );
+
+        //document.getElementById(idRow).style.display=typeDisplay; 
+        // document.getElementById(idCheck).disabled = inpDisabled;
+        // document.getElementById(idDate).disabled = inpDisabled;
+        // document.getElementById(idNum).disabled = inpDisabled;
     }
 }
 
