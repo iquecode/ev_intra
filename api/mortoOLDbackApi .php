@@ -1,5 +1,5 @@
 <?php
-//require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+// require_once(__DIR__.'/../db/UserDaoMysql.php');
 // require_once(__DIR__.'/../classes/User.php');
 // require_once(__DIR__.'/../controls/parts/Statment.php');
 // require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/helper.php');
@@ -56,7 +56,6 @@
 
 
 require_once 'LoadStatment.php';
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
 
 
 $tmp_name = $_FILES['file']['tmp_name'];
@@ -68,36 +67,13 @@ $tmp_name = $_FILES['file']['tmp_name'];
 
 $handler = new LoadStatment($tmp_name);
 
-$dao = new UserDaoMysql;
-$validableEntries = $dao->getAllEntries('all');
-
-$validables = [];
-// $validables['id'] = []; 
-// $validables['date'] = [];
-// $validables['value'] = [];
-// $validables['user_id'] = [];
-// $validables['user_quota'] = [];
-// $validables['user_info'] = [];
-$i = 0;
-foreach ($validableEntries as $validable) 
-{
-    $validables[$i]['id'] =   $validable['entry']->getId(); 
-    $validables[$i]['date'] = $validable['entry']->getDate();
-    $validables[$i]['value'] = $validable['entry']->getValue(); 
-    $validables[$i]['user_id'] = $validable['entry']->getUserId();
-    $validables[$i]['status'] = $validable['entry']->getStatus();
-    $validables[$i]['user_quota'] = $validable['user_quota'];
-    $validables[$i]['user_info'] = $validable['user_info'];  
-    $i++;
-}
 
 
 // $debug = print_r($handler->getDeposits(), true);
 // file_put_contents('logStat.txt', $debug);
 
 //$data = [$_POST, $handler->getCashFlow()];
-$data = ['deposits'           => $handler->getDeposits(), 
-         'validable_entries'  => $validables];
+$data = $handler->getDeposits();
 
 $debug = print_r($data, true);
 file_put_contents('logStat.txt', $debug);

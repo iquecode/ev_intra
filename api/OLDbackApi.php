@@ -69,7 +69,7 @@ $tmp_name = $_FILES['file']['tmp_name'];
 $handler = new LoadStatment($tmp_name);
 
 $dao = new UserDaoMysql;
-$validableEntries = $dao->getAllEntries('all');
+$validableEntries = $dao->getAllEntries();
 
 $validables = [];
 // $validables['id'] = []; 
@@ -85,7 +85,6 @@ foreach ($validableEntries as $validable)
     $validables[$i]['date'] = $validable['entry']->getDate();
     $validables[$i]['value'] = $validable['entry']->getValue(); 
     $validables[$i]['user_id'] = $validable['entry']->getUserId();
-    $validables[$i]['status'] = $validable['entry']->getStatus();
     $validables[$i]['user_quota'] = $validable['user_quota'];
     $validables[$i]['user_info'] = $validable['user_info'];  
     $i++;

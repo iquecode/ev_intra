@@ -180,11 +180,34 @@ Class LoadStatment {
 
 
 
-    public function getDepositsWithValidable()
-    {
+    // public function getDepositsWithValidables()
+    // {
 
-        $this->getDeposits();
-    }
+    //     $dao = new UserDaoMysql();
+    //     $validableEntries = $dao->getAllValidableEntries();
+    //     $deposits = $this->getDeposits();
+    //     $AllvalidableEntries = $validableEntries;
+
+
+    //     foreach ($deposits as $deposit)
+    //     {
+
+
+    //         $validableEntries[] = ['entry'=>$entry, 'user_info'=>$userInfo, 'user_quota' => $u->getQuota() ];
+    //         foreach ($validableEntries as $validable)
+    //         {
+    //             if ( $deposit['date'] == $validable->getDate() && $deposit['value'] == $validable->getValue() &&
+    //                  $deposit['date'] == $validable->getDate() ) 
+    //         }
+
+
+
+    //     } 
+
+
+
+
+    // }
 
 
         

@@ -111,6 +111,7 @@ class UserDaoMysql implements UserDao {
                     $e->setUserRecorder($item['record_user']);
                     $e->setStatus($item['status']);
                     $e->setImg($item['img']);
+                    $e->setUserId($item['id_user']);   //nova
                     $entryId = $e->getId();
                     array_push($entries, $e);
                 }
@@ -418,8 +419,26 @@ class UserDaoMysql implements UserDao {
     }
 
 
-    
+    public function getAllEntries($status='validable')
+    {       
+        $allUsers = $this->findAllWithEntries();
+        $validableEntries = [];
+        foreach ($allUsers as $u) 
+        {
+            foreach ($u->getEntries() as $entry)
+            {
+                $validable = $entry->getStatus() == 0 ? true : false;
+                if ($validable || $status != 'validable')  
+                {
+                    $userInfo = $u->getQuota() . ' - ' . $u->getNickName() . ' - ' . $u->getName();
+                    //$validableEntries[] = array ('entry'=>$entry, 'user_info'=>$userInfo); 
+                    $validableEntries[] = ['entry'=>$entry, 'user_info'=>$userInfo, 'user_quota' => $u->getQuota() ];
+                }
+                
 
-
+            }   
+        }
+        return $validableEntries; 
+    }
 
 }
