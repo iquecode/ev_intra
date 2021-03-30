@@ -40,6 +40,11 @@
             </div>
         </div>
 
+        <input class="input_toRecord_userId" type="hidden" />
+        <input class="input_toRecord_date" type="hidden" />
+        <input class="input_toRecord_value" type="hidden" />
+        <input class="input_toRecord_validable" type="hidden" />
+
 
     </div>
 
@@ -76,6 +81,14 @@
             <span class="warning">Atenção! Depois da gravação ainda irão constar os seguintes depósitos a validar, o que representará pendência para a conciliação bancária!</span>
         </div>
        <div id="pending_validables"></div>
+
+
+        <form id='form_recordLoadBankSt' method='POST' action="action='index.php?class=ManagementArea&method=recorderBankSt'">
+            <input type="submit" value="EXECUTAR GRAVAÇÃO / VALIDAÇÃO" />
+        </form>
+
+
+
 
 
     </div>

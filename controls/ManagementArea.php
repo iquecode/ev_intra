@@ -188,7 +188,14 @@ class ManagementArea
         //         $userDao->validateEntry($idEntry);
         //     }   
         // } 
-        
+    }
+
+
+
+    public function recorderBankSt()
+    {
+        $userDao = new UserDaoMysql();
+        $params = $_POST;
 
     }
 

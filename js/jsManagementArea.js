@@ -459,11 +459,31 @@ for (i=0; i < depositsToRecord.length; i++)
 
 depositsToRecord.map((item, index)=>{
     let depositToRecordItem = document.querySelector('.models .deposit_load_bank').cloneNode(true);
+    let inputUserId = document.querySelector('.models .input_toRecord_userId').cloneNode(true); 
+    let inputDate = document.querySelector('.models .input_toRecord_date').cloneNode(true);
+    let inputValue = document.querySelector('.models .input_toRecord_value').cloneNode(true); 
+    let inputToValidable = document.querySelector('.models .input_toRecord_validable').cloneNode(true);   
+    console.log(inputToValidable);                     
     toRecord = item[0];
     toValidate = item[1];
     depositToRecordItem.querySelector('.date_bkst').innerHTML = toRecord.date;
     depositToRecordItem.querySelector('.quota_bkst').innerHTML = `${toRecord.quota} - ${toRecord.name} - ${toRecord.nickname}`;
     depositToRecordItem.querySelector('.value_bkst').innerHTML = toRecord.value;
+
+    inputUserId.setAttribute('id', 'toRecord_userId' + index);
+    inputUserId.setAttribute('name', 'toRecord_userId' + index);
+    inputUserId.setAttribute('value', toRecord.id_user);
+
+    inputDate.setAttribute('id', 'toRecord_date' + index);
+    inputDate.setAttribute('name', 'toRecord_date' + index);
+    inputDate.setAttribute('value', toRecord.date);
+
+    inputValue.setAttribute('id', 'toRecord_value' + index);
+    inputValue.setAttribute('name', 'toRecord_value' + index);
+    inputValue.setAttribute('value', toRecord.value);
+
+    
+    let foundToValidabe = false;
     if (toValidate == '') {
         depositToRecordItem.querySelector('.msg_toValidate').innerHTML = 'Sem lançamento a validar com os mesmos parametros do depósito identificado no extrato!';
     }
@@ -473,8 +493,23 @@ depositsToRecord.map((item, index)=>{
         depositToRecordItem.querySelector('.date_toValidate').innerHTML = toValidate.date;
         depositToRecordItem.querySelector('.quota_toValidate').innerHTML = toValidate.user_info;
         depositToRecordItem.querySelector('.value_toValidate').innerHTML = toValidate.value;
+
+        console.log("AAAAAAAA!!!");
+        foundToValidabe = true;
+        //let inputToValidable = document.querySelector('.models .input_toRecord_validable').cloneNode(true);
+        inputToValidable.setAttribute('id', 'toValidable_id' + index);
+        inputToValidable.setAttribute('name', 'toValidable_id' + index);
+        inputToValidable.setAttribute('value', toValidate.id);
+
+
     }
     document.querySelector('#toRecord_deposits').append( depositToRecordItem );
+
+    document.querySelector('#form_recordLoadBankSt').append( inputUserId );
+    document.querySelector('#form_recordLoadBankSt').append( inputDate );
+    document.querySelector('#form_recordLoadBankSt').append( inputValue );
+    
+    if (foundToValidabe) document.querySelector('#form_recordLoadBankSt').append( inputToValidable );
 });
 
 
