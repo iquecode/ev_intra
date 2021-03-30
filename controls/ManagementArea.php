@@ -169,25 +169,8 @@ class ManagementArea
                     break;
             }
         }   
-
-
-        // echo '<pre>';
-        // print_r($dateEntry);
-        // echo '<pre>';
-        // print_r($valueEntry);
-
         header('location: index.php?class=ManagementArea');
         exit;
-
-        // if (isset($params['validate'])) 
-        // {
-        //     echo "VALIDATE SETADO!<br><br>";
-        //     print_r($idsEntries);
-        //     foreach ($idsEntries as $idEntry) 
-        //     {
-        //         $userDao->validateEntry($idEntry);
-        //     }   
-        // } 
     }
 
 
@@ -196,10 +179,54 @@ class ManagementArea
     {
         $userDao = new UserDaoMysql();
         $params = $_POST;
-
+        $toRecord = [];
+        $toValidable = [];
+        foreach ($params as $param => $value)
+        {
+            //echo $param . "=> {$value}";
+            if (substr($param, 0, 8) == 'toRecord')
+            {
+                if (substr($param, 9, 6) == 'userId')
+                {
+                    $i = substr($param, 15);
+                    $toRecord[$i]['id_user'] = $value;
+                }
+                if (substr($param, 9, 4) == 'date')
+                {
+                    $i = substr($param, 13);
+                    $toRecord[$i]['entry_date'] = $value;
+                }
+                if (substr($param, 9, 5) == 'value')
+                {
+                    $i = substr($param, 14);
+                    $toRecord[$i]['value'] = $value;
+                }
+            }
+            if (substr($param, 0, 11) == 'toValidable')
+            {
+                $toValidable[] = $value;                
+            }
+        }
+        foreach ($toRecord as $itemToRecord)
+        {
+            extract($itemToRecord);
+            $record_user = $_SESSION['userId'];
+            $status = 1;
+            $img=null;
+            $description = "depósito / amorização";
+            $id_entry_type = 4;
+            //echo "id_user: {$id_user}... entry_date: {$entry_date}... description: {$description}... value: {$value}...
+            //       id_entry_type: {$id_entry_type}... record_user: {$record_user}... status: {$status}... img{$img}<br><br>";
+            $userDao->addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, 
+            $status, $img);
+        }
+        foreach ($toValidable as $idValidated)
+        {
+            $userDao->deleteValidableEntry($idValidated);
+        }
+        header('location: index.php?class=ManagementArea');
+        exit;
     }
 
     
-
-
 }
