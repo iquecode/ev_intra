@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . DIR_BASE . 'db/UserDaoMysql.php');
 
 Class LoadFile {
 
@@ -9,7 +9,7 @@ Class LoadFile {
 
     public function __construct($validableEntries=[], $type=1)  //1- normal   2-change
     {
-         $template = $_SERVER['DOCUMENT_ROOT'] . "/ev_intra/html/management_area/list_validate/list_validate{$type}.html";   
+         $template = $_SERVER['DOCUMENT_ROOT'] . DIR_BASE . "html/management_area/list_validate/list_validate{$type}.html";   
          $this->html = file_get_contents($template);
          $this->validableEntries = $validableEntries;
          $this->type = $type;
@@ -36,7 +36,7 @@ Class LoadFile {
                 $value = num($value);
             }
 
-            $template_item = $_SERVER['DOCUMENT_ROOT'] . "/ev_intra/html/management_area/list_validate/list_item{$this->type}.html";
+            $template_item = $_SERVER['DOCUMENT_ROOT'] . DIR_BASE . "html/management_area/list_validate/list_item{$this->type}.html";
             $item = file_get_contents($template_item);
             $item = str_replace( '{date}',       $date,                  $item);
             $item = str_replace( '{quota}',      $e['user_info'],        $item);   

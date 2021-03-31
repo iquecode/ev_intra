@@ -1,5 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+//require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+require_once('../db/UserDaoMysql.php');
 
 Class LoadStatment {
    private $stat;
@@ -79,7 +80,7 @@ Class LoadStatment {
             $i++;
         }
 
-        $dir = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/upload/cash_flow/';
+        $dir = $_SERVER['DOCUMENT_ROOT'] . DIR_BASE . 'upload/cash_flow/';
         $fileName = 'fc' . time() . '.csv';
         $file = fopen($dir . $fileName, 'w');
 
@@ -95,6 +96,8 @@ Class LoadStatment {
         // print '<pre>';
         // print_r($cashFlow);
         return ['array' => $cashFlow, 'file' => $fileName];
+        //return ['array' => 'a', 'file' => 'b'];
+
     }
 
 

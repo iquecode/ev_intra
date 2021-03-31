@@ -1,7 +1,12 @@
 <?php
+
 require_once 'LoadStatment.php';
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+//require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
+require_once('../db/UserDaoMysql.php');
 $tmp_name = $_FILES['file']['tmp_name'];
+
+$debug = print_r($tmp_name, true);
+file_put_contents('logStat.txt', $debug);
 
 $handler = new LoadStatment($tmp_name);
 $dao = new UserDaoMysql;
@@ -26,7 +31,7 @@ $data = ['deposits'           => $handler->getDeposits(),
          'cf_array'           => $cF['array'],
          'cf_file'            => $cF['file']
         ];
-
+        
 //$debug = print_r($data, true);
 //file_put_contents('logStat.txt', $debug);
 header("Access-Control-Allow-Origin: *");

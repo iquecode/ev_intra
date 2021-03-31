@@ -61,10 +61,10 @@ class ManagementArea
         $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
         $listValidate = new ListValidate($this->getValidableEntries());
         $listChange = new ListValidate($this->getValidableEntries(), 2);   
-        $templateLoadBankSt =  $_SERVER['DOCUMENT_ROOT'] . "/ev_intra/html/management_area/bank_statment/bank_statment.html"; 
+        $templateLoadBankSt =  $_SERVER['DOCUMENT_ROOT'] . DIR_BASE . "html/management_area/bank_statment/bank_statment.html"; 
         $loadBankSt = file_get_contents($templateLoadBankSt);
         $content = $statmentsArea->getHTML() . $listValidate->getHTML() . $listChange->getHTML() . $loadBankSt;
-        $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/header/header.html');
+        $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . DIR_BASE . 'html/management_area/header/header.html');
         $this->html = new Layout($title, $css, $js, $content, 3, $header, '', $css2);
     }
 
