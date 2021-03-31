@@ -41,9 +41,7 @@ class PrivateArea
                 $bankData->getHTML() . $opt->getHTML();
 
         if ($isAdmin) {
-            //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
-        // apelido e nome de todos usuários, para colocar no select para consulta no final da página
-            $allUsers = $userDao->findAll(); // <-aqui
+            $allUsers = $userDao->findAll(); 
             $adminOpt = new AdminOpt($allUsers);
             $content .= $adminOpt->getHTML(); 
         } 
@@ -57,6 +55,5 @@ class PrivateArea
     public function show()
     {
         $this->html->show();
-        //print 'Olá... eu sou a área privada!!! : )';
     }
 }

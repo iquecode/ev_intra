@@ -22,14 +22,12 @@ Class Update {
          $this->nickname = $nickname;
          $this->name = $name;
          $this->email = $email;
-
          $this->error = 0;   //0 nenhum erro ERROR[0]='' 1..3 elementos da constante de classe ERROR
          $this->displayError = 'none';
     }
 
     public function load()
     {
-        
         $e = $this->error;
         $this->displayError = 'none';
         if ($e==1 || $e==2 || $e==3 ) {
@@ -40,7 +38,6 @@ Class Update {
             $this->error=0;
         }
 
-        
         $this->html = str_replace('{nickname}', $this->nickname,            $this->html);
         $this->html = str_replace('{quota}',    $this->quota,               $this->html);
         $this->html = str_replace('{name}',     $this->name,                $this->html);
@@ -68,7 +65,6 @@ Class Update {
 
     public function getError($i) {
         return self::ERROR[$this->error];
-        //return $this->error;
     }
 
 }

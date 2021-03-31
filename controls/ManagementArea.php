@@ -6,7 +6,6 @@ require_once 'controls/StatmentsArea.php';
 require_once 'controls/parts/Msg.php';
 require_once 'controls/parts/ListValidate.php';
 
-
 class ManagementArea
 {
     private $html;
@@ -53,7 +52,6 @@ class ManagementArea
     }
 
 
-
     public function load()
     {
         $title = 'Área de Administração';
@@ -62,17 +60,10 @@ class ManagementArea
         $js ='js/jsManagementArea.js';
         $statmentsArea = new StatmentsArea($this->allUsers, $this->entryTypes);
         $listValidate = new ListValidate($this->getValidableEntries());
-
         $listChange = new ListValidate($this->getValidableEntries(), 2);   
-
-        
         $templateLoadBankSt =  $_SERVER['DOCUMENT_ROOT'] . "/ev_intra/html/management_area/bank_statment/bank_statment.html"; 
         $loadBankSt = file_get_contents($templateLoadBankSt);
-
         $content = $statmentsArea->getHTML() . $listValidate->getHTML() . $listChange->getHTML() . $loadBankSt;
-
-        //$content = $statmentsArea->getHTML() . $listValidate->getHTML();
-
         $header = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/management_area/header/header.html');
         $this->html = new Layout($title, $css, $js, $content, 3, $header, '', $css2);
     }
@@ -83,28 +74,10 @@ class ManagementArea
         $this->html->show();
     }
 
-    
-    
-    
-    //$entry_date, $id_entry_type, $description, $value  -> passados na requisição 
-    //$record_user, $id_user,
-
-    //falta:  
-    //$status
-    //$img
 
     public function saveEntryUser($params)
     {
-        // echo "AQUI É O savesaveEntryUser() da Classe ManagementArea!";    
-        // echo "<pre>";
-        // print_r($params); 
-        // echo "<br><br>";
-        // print_r($_SESSION['userId']); //recor user.
-        
-       
-
         extract($params);
-        //print_r($description);
         $record_user = $_SESSION['userId'];
         $status = 1;
         $img=null;
@@ -114,20 +87,15 @@ class ManagementArea
 
         header ('location: index.php?class=ManagementArea');
         exit;
-        // return true;
     }
 
 
     public function updateValidateList()
     {
-        // echo "UPDATEVaLIDATElIST!";
-        // echo "<pre>";
-        // print_r($_POST);
-
         $userDao = new UserDaoMysql();
-
         $params = $_POST;
         $idsEntries = [];
+
         foreach ($params as $param => $value)
         {
             if (substr($param, 0, 5) == 'check' && $param != 'check_all')
@@ -136,19 +104,11 @@ class ManagementArea
             }  
         }
 
-        
         $action = isset($params['delete'])   ? 'delete'   : ''; 
         $action = isset($params['change'])   ? 'change'   : $action;
         $action = isset($params['validate']) ? 'validade' : $action; 
         $action = isset($params['conf_change']) ? 'conf_change' : $action; 
 
-        // $dateEntry =  isset($params['data_deposito'])  ? $params['data_deposito'] : null;   
-        // $valueEntry = isset($params['valor_deposito']) ? $params['valor_deposito'] : null;  
-
-        // $dataEntry = [];
-        // $valueEntry = [];
-
-        // echo "pre";
         foreach ($idsEntries as $idEntry) 
         {
             switch ($action) 
@@ -169,10 +129,10 @@ class ManagementArea
                     break;
             }
         }   
+
         header('location: index.php?class=ManagementArea');
         exit;
     }
-
 
 
     public function recorderBankSt()
@@ -183,7 +143,6 @@ class ManagementArea
         $toValidable = [];
         foreach ($params as $param => $value)
         {
-            //echo $param . "=> {$value}";
             if (substr($param, 0, 8) == 'toRecord')
             {
                 if (substr($param, 9, 6) == 'userId')
@@ -207,6 +166,7 @@ class ManagementArea
                 $toValidable[] = $value;                
             }
         }
+
         foreach ($toRecord as $itemToRecord)
         {
             extract($itemToRecord);
@@ -215,18 +175,17 @@ class ManagementArea
             $img=null;
             $description = "depósito / amorização";
             $id_entry_type = 4;
-            //echo "id_user: {$id_user}... entry_date: {$entry_date}... description: {$description}... value: {$value}...
-            //       id_entry_type: {$id_entry_type}... record_user: {$record_user}... status: {$status}... img{$img}<br><br>";
             $userDao->addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, 
             $status, $img);
         }
+
         foreach ($toValidable as $idValidated)
         {
             $userDao->deleteValidableEntry($idValidated);
         }
+
         header('location: index.php?class=ManagementArea');
         exit;
     }
 
-    
 }

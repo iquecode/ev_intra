@@ -6,7 +6,6 @@ require_once 'db/UserDaoMysql.php';
 class LoginArea
 {
     private $html;
-    //private $data;
     
     public function __construct()
     {

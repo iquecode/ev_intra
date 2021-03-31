@@ -10,14 +10,9 @@ Class Statment {
     private $check;
     private $userId;
 
-    //$stFutures = new Statment($futureEntries, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
-    // public function __construct($entries=[], $class='futuros', $title='Lançamentos Futuros',
-    //                             $strTotal='Total lançamentos futuros', $check=false)
-
     public function __construct($entries=[], $userId, $class='extrato', $title='Demonstrativo Financeiro',
                                 $strTotal='Saldo atual', $check=true)
     {
-        
          $file = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/html/statment/statment.html';   
          $this->html = file_get_contents($file);
          $this->entries = $entries;
@@ -58,8 +53,7 @@ Class Statment {
             $item = str_replace( '{value}',         num($value),    $item);
             $item = str_replace( '{neg_pos}',       $neg_pos,       $item);            
             $total = $total + $value;
-            // armazena lançamentos futuros
-            //array_push($futureEntries, $entry);  
+            // armazena lançamentos futuros  
             $items .= $item;         
         }
 
@@ -82,7 +76,6 @@ Class Statment {
             $stat = str_replace('{link}',    '',     $stat);
         }
         
-
         $this->html = $stat;  
     }
 
@@ -90,7 +83,6 @@ Class Statment {
     {
         $this->load();
         print $this->html;
-
     }
 
     public function getHTML() {

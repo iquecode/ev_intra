@@ -3,6 +3,7 @@ function setTwoNumberDecimal() {
     console.log(this.value);
 }
 
+
 function changeStatment()
 {
     let select = document.getElementById('input_admin');
@@ -18,6 +19,7 @@ function changeStatment()
     document.getElementById('id_user').value = id_select; 
 }
 
+
 function changeTypeEntry() 
 {
     const select = document.getElementById('id_entry_type');
@@ -25,6 +27,7 @@ function changeTypeEntry()
     const inputDesc = document.getElementById('description');
     inputDesc.value = text.substring(12); 
 }
+
 
 function expandEntryUser() 
 {
@@ -35,6 +38,7 @@ function expandEntryUser()
     const selectIdType = document.getElementById('id_entry_type');
     selectIdType.selectedIndex = 0;
 }
+
 
 function showArea(area) {
     document.getElementById('statments_area').style.display = 'none';
@@ -51,12 +55,12 @@ function showArea(area) {
             document.getElementById('bank_statment').style.display = 'flex';
             break;
         case 'post_entries':
-           // document.getElementById('post_entries').style.display = 'flex';
             break;
         default:
             break;
     }
 }
+
 
 function markAll()
 {
@@ -68,6 +72,7 @@ function markAll()
     }
     checkAllChecks();
 }
+
 
 function checkAllChecks()
 {
@@ -109,10 +114,12 @@ function checkAllChecks()
     }
 }
 
+
 function ask(msg="Confirma a operação?"){ 
     // retorna true se confirmado, ou false se cancelado
     return confirm(msg);
  }
+
 
 function loadValidablesToChange(type='')
 {
@@ -144,6 +151,7 @@ function loadValidablesToChange(type='')
     }
 }
 
+
 function showToChangeValidable(type = '')
 {
     list = document.getElementById('list_validate');
@@ -161,6 +169,7 @@ function showToChangeValidable(type = '')
     change.style.display = changeDisplay;
 }
 
+
 function removeAllChildren(parentId)
 {
     const e = document.getElementById(parentId);
@@ -168,6 +177,7 @@ function removeAllChildren(parentId)
         e.removeChild(e.firstChild);
     }
 }
+
 
 function loadViewDeposits(deposits, allEntries, cashFlow='')
 {
@@ -177,10 +187,8 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
     depositsNoRecord = [];
     loopValidables = false;
     validables = [];
-    
     document.querySelector('#linkCashFlow').setAttribute('href', cashFlow);
     document.querySelector('#divLinkCashFlow').style.display = 'flex'; 
-
     removeAllChildren("toRecord_deposits");
     removeAllChildren("noRecord_deposits");
     removeAllChildren("pending_validables");
@@ -272,10 +280,7 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
         let confirmRecord = document.querySelector('.models .input_confirmRecord').cloneNode(true); 
         let confirmValidable = document.querySelector('.models .input_confirmValidable').cloneNode(true);
         let remover = document.querySelector('.models .remove_toRecord').cloneNode(true);
-        // let msgToVaidate = document.querySelector('. models .msg_toValidate');
-        
-
-        //console.log(inputToValidable);                     
+                           
         toRecord = item[0];
         toValidate = item[1];
         depositToRecordItem.querySelector('.date_bkst').innerHTML = toRecord.date;
@@ -301,11 +306,7 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
         confirmRecord.setAttribute('value', 1);
 
         remover.setAttribute('id', 'remover'+index);
-
-
         depositToRecordItem.querySelector('.msg_toValidate').setAttribute('id', 'msg_toValidate' + index );
-
-
 
         let foundToValidabe = false;
         if (toValidate == '') {
@@ -326,18 +327,14 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
             confirmValidable.setAttribute('value', 1);
         }
 
-
-        //depositToRecordItem.append(remover);
         depositToRecordItem.prepend(remover);
         depositToRecordItem.prepend(remover);
-
         document.querySelector('#toRecord_deposits').append( depositToRecordItem );
         document.querySelector('#form_recordLoadBankSt').append( inputUserId );
         document.querySelector('#form_recordLoadBankSt').append( inputDate );
         document.querySelector('#form_recordLoadBankSt').append( inputValue );
         document.querySelector('#form_recordLoadBankSt').append( confirmRecord );
         document.querySelector('#form_recordLoadBankSt').append( confirmValidable );
-        
         
         if (foundToValidabe) document.querySelector('#form_recordLoadBankSt').append( inputToValidable );
     });
@@ -354,7 +351,7 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
         }
         else
         {
-            depositNoRecordItem.querySelector('.msg_entry_similar').innerHTML = 'lançamento já validado similar:';
+            depositNoRecordItem.querySelector('.msg_entry_similar').innerHTML = 'lançamento similar já validado:';
             depositNoRecordItem.querySelector('.date_entry_similar').innerHTML = entrySimilar.date;
             depositNoRecordItem.querySelector('.quota_entry_similar').innerHTML = entrySimilar.user_info;
             depositNoRecordItem.querySelector('.value_entry_similar').innerHTML = entrySimilar.value;
@@ -390,27 +387,23 @@ function loadViewDeposits(deposits, allEntries, cashFlow='')
     document.querySelector('#list_load_bank_st').style.display=displayArea;
 }
 
+
 function removeToRecord(e)
 {
-    //console.log("REMOVE TO RECORD!!!...." + e.classList);
-
     const idRemover = e.getAttribute('id').substring(7);
-
     const form = document.getElementById('form_recordLoadBankSt');
-
     let elements = [];
+
     for(let i = 0; i < form.children.length; i++)
     {
         elements[i] = form.children[i];
     }
 
-
     for(let i = 0; i < elements.length; i++)
     {
         const input = elements[i];
         id = input.getAttribute('id');
-        //console.log("INPUT ID: " + id);
-
+       
         remove= false;
         if ( id != null) 
         {
@@ -420,8 +413,6 @@ function removeToRecord(e)
                     remove = true;
                     id = id.substring(13);
                 }       
-                //console.log('Achou toRecord_date ID :' + id.substring(13));
-                //input.remove();
             }
             if (id.substring(0,15) == 'toRecord_userId')
             {
@@ -429,9 +420,6 @@ function removeToRecord(e)
                     remove = true;
                     id = id.substring(15);
                 }                
-                //console.log('Achou toRecord_user ID :' + id.substring(15));
-                //id.substring(13);
-                //input.remove();
             }
             if (id.substring(0,14) == 'toRecord_value')
             {
@@ -439,8 +427,6 @@ function removeToRecord(e)
                     remove = true;
                     id = id.substring(14);
                 } 
-                //console.log('Achou toRecord_value ID :' + id.substring(14));
-                //input.remove();
             }
             if (id.substring(0,14) == 'toValidable_id')
             {
@@ -448,91 +434,36 @@ function removeToRecord(e)
                     remove = true;
                     id = id.substring(14);
                 }   
-                //console.log('Achou toValidable_id ID :' + id.substring(14));
-                //input.remove();
             }
         }
 
         if ( remove ) 
         {
             form.removeChild(input);   // uma outra alternativa é deixar desabilidato e não remover... assim fica mais fácil implementar a volta no front end
-            //deposit_load_bank
-            //01234567890123456
             const depositsItens = document.getElementsByClassName("deposit_load_bank");
-            //console.log(depositsItens);
             for(let i = 0; i < depositsItens.length; i++)
             {
                 idItem = depositsItens[i].getAttribute('id');
                 if (idItem != null)
                 {
-                    //console.log('idItem : ' + idItem.substring(17) + '.....  id: ' + id);
                     if ( idItem.substring(17) == id ) 
                     {
                         console.log('ACHOU PARA REMOVER DA TELA');
                         document.querySelector('.msg_toValidate').style.display = 'none';
-                        
                         const areaRemoved = document.querySelector('#areaRemoved');
                         const divRemoved = document.querySelector('#removedToRecorder');
                         divRemoved.append( depositsItens[i] );
                         areaRemoved.style.display = 'flex';
-                        
                         document.querySelector('#msg_toValidate' + id).innerHTML = 'Depósito a Validar Vinculado:';
-                        
                         document.querySelector('#remover' + id).innerHTML = '';
-                        
                     }
                 }
-                //console.log('ID : ' + depositsItens[i].getAttribute('id'));
-                //console.log(depositsItens[i]);
             }
-            //document.querySelector('#pending_validables').append(  );
-            //console.log('Removido: ' + id);
         }
-        
-        //toValidable_id
-        //01234567890123 14
-
-        //toRecord_user
-        //0123456789012 13
-        
-        //toRecord_date
-        //0123456789012 13
-
-        //toRecord_value
-        //01234567890123 14
-
-        //toValidable_id
-        //01234567890123 14
-
-
-
-        //toRecord_confirm // não precisa --  tirar
-        //toValidable_confirm // não precisa -- tirar
-
     }
     
-
-
-
-    // inputUserId.setAttribute('id', 'toRecord_userId' + index);
-    //     inputUserId.setAttribute('name', 'toRecord_userId' + index);
-    //     inputUserId.setAttribute('value', toRecord.id_user);
-
-    //     inputDate.setAttribute('id', 'toRecord_date' + index);
-    //     inputDate.setAttribute('name', 'toRecord_date' + index);
-    //     inputDate.setAttribute('value', toRecord.date);
-
-    //     inputValue.setAttribute('id', 'toRecord_value' + index);
-    //     inputValue.setAttribute('name', 'toRecord_value' + index);
-    //     inputValue.setAttribute('value', toRecord.value);
-
-    //     confirmRecord.setAttribute('id', 'toRecord_confirm' + index);
-    //     confirmRecord.setAttribute('name', 'toRecord_confirm' + index);
-    //     confirmRecord.setAttribute('value', 1);
-
-
-
 }
+
 
 function loadFile()
 {

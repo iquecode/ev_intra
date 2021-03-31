@@ -3,7 +3,8 @@ require_once __DIR__.'/../classes/User.php';
 require_once __DIR__.'/../classes/EntryType.php';
 require_once __DIR__.'/../config/config.php';
 
-class UserDaoMysql implements UserDao {
+class UserDaoMysql implements UserDao 
+{
     private static $conn;
 
     // se não existir conexão com o banco de dados, faz conexão e atualiza variável de conexão da classe
@@ -22,9 +23,7 @@ class UserDaoMysql implements UserDao {
                 return $e->getMessage();
             } 
         }
-        // return self::$conn;
     }
-
 
     // avaliar
     public function add(User $u) {
@@ -37,15 +36,14 @@ class UserDaoMysql implements UserDao {
         $sql->bindValue(':pass', $u->getPass());
         $sql->execute();
         //$sql->debugDumpParams();
-        $u->setId( self::$conn->lastInsertId() );
-        //print_r($u); 
+        $u->setId( self::$conn->lastInsertId() ); 
         return $u;
     }
     
-    //não é funcional ainda
-    public function findAll() {
-        //$array = [];
 
+    //não é funcional ainda
+    public function findAll() 
+    {
         $data = false;
         $sql = self::$conn->query('SELECT * FROM users');
         if($sql->rowCount() > 0) {
@@ -64,21 +62,16 @@ class UserDaoMysql implements UserDao {
                   $array[] = $u;
               }          
         }
-
         return $array;
-        //return $data;
     }
 
-
-    //não é funcional ainda                   
-    public function findAllWithEntries() {
-        //$array = [];
-
+                   
+    public function findAllWithEntries() 
+    {
         $data = false;
         $sql = self::$conn->query('SELECT * FROM users');
         if($sql->rowCount() > 0) {
             $data = $sql->fetchAll((PDO::FETCH_ASSOC));
-
 
             foreach($data as $item) {
                 $u = new User();
@@ -91,14 +84,11 @@ class UserDaoMysql implements UserDao {
                 $u->setType($item['user_type']);
                 
                 //Pegar array com os lançamentos relacionados com o User
-                //$userId = $u->getId();
                 $userId = $u->getId();
                 $sqlEntries = self::$conn->prepare('SELECT * FROM entrys WHERE id_user = :id_user');
                 $sqlEntries->bindValue(':id_user', $userId);
                 $sqlEntries->execute();
                 $dataEntries = $sqlEntries->fetchAll(PDO::FETCH_ASSOC);
-                // echo('<br/>'.'Projetos do UserId '.$userId.' : '.'<br/>');
-                //print_r($dataProjects);
                 $entries = [];
                 foreach($dataEntries as $item) {
                     $e = new Entry();
@@ -115,24 +105,17 @@ class UserDaoMysql implements UserDao {
                     $entryId = $e->getId();
                     array_push($entries, $e);
                 }
-                $u->setEntries($entries);   
-                //var_dump($u);  
+                $u->setEntries($entries);    
                 $array[] = $u;
               }          
         }
 
         return $array;
-        //return $data;
-      
-                //$entrys=[]
-                //getEntries() 
-                //setEntries($e)
-      
     }
 
 
-   
-    public function findByEmail($email) {
+    public function findByEmail($email) 
+    {
         $sql = self::$conn->prepare('SELECT * FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
         $sql->execute();
@@ -172,7 +155,6 @@ class UserDaoMysql implements UserDao {
             }
             $u->setEntries($entrys);
            
-            // var_dump($u);
             return $u;
 
         } else {
@@ -180,7 +162,9 @@ class UserDaoMysql implements UserDao {
         }
     }
 
-    public function findById($id) {
+
+    public function findById($id) 
+    {
         $sql = self::$conn->prepare('SELECT * FROM users WHERE id_user = :id_user');
         $sql->bindValue(':id_user', $id);
         $sql->execute();
@@ -197,14 +181,11 @@ class UserDaoMysql implements UserDao {
             $u->setType($data['user_type']);
             
             //Pegar array com os lançamentos relacionados com o User
-            //$userId = $u->getId();
             $userId = $u->getId();
             $sqlEntrys = self::$conn->prepare('SELECT * FROM entrys WHERE id_user = :id_user');
             $sqlEntrys->bindValue(':id_user', $userId);
             $sqlEntrys->execute();
             $dataEntrys = $sqlEntrys->fetchAll(PDO::FETCH_ASSOC);
-            // echo('<br/>'.'Projetos do UserId '.$userId.' : '.'<br/>');
-            //print_r($dataProjects);
             $entrys = [];
             foreach($dataEntrys as $item) {
                 $e = new Entry();
@@ -221,16 +202,15 @@ class UserDaoMysql implements UserDao {
                 array_push($entrys, $e);
             }
             $u->setEntries($entrys);   
-            //var_dump($u);
             return $u;
         } else {
-            //echo 'findByEmail - false';
             return false;
         } 
     }
 
 
-    public function findByQuota($quota) {
+    public function findByQuota($quota) 
+    {
         $sql = self::$conn->prepare('SELECT * FROM users WHERE quota = :quota');
         $sql->bindValue(':quota', $quota);
         $sql->execute();
@@ -247,14 +227,11 @@ class UserDaoMysql implements UserDao {
             $u->setType($data['user_type']);
             
             //Pegar array com os lançamentos relacionados com o User
-            //$userId = $u->getId();
             $userId = $u->getId();
             $sqlEntrys = self::$conn->prepare('SELECT * FROM entrys WHERE id_user = :id_user');
             $sqlEntrys->bindValue(':id_user', $userId);
             $sqlEntrys->execute();
             $dataEntrys = $sqlEntrys->fetchAll(PDO::FETCH_ASSOC);
-            // echo('<br/>'.'Projetos do UserId '.$userId.' : '.'<br/>');
-            //print_r($dataProjects);
             $entrys = [];
             foreach($dataEntrys as $item) {
                 $e = new Entry();
@@ -271,17 +248,15 @@ class UserDaoMysql implements UserDao {
                 array_push($entrys, $e);
             }
             $u->setEntries($entrys);   
-            //var_dump($u);
             return $u;
         } else {
-            //echo 'findByEmail - false';
             return false;
         } 
     }
 
 
-
-    public function update(User $u) {
+    public function update(User $u) 
+    {
        $sql = self::$conn->prepare('UPDATE users SET nickname = :nickname, email = :email, 
        pass = :pass WHERE id_user = :id');
        $sql->bindValue(':nickname', $u->getNickname());
@@ -292,14 +267,18 @@ class UserDaoMysql implements UserDao {
        return true;
     }
 
-    public function delete($id) {
+
+    public function delete($id) 
+    {
         $sql = self::$conn->prepare('DELETE FROM users WHERE id=:id');
         $sql->bindValue(':id', $id);
         $sql->execute();
     }
 
+
     //Adicionar um lançamento relacionado ao usuário
-    public function addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, $status, $img) {
+    public function addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, $status, $img) 
+    {
         $sql = self::$conn->prepare('INSERT INTO entrys 
             (entry_date, description, value, id_user, id_entry_type, record_user, status, img) 
             VALUES (:entry_date, :description, :value, :id_user, :id_entry_type, :record_user, :status, :img)');
@@ -312,17 +291,15 @@ class UserDaoMysql implements UserDao {
         $sql->bindValue(':status', $status);
         $sql->bindValue(':img', $img);
         $sql->execute();
-        //echo "<pre>";
-        //$sql->debugDumpParams();
-        //$u->setId( self::$conn->lastInsertId() );
-        //print_r($u); 
         $e = new Entry();
         $e->setId( self::$conn->lastInsertId() );
         return $e;
     }
 
+
     //ultima data de concilhação e posição financeira
-    public function findParams() {
+    public function findParams() 
+    {
         $sql = self::$conn->prepare('SELECT * FROM params WHERE id = :id');
         $sql->bindValue(':id', 1);
         $sql->execute();
@@ -334,12 +311,13 @@ class UserDaoMysql implements UserDao {
             $paramsObj->invest = $data['invest'];
             return $paramsObj;
         } else {
-            //echo 'findByEmail - false';
             return false;
         } 
     }
 
-    public function findEntryTypes() {
+
+    public function findEntryTypes() 
+    {
         $data = false;
         $sql = self::$conn->query('SELECT * FROM entry_types');
         if($sql->rowCount() > 0) {
@@ -350,16 +328,14 @@ class UserDaoMysql implements UserDao {
                    $et->setType($item['type']);
                    $et->setSign($item['sign']);
                    $array[] = $et;
-                //echo "<pre>";
-                //print_r($item);
-              }  
-            //   echo "<pre>";
-            //   print_r($array);        
+              }        
         }
         return $array;
     }
 
-    public function login($email, $pass) {
+
+    public function login($email, $pass) 
+    {
         $sql = self::$conn->prepare("SELECT id_user FROM users WHERE email = :email AND pass = :pass");
         $sql->bindValue(":email", $email);
         $sql->bindValue(":pass", md5($pass)); //melhorar criptografia da senha
@@ -392,6 +368,7 @@ class UserDaoMysql implements UserDao {
         return true;
     }
 
+
     public function deleteValidableEntry($idEntry)
     {
         $sql = self::$conn->prepare('DELETE FROM entrys WHERE id_entry = :id_entry');
@@ -403,12 +380,6 @@ class UserDaoMysql implements UserDao {
 
     public function changeValidableEntry($idEntry, $date, $value, $status=0)
     {
-        // $sql = self::$conn->prepare('DELETE FROM entrys WHERE id_entry = :id_entry');
-        // $sql->bindValue(':id_entry', $idEntry);
-        // $sql->execute();
-
-        //date
-        //
         $sql = self::$conn->prepare('UPDATE entrys SET entry_date = :entry_date, value = :value, status = :status WHERE id_entry = :id_entry');
         $sql->bindValue(':entry_date', $date);
         $sql->bindValue(':value', $value);
@@ -431,7 +402,6 @@ class UserDaoMysql implements UserDao {
                 if ($validable || $status != 'validable')  
                 {
                     $userInfo = $u->getQuota() . ' - ' . $u->getNickName() . ' - ' . $u->getName();
-                    //$validableEntries[] = array ('entry'=>$entry, 'user_info'=>$userInfo); 
                     $validableEntries[] = ['entry'=>$entry, 'user_info'=>$userInfo, 'user_quota' => $u->getQuota() ];
                 }
                 

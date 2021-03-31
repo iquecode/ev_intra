@@ -72,4 +72,3 @@ class Entry {
         $this->img = $i;
     }
 }
-

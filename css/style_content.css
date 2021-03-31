@@ -43,8 +43,6 @@ table {
 }
 
 
-
-
 * {
     padding:0;
     margin:0;
@@ -53,39 +51,29 @@ table {
     box-sizing: border-box
   }
 
-  body {
-    overflow-x:hidden;
-    font-family: 'Source Sans Pro', sans-serif;
+body {
+  overflow-x:hidden;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .layout{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* width: 100vw; */
   align-items: center; 
 }
 
 .app {
     width: 350px;
-   }
+}
 
 form{
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* background-color:#455A64;
-    border-radius: 10px 10px 10px 10px; 
-    box-shadow: 5px 5px 5px #BDBDBD; */
 }
 
 .title {
-    /* width: 350px; */
-    /* background-color:rgba(0,77,64 ,0.5); */
-    /* background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px 10px 0px 0px; */
-    /* margin-bottom: 10px; */
-    /* height: 50px; */
     color: #004D40;
     font-size: 1em;
     font-weight: bold;
@@ -105,7 +93,6 @@ input[type="submit"] {
 #input1{
     margin-top: 50px;
 }
-
 
 .inp{
     display: block;
@@ -130,7 +117,6 @@ input[type="submit"] {
     margin-top: 0px;   
 }
 
-
 h1{
     /* background-color: red; */
     text-align: center;
@@ -139,7 +125,6 @@ h1{
 }
 
 h2{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 0.9em;
@@ -236,14 +221,6 @@ table {
   font-weight: 600;
 }
 
-
-
-/* table {
-	border-collapse: collapse;
-	border-spacing: 0;
-} */
-
-
 table {
   border-collapse: separate; 
   border-spacing: 0 8px;
@@ -251,8 +228,6 @@ table {
 }
 
 td {
-  /* border: 1px solid green;
-  border-left-width: 0; */
   min-width: 120px;
   height: 18px;
 }
@@ -260,7 +235,6 @@ td {
 td:first-child {
   border-left-width: 1px;
 }
-
 
 .cabecalho {
   width: 620px;
@@ -275,7 +249,6 @@ td:first-child {
   margin: 20px;
 }
 
-
 .extrato {
   color: #1A237E;
   background-color: #EEEEEE;
@@ -287,9 +260,7 @@ td:first-child {
   background-color: #FAFAFA;
 }
 
-
 h3{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 1.2em;
@@ -303,7 +274,6 @@ h3{
 .neg {
   color: #BF360C;
 }
-
 
 .neg_future {
   color: #e57373;
@@ -326,13 +296,6 @@ h3{
   font-weight: bold;
   margin-top: 70px;
 }
-
-/* #form_admin, #form_dep {
-  width: 620px;
-  background-color: #9E9E9E;
-  margin-top: 10px;
-} */
-
 
 .dados_banc {
   display: flex;
@@ -363,10 +326,8 @@ h3{
   width: 420px;
 }
 
-
 .pix {
   color: #004D40;
-  /* font-weight: 550; */
 }
 
 .content {
@@ -379,7 +340,6 @@ h3{
     font-weight: bold;
 }
 
-
 #rodape_ext {
   display: flex;
   width: 590px;
@@ -390,22 +350,9 @@ h3{
   font-size: 0.9em;
 }
 
-/* .bold {
-  font-weight: 550;
-} */
-
-
-/* p {
-    color: red;
-} */
-
 .banc_mobile {
   display: none;
 }
-
-
-
-
 
 
 @media only screen and (max-width:620px) {
@@ -440,7 +387,6 @@ h3{
 
 }
 
-
 @media only screen and (max-width:500px) {
 
   .banc {
@@ -459,5 +405,4 @@ h3{
     margin-left: 20px;
   }
   
-
 }

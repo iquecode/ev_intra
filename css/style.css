@@ -43,8 +43,6 @@ table {
 }
 
 
-
-
 * {
     padding:0;
     margin:0;
@@ -53,22 +51,21 @@ table {
     box-sizing: border-box
   }
 
-  body {
-    overflow-x:hidden;
-    font-family: 'Source Sans Pro', sans-serif;
+body {
+  overflow-x:hidden;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .layout{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* width: 100vw; */
   align-items: center; 
 }
 
-  .app {
-    width: 350px;
-  }
+.app {
+  width: 350px;
+}
 
 form{
     display: flex;
@@ -81,17 +78,11 @@ form{
 
 .title {
     width: 350px;
-    /* background-color:rgba(0,77,64 ,0.5); */
-    /* background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px 10px 0px 0px; */
-    /* margin-bottom: 10px; */
     height: 50px;
     color: #004D40;
 }
 
 input[type="submit"] {
-    /* box-sizing: content-box;
-    -webkit-box-sizing: content-box; */
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
     cursor: pointer;
@@ -119,14 +110,12 @@ input{
 }
 
 h1{
-    /* background-color: red; */
     text-align: center;
     padding: 15px; 
     font-size: 1em;
 }
 
 h2{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 0.9em;
@@ -164,8 +153,6 @@ label {
 a{
   color: #455A64;
   text-decoration: none;
-  /* text-align: center;
-  display: block; */
   font-weight: bold;
 }
 
@@ -223,14 +210,6 @@ table {
   font-weight: 600;
 }
 
-
-
-/* table {
-	border-collapse: collapse;
-	border-spacing: 0;
-} */
-
-
 table {
   border-collapse: separate; 
   border-spacing: 0 8px;
@@ -238,8 +217,6 @@ table {
 }
 
 td {
-  /* border: 1px solid green;
-  border-left-width: 0; */
   min-width: 120px;
   height: 18px;
 }
@@ -247,7 +224,6 @@ td {
 td:first-child {
   border-left-width: 1px;
 }
-
 
 .cabecalho {
   width: 620px;
@@ -262,7 +238,6 @@ td:first-child {
   margin: 20px;
 }
 
-
 .extrato {
   color: #1A237E;
   background-color: #EEEEEE;
@@ -274,9 +249,7 @@ td:first-child {
   background-color: #FAFAFA;
 }
 
-
 h3{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 1.2em;
@@ -315,7 +288,6 @@ h3{
   margin-top: 10px;
 }
 
-
 .dados_banc {
   display: flex;
   flex-direction: column;
@@ -344,7 +316,6 @@ h3{
   width: 420px;
 }
 
-
 .pix {
   color: #004D40;
   /* font-weight: 550; */
@@ -354,14 +325,6 @@ h3{
   color: #004D40;
   font-size: 0.95em;
 }
-
-/* .bold {
-  font-weight: 550;
-} */
-
-
-
-
 
 
 @media only screen and (max-width:620px) {

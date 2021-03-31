@@ -51,11 +51,10 @@ table {
     box-sizing: border-box
   }
 
-  body {
-    overflow-x:hidden;
-    font-family: 'Source Sans Pro', sans-serif;
+body {
+  overflow-x:hidden;
+  font-family: 'Source Sans Pro', sans-serif;
 }
-
 
 header {
     display: flex;
@@ -65,14 +64,12 @@ header {
     align-items: center;
     flex-wrap: wrap; 
     width: 100vw;
-    /* height: 85px; */
 }
 
 #header_title
 {
   display: flex;
   justify-content:center;
-  /* background-color: red; */
   width: 100%;
   margin-bottom: 30px;
   flex-wrap: wrap; 
@@ -89,13 +86,11 @@ header {
 #menu_options button
 {
   width: 200px; 
-  /* background-color: #80CBC4;  colocar para itens que não podem ser selecionados*/ 
   background-color: #009688;
   height: 40px;
   padding: 5px;
   border-radius: 10px;
   color: white;
-  /* font-weight: bold; */
   margin: 10px; 
 }
 
@@ -105,37 +100,21 @@ header {
   font-weight: bold;
 }
 
-
-
 footer {
     display: flex;
-    /* border-top: solid #bdbdbd 1px; */
     height: 200px;
     width: 100vw;
 }
-
-
 
 .layout
 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* width: 100vw; */
     align-items: center; 
 }
 
-
-
-
-
 .title {
-    /* width: 350px; */
-    /* background-color:rgba(0,77,64 ,0.5); */
-    /* background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px 10px 0px 0px; */
-    /* margin-bottom: 10px; */
-    /* height: 50px; */
     color: #004D40;
     font-size: 1em;
     font-weight: bold;
@@ -154,15 +133,10 @@ input[type="submit"] {
     border-radius: 20px;
 }
 
-/* #input1{
-} */
-
-
 .inp{
     display: block;
     height: 40px;
     width: 300px;
-    /* margin-top: 30px; */
     border-radius: 30px;
     border: 1px solid #CFD8DC ; 
     font-size: 12pt;
@@ -172,33 +146,19 @@ input[type="submit"] {
     outline: none;
 }
 
-
-/* #input_admin_mod {
-    background-color: #283593;
-}
-
-#inp_date {
-    padding: 0px 20px;     
-    margin-top: 0px;   
-} */
-
-
 h1{
-    /* background-color: red; */
     text-align: center;
     padding: 15px; 
     font-size: 1em;
 }
 
 h2{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 0.9em;
   color: #455A64;
   font-weight: bold;
 }
-
 
 label {
   color: #546E7A;
@@ -216,8 +176,6 @@ label {
 a{
   color: #455A64;
   text-decoration: none;
-  /* text-align: center;
-  display: block; */
   font-weight: bold;
 }
 
@@ -226,40 +184,12 @@ td {
   vertical-align: middle;
   padding: 5px;
 }
-/* 
-.num {
-  text-align:end;
-  vertical-align: middle;
-} */
 
 table {
   width: 600px;
   margin-top: 50px;
   margin-bottom: 50px;
 }
-
-/* .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; 
-  width: 100vw;
-  height: 250px;
-}
-
-.title_header {
-  color: #3E2723;
-  font-weight: 600;
-} */
-
-
-
-/* table {
-	border-collapse: collapse;
-	border-spacing: 0;
-} */
-
 
 table {
   border-collapse: separate; 
@@ -268,8 +198,7 @@ table {
 }
 
 td {
-  /* border: 1px solid green;
-  border-left-width: 0; */
+
   min-width: 120px;
   height: 18px;
 }
@@ -277,7 +206,6 @@ td {
 td:first-child {
   border-left-width: 1px;
 }
-
 
 .cabecalho {
   width: 620px;
@@ -287,15 +215,11 @@ td:first-child {
 .extrato, .futuros {
   width: 620px;
   padding: 10px;
-  /* border-radius: 10px 10px 10px 10px; 
-  box-shadow: 5px 5px 5px #BDBDBD; */
   margin: 20px;
 }
 
-
 .extrato {
   color: #1A237E;
-  /* background-color: #EEEEEE; */
   font-size: 1.05em;
   display: none;
 }
@@ -305,9 +229,7 @@ td:first-child {
   background-color: #FAFAFA;
 }
 
-
 h3{
-  /* background-color: red; */
   text-align: center;
   padding: 10px; 
   font-size: 1.2em;
@@ -321,7 +243,6 @@ h3{
 .neg {
   color: #BF360C;
 }
-
 
 .neg_future {
   color: #e57373;
@@ -345,19 +266,6 @@ h3{
   margin-top: 70px;
 }
 
-/* #form_admin, #form_dep {
-  width: 620px;
-  background-color: #9E9E9E;
-  margin-top: 10px;
-} */
-
-
-/* form {
-    display: flex;
-    flex-direction: column;
-}     */
-
-
 .dados_banc, .statments_area {
   display: flex;
   flex-direction: column;
@@ -368,8 +276,6 @@ h3{
   box-shadow: 5px 5px 5px #BDBDBD;
   justify-content: center;
   align-items: center;
-  /* margin-top: 70px; */
-  /* padding-top: 10px; */
 }
 
 .dados_banc td {
@@ -386,10 +292,8 @@ h3{
   width: 420px;
 }
 
-
 .pix {
   color: #004D40;
-  /* font-weight: 550; */
 }
 
 .content {
@@ -402,7 +306,6 @@ h3{
     font-weight: bold;
 }
 
-
 #rodape_ext {
   display: flex;
   width: 590px;
@@ -413,19 +316,9 @@ h3{
   font-size: 0.9em;
 }
 
-/* .bold {
-  font-weight: 550;
-} */
-
-
-/* p {
-    color: red;
-} */
-
 .banc_mobile {
   display: none;
 }
-
 
 .container {
   display: flex;
@@ -441,7 +334,6 @@ h3{
   align-items: center;
   justify-content: center;
 }
-
 
 .list_validate table {
   width: 100%;
@@ -476,19 +368,13 @@ h3{
   display: none;
 }
 
-
 .list_validate {
   display: flex;
   flex-direction: column;
   color: #455A64;
-  /* background-color: #FAFAFA; */
   width: 620px;
-  /* border-radius: 10px 10px 10px 10px; 
-  box-shadow: 5px 5px 5px #BDBDBD; */
   justify-content: center;
   align-items: center;
-  /* margin-top: 70px; */
-  /* padding-top: 10px; */
 }
 
 .action_entries
@@ -499,53 +385,48 @@ h3{
     width: 100%;
   }
 
-  .act_validate, .act_delete, .act_change, #conf_change, #back_change
-  {
-    width: 120px;
-    height: 40px;
-    margin-top: 0px;
-    font-weight: bold;
-    color: white;
-    border-radius: 20px;
-  }
+.act_validate, .act_delete, .act_change, #conf_change, #back_change
+{
+  width: 120px;
+  height: 40px;
+  margin-top: 0px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+}
 
-  .act_validate, #conf_change
-  {
-    width: 150px;
-    background-color: #4CAF50
-  }
+.act_validate, #conf_change
+{
+  width: 150px;
+  background-color: #4CAF50
+}
 
-  .act_change
-  {
-    background-color:white;
-    border: 2px solid  #FF6F00;
-    color: #FF6F00;
-  }
+.act_change
+{
+  background-color:white;
+  border: 2px solid  #FF6F00;
+  color: #FF6F00;
+}
 
-  .act_delete
-  {
-    background-color:white;
-    border: 2px solid  #BF360C;
-    color: #BF360C;
-  }
+.act_delete
+{
+  background-color:white;
+  border: 2px solid  #BF360C;
+  color: #BF360C;
+}
 
-  #conf_change, #back_change
-  {
-    width: 200px;
-  }
+#conf_change, #back_change
+{
+  width: 200px;
+}
 
-  #back_change
-  {
-    background-color: white;
-    border-color: #607D8B;
-    border: 2px solid #607D8B;
-    color: #607D8B;
-  }
-
-  /* #act_change
-  {
-    background-color: red;
-  } */
+#back_change
+{
+  background-color: white;
+  border-color: #607D8B;
+  border: 2px solid #607D8B;
+  color: #607D8B;
+}
 
 #form_list_validate
 {
@@ -582,7 +463,6 @@ h3{
   display: none;
 }
 
-
 .inp_change
 {
   background-color: inherit;
@@ -590,13 +470,7 @@ h3{
   text-align: right;
   padding: 20px;
   font-family: 'Source Sans Pro', sans-serif;
-  /* padding: 10px; */
-
-  /* font-size: 1em; */
-  /* padding: 10px 20px;     */
-  /* background-color: rgba(255, 255, 255, 0.01); */
   color: #424242;
-  /* outline: none; */
 }
 
 .dt_change
@@ -611,15 +485,12 @@ h3{
   display: none;
 }
 
-
 .disabled
 {
   background-color:white;
   border: 2px solid  #E0E0E0;
   color: #E0E0E0;
 }
-
-
 
 
 @media only screen and (max-width:620px) {
@@ -644,9 +515,9 @@ h3{
     font-size: 0.9em;
   }
 
-    table {
-        table-layout: fixed;
-    }
+  table {
+      table-layout: fixed;
+  }
 
   td{
     word-wrap:break-word;
@@ -673,10 +544,7 @@ h3{
     margin: 10px; 
   }
 
-  
-
 }
-
 
 @media only screen and (max-width:500px) {
 
@@ -696,5 +564,4 @@ h3{
     margin-left: 20px;
   }
   
-
 }

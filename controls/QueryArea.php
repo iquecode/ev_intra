@@ -18,22 +18,18 @@ class QueryArea
     {
         $userDao = new UserDaoMysql();
 
-       
         //melhorar isso
         if (isset($_POST['cota'])) {
             $id = str_replace('u_id', '', $_POST['cota']);
-            //$u = $userDao->findByQuota($_POST['cota']);
             $u = $userDao->findById($id); 
             $_SESSION['queryQuota'] = $id;
         } 
         else 
-        {
-            //$u = $userDao->findByQuota($_SESSION['queryQuota']);     
+        {    
             $u = $userDao->findById($_SESSION['queryQuota']);
         }
         
-        
-        if(!$u) {    // se não encontrar usuário com o número da cota, retornar false
+        if(!$u) {
             return false;
         }
 
@@ -42,23 +38,17 @@ class QueryArea
         $quota = $u->getQuota();
         $name = $u->getName();
         $isAdmin = ((int)$u->getType()) == 1;
-
-
         $allEntries = $u->getTodayFutureEntries();    
         $futureEntries = $allEntries['future'];
         $todayEntries =  $allEntries['today'];
-
         $welcome   = new Welcome($nickname, $quota, $name, 2);
         $statment  = new Statment($todayEntries, $id);
         $stFutures = new Statment($futureEntries, $id, 'futuros', 'Lançamentos Futuros', 'Total lançamentos futuros', false);
         $opt = new Opt('index.php?class=PrivateArea','Voltar', 'sair.php', 'Sair');
-
         $content = $welcome->getHTML() . $statment->getHTML() . $stFutures->getHTML() . $opt->getHTML();
 
         if ($isAdmin) {
-            //se usuário tiver permissão de administração, percorrrer o db para pegar o número da cota
-            // apelido e nome de todos usuários, para colocar no select para consulta no final da página
-            $allUsers = $userDao->findAll(); // <-aqui
+            $allUsers = $userDao->findAll(); 
             $adminOpt = new AdminOpt($allUsers);
             $content .= $adminOpt->getHTML(); 
         } 
@@ -71,7 +61,6 @@ class QueryArea
         return true; // se encontrar usuário e proseguir, retornar true
     }
 
-    
     public function show()
     {  
         print $this->html; 

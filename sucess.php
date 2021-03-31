@@ -37,8 +37,6 @@
 
     <a href="sair.php">Clique aqui para sair e acessar novamente com os novos dados.</a> 
     
-
-
 </head>
 <body>
     

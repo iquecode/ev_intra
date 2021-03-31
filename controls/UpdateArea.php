@@ -7,11 +7,10 @@ require_once 'controls/parts/Update.php';
 class UpdateArea
 {
     private $html;
-    //private $data;
     
+
     public function __construct()
     {
-
         $userDao = new UserDaoMysql();
         $id = $_SESSION['userId'];
         $u = $userDao->findById($id);
@@ -19,7 +18,6 @@ class UpdateArea
         $nickname = $u->getNickName();
         $name = $u->getName();
         $email = $u->getEmail();
-
         $update = new Update($quota, $nickname, $name, $email);
 
         if (isset($_POST['pass'])) 
@@ -28,6 +26,7 @@ class UpdateArea
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
             $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
             $pass2 = filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_STRING);
+           
             //verificar se esta preenchido
             if(!empty($nickname) && !empty($email) && !empty($pass) && 
             !empty($pass2)) 
@@ -76,4 +75,5 @@ class UpdateArea
     {
         $this->html->show();
     }
+
 }

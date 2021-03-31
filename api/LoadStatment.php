@@ -46,6 +46,7 @@ Class LoadStatment {
          $this->stat = $stat;
     }
 
+
     public function getCashFlow() 
     {
         $stat = $this->stat;
@@ -128,72 +129,10 @@ Class LoadStatment {
                     $deposits[$i]['value'] = $value;
                     $i++;
                 }
-
-
             }
-            
-            // if ($credDeb == 'C')
-            // {
-            //     $cents =  substr($item['value'], -2);
-            //     $debug = print_r($cents, true) . PHP_EOL;
-            //     file_put_contents('logCents.txt', $debug, FILE_APPEND);  
-            // }
-
-
-            // $cents =  substr($item['value'], -2);
-            // $debug = print_r($cents, true) . PHP_EOL;
-            // file_put_contents('logCents.txt', $debug, FILE_APPEND);  
-
-            // $creDeb = $item['cred_deb'];
-            // $debug = print_r($creDeb, true) . PHP_EOL;
-            // file_put_contents('logCents.txt', $debug, FILE_APPEND);  
-
-            // $debug = print_r($item, true) . PHP_EOL . PHP_EOL;
-            // file_put_contents('logCents.txt', $debug, FILE_APPEND);
         }
         
-
         return $deposits;
-        
-
     }
-  
-    
-
-   
-
-
-
-
-    // public function getDepositsWithValidables()
-    // {
-
-    //     $dao = new UserDaoMysql();
-    //     $validableEntries = $dao->getAllValidableEntries();
-    //     $deposits = $this->getDeposits();
-    //     $AllvalidableEntries = $validableEntries;
-
-
-    //     foreach ($deposits as $deposit)
-    //     {
-
-
-    //         $validableEntries[] = ['entry'=>$entry, 'user_info'=>$userInfo, 'user_quota' => $u->getQuota() ];
-    //         foreach ($validableEntries as $validable)
-    //         {
-    //             if ( $deposit['date'] == $validable->getDate() && $deposit['value'] == $validable->getValue() &&
-    //                  $deposit['date'] == $validable->getDate() ) 
-    //         }
-
-
-
-    //     } 
-
-
-
-
-    // }
-
-
-        
+      
 }

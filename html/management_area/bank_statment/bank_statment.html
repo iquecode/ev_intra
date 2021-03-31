@@ -1,9 +1,6 @@
 <div id="bank_statment">
 
-
-
     <div class="models">
-
         <div class="deposit_load_bank">
             <div class="item_deposit">
                 <p class="date_bkst"></p>
@@ -17,7 +14,6 @@
                 <p class="value_toValidate"></p>
             </div>
        </div>
-
        <div class="noRecord_deposit_item">
             <div class="noRecord_item_deposit">
                 <p class="noRecord_date_deposit"></p>
@@ -31,7 +27,6 @@
                 <p class="value_entry_similar"></p>
             </div>
         </div>
-
         <div class="pending_validable_model">
             <div class="pending_validable_item">
                 <p class="pendValidable_date"></p>
@@ -39,7 +34,6 @@
                 <p class="pendValidable_value"></p>
             </div>
         </div>
-
         <p class="remove_toRecord" onclick="removeToRecord(this)">remover da lista</p>
         <p class="msg_toValidate"><p>
         <input class="input_toRecord_userId" type="hidden" />
@@ -48,13 +42,7 @@
         <input class="input_toRecord_validable" type="hidden" />
         <input class="input_confirmRecord" type="hidden" />
         <input class="input_confirmValidable" type="hidden" />
-
-
     </div>
-
-
-        
-
 
 
     <form id='form_load_bank_st' enctype="multipart/form-data">
@@ -70,42 +58,40 @@
     </div>
 
 
-
     <div id="list_load_bank_st">
-       <div id="group_title_models_toRecord" class="group_title_models">
-            <div class="title_models emphasis">Depósitos Identificados prontos para Gravação</div>
-            <div class="title_models emphasis">Ações que serão Executadas</div>
-       </div> 
-       <div id="toRecord_deposits"></div>
 
-       <div id="group_title_models_noRecord" class="group_title_models">
-            <div class="title_models emphasis">Depósitos Identificados que serão DESCONSIDERADOS na gravação</div>
-            <div class="title_models emphasis">Motivos</div>
-       </div> 
-       <div id="noRecord_deposits"></div>
+        <div id="group_title_models_toRecord" class="group_title_models">
+                <div class="title_models emphasis">Depósitos Identificados prontos para Gravação</div>
+                <div class="title_models emphasis">Ações que serão Executadas</div>
+        </div> 
 
-       <div id="group_title_models_validables" class="group_title_models">
+        <div id="toRecord_deposits"></div>
+
+        <div id="group_title_models_noRecord" class="group_title_models">
+                <div class="title_models emphasis">Depósitos Identificados que serão DESCONSIDERADOS na gravação</div>
+                <div class="title_models emphasis">Motivos</div>
+        </div> 
+
+        <div id="noRecord_deposits"></div>
+
+        <div id="group_title_models_validables" class="group_title_models">
             <span class="warning">Atenção! Depois da gravação ainda irão constar os seguintes depósitos a validar, o que representará pendência para a conciliação bancária!</span>
         </div>
-       <div id="pending_validables"></div>
 
-       
-       <div id="areaRemoved">
-            <p class="warning" >Depósitos identificados exluídos da lista de gravação</p>
-            <div id="removedToRecorder">
-            </div>
-            <p>Para desfazer a exclusão recarregue o arquivo do extrato.</p>
+        <div id="pending_validables"></div>
+
+        <div id="areaRemoved">
+                <p class="warning" >Depósitos identificados exluídos da lista de gravação</p>
+                <div id="removedToRecorder">
+                </div>
+                <p>Para desfazer a exclusão recarregue o arquivo do extrato.</p>
         </div>
-
 
         <form id='form_recordLoadBankSt' method='POST' action="index.php?class=ManagementArea&method=recorderBankSt">
             <input type="submit" value="EXECUTAR GRAVAÇÃO / VALIDAÇÃO" />
         </form>
+
     </div>
 
 
-
-
 </div>
-
-
