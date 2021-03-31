@@ -57,6 +57,7 @@ Class Statment {
             $items .= $item;         
         }
 
+        $neg_pos = $total < 0 ? 'num neg_future' : 'num';
         $stat = $this->html;
         $stat = str_replace('{class}',    $this->class,    $stat);
         $stat = str_replace('{id}',       "u_id" . $this->userId,    $stat);

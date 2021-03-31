@@ -79,9 +79,24 @@ class ManagementArea
     {
         extract($params);
         $record_user = $_SESSION['userId'];
-        $status = 1;
         $img=null;
         $userDao = new UserDaoMysql();
+
+        $entryTypes = $userDao->findEntryTypes();
+        $sign = 1;
+        foreach ($entryTypes as $entryType)
+        {
+            if ($entryType->getId() == $id_entry_type ) 
+            {
+                $sign = $entryType->getSign();
+            }
+        }
+
+        if ( ($value >= 0 && $sign < 0) || ( ($value < 0 && $sign > 0) ) )
+        {
+            $value = $value * -1;
+        }
+       
         $userDao->addEntry($id_user, $entry_date, $description, $value, $id_entry_type, $record_user, 
             $status, $img);
 

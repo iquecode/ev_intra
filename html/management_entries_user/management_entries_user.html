@@ -1,20 +1,27 @@
 <form class="form" id='form_entry_user' method='POST' action='index.php?class=ManagementArea&method=saveEntryUser'>
     <label class="margin_top">
         Data do lançamento
-        <input class = 'inp' type='date' name='entry_date' id='entry_date'>  
+        <input class = 'inp' type='date' name='entry_date' id='entry_date' required>  
     </label>
     <label>
-        <select class='inp' name='id_entry_type' id='id_entry_type' onchange='changeTypeEntry()'>
+        <select class='inp' name='id_entry_type' id='id_entry_type' onchange='changeTypeEntry()' required>
             <option data-default disabled selected value=0>Tipo do lançamento</option>
             {options}
         </select>
     </label>
     <label>
-        <input class = 'inp' type="text" name="description" id="description" placeholder="Descrição" maxlength="15">
+        <input class = 'inp' type="text" name="description" id="description" placeholder="Descrição" maxlength="15" required>
     </label>
     <label>
         Valor R$
-        <input class = 'inp' onchange='setTwoNumberDecimal(this)' min="0.01" step="0.01"  type="number" name="value" id="value" maxlength="15">
+        <input class = 'inp' onchange='setTwoNumberDecimal(this)' min="0.01" step="0.01"  type="number" name="value" id="value" maxlength="15" required>
+    </label>
+    <label>
+        <select class='inp' name='status' id='status' required>
+            <option data-default disabled selected value=-1>Status do lançamento</option>
+            <option value=0>A VALIDAR</option>
+            <option value=1>JÁ VALIDADO</option>
+        </select>
     </label>
     <input type="hidden" name="id_user" id="id_user" value=''>
     <input type="submit" value="Gravar Lançamento">
