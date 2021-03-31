@@ -40,10 +40,14 @@
             </div>
         </div>
 
+        <p class="remove_toRecord" onclick="removeToRecord(this)">remover da lista</p>
+        <p class="msg_toValidate"><p>
         <input class="input_toRecord_userId" type="hidden" />
         <input class="input_toRecord_date" type="hidden" />
         <input class="input_toRecord_value" type="hidden" />
         <input class="input_toRecord_validable" type="hidden" />
+        <input class="input_confirmRecord" type="hidden" />
+        <input class="input_confirmValidable" type="hidden" />
 
 
     </div>
@@ -61,10 +65,13 @@
         <span id= 'btn' onclick="loadFile()">Carregar Arquivo</span>
     </form>
 
+    <div id='divLinkCashFlow'>
+        <a id='linkCashFlow'>Clique aqui para salvar Fluxo de Caixa gerado a partir do extrato (*.csv)</a>
+    </div>
+
+
 
     <div id="list_load_bank_st">
-
-        
        <div id="group_title_models_toRecord" class="group_title_models">
             <div class="title_models emphasis">Depósitos Identificados prontos para Gravação</div>
             <div class="title_models emphasis">Ações que serão Executadas</div>
@@ -82,15 +89,18 @@
         </div>
        <div id="pending_validables"></div>
 
+       
+       <div id="areaRemoved">
+            <p class="warning" >Depósitos identificados exluídos da lista de gravação</p>
+            <div id="removedToRecorder">
+            </div>
+            <p>Para desfazer a exclusão recarregue o arquivo do extrato.</p>
+        </div>
+
 
         <form id='form_recordLoadBankSt' method='POST' action="index.php?class=ManagementArea&method=recorderBankSt">
             <input type="submit" value="EXECUTAR GRAVAÇÃO / VALIDAÇÃO" />
         </form>
-
-
-
-
-
     </div>
 
 

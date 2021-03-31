@@ -1,18 +1,12 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/db/UserDaoMysql.php');
-//require_once($_SERVER['DOCUMENT_ROOT'] . '/ev_intra/controls/ManagementArea.php');
 
 Class LoadStatment {
-
    private $stat;
 
-   
     public function __construct($file)  
     {
         $extrato = file($file);
-
-        //$extrato = $file;
-    
         $lancamentos = [];
         $i = 0;
         foreach ($extrato as $linha)
@@ -52,10 +46,8 @@ Class LoadStatment {
          $this->stat = $stat;
     }
 
-
     public function getCashFlow() 
     {
-
         $stat = $this->stat;
         $i = 1;
         foreach($stat as $row) {
@@ -86,17 +78,19 @@ Class LoadStatment {
             $i++;
         }
 
-        //Abrir/criar arquivo
+        $dir = $_SERVER['DOCUMENT_ROOT'] . '/ev_intra/upload/cash_flow/';
         $fileName = 'fc' . time() . '.csv';
-        $file = fopen($fileName, 'w');
+        $file = fopen($dir . $fileName, 'w');
 
         // Popular os dados
         foreach ($cashFlow as $row) {
             fputcsv($file, $row);
         }
-
         // Fechar o arquivo
         fclose($file);
+
+        $fileName = 'upload/cash_flow/' . $fileName;
+        //( $file, $dir );
         // print '<pre>';
         // print_r($cashFlow);
         return ['array' => $cashFlow, 'file' => $fileName];
@@ -105,9 +99,7 @@ Class LoadStatment {
 
     public function getDeposits()
     {
-        
         $stat = $this->stat;
-
         $deposits = [];
         $i = 0;
         foreach ($stat as $item) 
@@ -127,14 +119,7 @@ Class LoadStatment {
                 $dao = new UserDaoMysql();
                 $u = $dao->findByQuota($cents);
                
-                // $debug = print_r($u, true);
-                // file_put_contents('logCents.txt', $debug, FILE_APPEND);  
                 if ($u) {   //se achou usuário com os centavos
-                    //$debug = print_r($cents, true) . PHP_EOL;
-                    $debug = "Cota: {$u->getQuota()} - {$u->getNickName()} - {$u->getName()}" . PHP_EOL;
-                    $debug .= 'Data: ' . $date . PHP_EOL . 'Valor: ' . $value . PHP_EOL . PHP_EOL;  
-                    file_put_contents('logCents.txt', $debug, FILE_APPEND);  
-
                     $deposits[$i]['date'] = $date;
                     $deposits[$i]['id_user'] = $u->getId();
                     $deposits[$i]['quota'] = $u->getQuota();

@@ -37,7 +37,7 @@
   display: none;
 } 
 
-#noRecord_deposits, #toRecord_deposits, #pending_validables
+#noRecord_deposits, #toRecord_deposits, #pending_validables, #removedToRecorder
 {
   display: flex;
   flex-direction: column;
@@ -62,6 +62,10 @@
   background-color: #ffcdd2;
 }
 
+#removedToRecorder
+{
+  background-color: #ffcdd2;
+}
 
 .noRecord_deposit_item, .deposit_load_bank
 {
@@ -156,13 +160,31 @@
    */
   
 
+.remove_toRecord
+{
+  cursor: pointer;
+  color: #FF8A65;
+}
+
+/* #removedToRecorder
+{
+  display: none;
+  flex-direction: column;
+} */
+
+#areaRemoved
+{
+  display: none;
+  flex-direction: column;
+  margin-top: 40px;
+}
 
 
-
-
-
-
-
+#divLinkCashFlow 
+{
+  display: none;
+  margin-top: 50px;
+}
 
 
 
