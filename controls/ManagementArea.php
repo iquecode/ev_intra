@@ -209,78 +209,9 @@ class ManagementArea
     }
 
 
-    public function OLDrecordBatchEntries($usersIds,  $dateRecord, $description, $value, $id_entry_type, $status, $opt, $finalDate='', $sub=0)
-    {
-
-        $userDao = new UserDaoMysql();
-        if ($finalDate == '')
-        {
-            $finalDate = $dateRecord;
-        }
-        if ( !is_numeric($sub) )
-        {
-            $sub = 0;
-        }
-
-        $record_user = $_SESSION['userId'];
-        $img=null;
-        $entryTypes = $userDao->findEntryTypes();
-        $sign = 1;
-        foreach ($entryTypes as $entryType)
-        {
-            if ($entryType->getId() == $id_entry_type ) 
-            {
-                $sign = $entryType->getSign();
-            }
-        }
-
-
-        foreach ($usersIds as $userId)
-        {
-            $u = $userDao->findById($userId);
-
-
-            if( $type = 'ipca' || 'calc') 
-            {
-                $statement = $u->getTodayFutureEntries($finalDate)['today'];
-                $total = 0;
-                foreach ($statement as $item) 
-                {
-                    $total += $item->getValue();
-                }
-            }
-            switch ($type) {
-                case 'ipca':
-                    $iIPCA = $value;
-                    $value =  $iIPCA * ($total - $sub);   
-                    break;
-                case 'calc':
-                    $expression = $value;
-                    $value = eval('$expression' . ';');
-                    break;
-            }
-
-
-            if ( ($value >= 0 && $sign < 0) || ( ($value < 0 && $sign > 0) ) )
-            {
-                $value = $value * -1;
-            }
-           
-            $userDao->addEntry($userId, $dateRecord, $description, $value, $id_entry_type, $record_user, 
-                $status, $img);
-            
-        
-        }
-
-    } 
-
-
     public function recordBatchEntries()
     {
         $params = $_POST;
-        echo "<pre>";
-        //print_r($params);
-       
         $usersIds = [];
         $expression = isset($params['batchExpression']) ? $params['batchExpression'] : '' ;
         $finalDate = isset($params['batchEntriesDateLimit']) ? $params['batchEntriesDateLimit'] : '';
@@ -289,21 +220,17 @@ class ManagementArea
         $id_entry_type = isset($params['batchIdEntryType']) ? $params['batchIdEntryType'] : '';
         $description = isset($params['batchDescription']) ? $params['batchDescription'] : '';
         $status = isset($params['batchStatus']) ? $params['batchStatus'] : '';
-        $opt = isset($params['batchOptMet']) ?  $params['batchOptMet'] : '';
+        $type = isset($params['batchOptMet']) ?  $params['batchOptMet'] : '';
         $iIPCA = isset($params['batchIPCA']) ? $params['batchIPCA']/100 : '';
         $value = isset($params['batchvalue']) ? $params['batchvalue'] : ''; 
        
         foreach ($params as $key => $param)
         {
-            //checkBatchEntries4
-            //01234567890123456
             if (substr($key, 0, 17) == 'checkBatchEntries')
             {
                 $usersIds[] = substr($key, 17);  
             }
-            //echo $key . ' => ' . $param . "<br>"; 
         }
-
 
         $userDao = new UserDaoMysql();
         if ($finalDate == '')
@@ -327,88 +254,52 @@ class ManagementArea
             }
         }
 
-
         foreach ($usersIds as $userId)
         {
 
-
-           
-
-
-
-
             $u = $userDao->findById($userId);
 
-
-            if( $type = 'ipca' || 'calc') 
-            {
-                echo "finalDate: " . $finalDate; 
+            if( $type == 'ipca' || $type == 'calc') 
+            { 
                 $statement = $u->getTodayFutureEntries($finalDate)['today'];
                 $total = 0;
-                echo "<pre>";
-                print_r($statement);
                 $i = 1;
                 foreach ($statement as $item) 
                 {
-                    echo "TOTAL FOREACH {$i} : {$total} <br>";
-                    echo "valor: " . $item->getValue() . '<br><br>';
                     $total += $item->getValue();
                     $i++;
                 }
             }
             switch ($type) {
                 case 'ipca':
-                    //$iIPCA = $value;
-                    echo '<br>Value Inicial: ' . $value; 
-                    echo '<br>IPCA: ' . $iIPCA; 
-                    echo '<br>Total: ' . $total;
-                    echo '<br>sub: ' . $sub;
-                    $value =  round($iIPCA * ($total + $sub), 2);   
-                    echo '<br>Value Final: ' . $value; 
+                    $value =  round($iIPCA * ($total + $sub), 2);    
                     break;
                 case 'calc':
-                    //$expression = $value;
                     $value = round(eval('$expression' . ';'), 2);
                     break;
             }
 
-
+            $execute = true;
             if ( ($value >= 0 && $sign < 0) || ( ($value < 0 && $sign > 0) ) )
             {
                 $value = $value * -1;
+                if ( $type == 'ipca' || $type == 'calc' ) 
+                {
+                    $execute = false;
+                }
             }
         
-
-            // echo "user id:{$userId}, dateRecord:{$dateRecord}, description:{$description},
-            // value:{$value}, id_entry_type:{$id_entry_type}, record_user:{$record_user}, status:{$status}, 
-            // img:{$img}";
-            // $userDao->addEntry($userId, $dateRecord, $description, $value, $id_entry_type, $record_user, 
-            //     $status, $img);
-
-
-
-
-
-
-
-            
-            
-            
-            
+            if ( $execute )
+            {
+                $userDao->addEntry($userId, $dateRecord, $description, $value, $id_entry_type, $record_user, 
+                 $status, $img);
+            }
         
         }
 
-
-
-        // print_r($params);
-        // echo "<br><br>{$iIPCA}";
-
-
+        header('location: index.php?class=ManagementArea');
+        exit;
     }
-
-
-
-
 
 
 }

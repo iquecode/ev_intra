@@ -44,6 +44,7 @@ function showArea(area) {
     document.getElementById('statments_area').style.display = 'none';
     document.getElementById('list_validate').style.display = 'none';
     document.getElementById('bank_statment').style.display = 'none';
+    document.getElementById('batchEntriesArea').style.display = 'none';
     switch (area) {
         case 'statments_area':
             document.getElementById('statments_area').style.display = 'flex';
@@ -55,6 +56,7 @@ function showArea(area) {
             document.getElementById('bank_statment').style.display = 'flex';
             break;
         case 'post_entries':
+            document.getElementById('batchEntriesArea').style.display = 'flex';
             break;
         default:
             break;
