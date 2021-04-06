@@ -1,0 +1,82 @@
+<div id="batchEntriesArea">
+
+    
+    <form id='formBatchEntries' method='POST' action='index.php?class=ManagementArea&method=recordBatchEntries'>
+        <label class="margin_top">
+            Data do lançamento
+            <input class = 'inp' type='date' name='batchEntriesDateRecord' id='batchEntriesDateRecord' required>  
+        </label>
+        <label>
+            <select class='inp' name='batchIdEntryType' id='batchIdEntryType' onchange='changeTypeEntryBatch()' required>
+                <option data-default disabled selected value=0>Tipo do lançamento</option>
+                {type_entry_options}
+            </select>
+        </label>
+        <label>
+            <input class = 'inp' type="text" name="batchDescription" id="batchDescription" placeholder="Descrição" maxlength="30" required>
+        </label>
+        <label>
+            <select class='inp' name='batchStatus' id='batchStatus' required>
+                <option data-default disabled selected value=-1>Status do lançamento</option>
+                <option value=0>A VALIDAR</option>
+                <option value=1>JÁ VALIDADO</option>
+            </select>
+        </label>
+        <input type="hidden" name="batch_id_user" id="batch_id_user" value=''>
+
+
+
+        <div id="typesBatchEntries">
+            <div id="optTypesBatchEntries">
+                <select class='inp' name='batchOptMet' id='batchOptMet' onchange='chooseOptBatchEntries(this)' required>
+                    <option data-default disabled selected value=-1>Método do lançamento</option>
+                    <option value='ipca'>Correção IPCA</option>
+                    <option value='fixed'>Valor Fixo</option>
+                    <option value='calc'>Expressão</option>
+                </select>
+            </div>
+            <div id='ipcaBatchEntries'>
+                <label>
+                    % IPCA - 0 até 100.
+                    <input class = 'inp' onchange='setTwoNumberDecimal(this)' min="0.01" max="100.00" step="0.01"  type="number" name="batchIPCA" id="batchIPCA" maxlength="15">
+                </label>
+            </div>
+            <div  id="fixedBatchEntries">
+                <label>
+                    Valor R$
+                    <input class = 'inp' onchange='setTwoNumberDecimal(this)' min="0.01" step="0.01"  type="number" name="batchvalue" id="batchvalue" maxlength="15">
+                </label>
+            </div>
+            <div id="calcBatchEntries">
+                <label>
+                    <input class = 'inp' type="text" name="batchExpression" id="batchExpression" placeholder="Expressão" maxlength="30">
+                </label>
+            </div>
+
+            <div id='complementInputEntries'>
+                <label class="margin_top">
+                    Data de corte para cálculo do saldo devedor
+                    <input class = 'inp' type='date' name='batchEntriesDateLimit' id='batchEntriesDateLimit'>  
+                </label>
+                <label>
+                    Valor para subtrair da base de cálculo (ex. 20000 ref. 2ª fase)
+                    <input class = 'inp' onchange='setTwoNumberDecimal(this)' min="0.01" step="0.01"  type="number" name="batchSub" id="batchSub" maxlength="15">
+                </label>
+            </div>
+        </div>
+        
+
+        <div id='areaCheckboxBatchEntries'>
+            <div>
+                <input type = "checkbox" id = "checkAllBatchEntries" name = "checkAllBatchEntries" onclick="markAllBatchEntries()">
+                <span>Selecionar tudo<span>
+            </div>
+            {items_quota}
+        </div>
+        
+        <input class= 'inp' id='inputBatchEntries' type='submit' value='Gravar Lançamentos'>
+    </form>
+
+
+
+</div>

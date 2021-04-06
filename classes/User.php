@@ -62,11 +62,11 @@ class User {
         $this->entrys = $e;
     }
 
-    public function getTodayFutureEntries(){
+    public function getTodayFutureEntries($dateToday=''){
         $statement = $this->getEntries();
         // Ordena os lançamentos por data
         usort($statement, function($a, $b){ return $a->getDate() >= $b->getDate(); });
-        $today = strtotime(date('Y/m/d'));
+        $today = $dateToday == '' ? strtotime(date('Y/m/d')) : strtotime($dateToday);
         $futureEntries = [];
         $todayEntries = [];
         $pendentes = false;

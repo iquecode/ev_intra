@@ -465,6 +465,104 @@ function removeToRecord(e)
 }
 
 
+function chooseOptBatchEntries(e)
+{
+    const optIPCA = document.getElementById('ipcaBatchEntries');
+    const optFixed = document.getElementById('fixedBatchEntries');
+    const optCalc = document.getElementById('calcBatchEntries');
+    const optComplement = document.getElementById('complementInputEntries');
+  
+    optIPCA.style.display = 'none';
+    optFixed.style.display = 'none';
+    optCalc.style.display = 'none';
+    optComplement.style.display = 'none';
+    
+    const typeOpt = e.value;
+    
+    console.log(typeOpt);
+
+    switch (typeOpt) 
+    {
+        case 'ipca':
+            optIPCA.style.display = 'flex';
+            optComplement.style.display = 'flex';
+            break;
+
+        case 'fixed':
+            optFixed.style.display = 'flex';
+            break;
+    
+        case 'calc':
+            optCalc.style.display = 'flex';
+            optComplement.style.display = 'flex';
+            break;
+    }
+
+}
+
+
+function markAllBatchEntries()
+{
+    const checkAll = document.getElementById('checkAllBatchEntries');
+    const checkItens = document.getElementsByClassName('checkBatchEntries'); 
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        checkItens[i].checked = checkAll.checked ?  true : false;
+    }
+    checkAllChecksBatchEntries();
+}
+
+
+function checkAllChecksBatchEntries()
+{
+    const checkItens = document.getElementsByClassName('checkBatchEntries'); 
+    const checkAll = document.getElementById('checkAllBatchEntries');
+    allChecked = true;
+    oneChecked = false;
+    for (let i=0; i<checkItens.length; i++) 
+    {
+        if (!checkItens[i].checked)
+            allChecked = false;
+        else if (!oneChecked)
+            oneChecked = true;
+        console.log("item : " + checkItens[i] )
+    }
+    checkAll.checked = allChecked;
+    // $change = document.getElementById('act_change');
+    // $validate = document.getElementById('act_validate');
+    // $delete = document.getElementById( 'act_delete');
+    // if (oneChecked || allChecked) 
+    // {
+    //     console.log("HABILITAR!!")
+    //     $change.disabled = false;
+    //     $validate .disabled = false;
+    //     $delete.disabled = false;
+    //     $change.classList.remove('disabled');
+    //     $validate.classList.remove('disabled');
+    //     $delete.classList.remove('disabled');
+    // } 
+    // else
+    // {
+    //     console.log("DESABILITAR!!")
+    //     $change.disabled = true;
+    //     $validate .disabled = true;
+    //     $delete.disabled = true;
+    //     $change.classList.add('disabled');
+    //     $validate.classList.add('disabled');
+    //     $delete.classList.add('disabled');
+    // }
+}
+
+
+function changeTypeEntryBatch()
+{
+    const select = document.getElementById('batchIdEntryType');
+    const text = select.options[select.selectedIndex].text;
+    const inputDesc = document.getElementById('batchDescription');
+    inputDesc.value = text.substring(12); 
+}
+
+
 function loadFile()
 {
     const list = document.querySelector('#list');
@@ -486,3 +584,4 @@ function loadFile()
         console.log('Error:', error);
     });
 }
+
